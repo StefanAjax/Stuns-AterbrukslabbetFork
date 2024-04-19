@@ -1,36 +1,35 @@
 "use client";
 
 import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTrigger,
-} from "@/components/ui/dialog";
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 
-interface ContactMeDialogProps {
-  fullName: string;
-  email: string;
-  disabled?: boolean;
+interface CreatePostAlertDialogProps {
+  isSubmitting?: boolean;
 }
 
-export default function ContactMeDialog({
-  fullName,
-  email,
-  disabled,
-}: ContactMeDialogProps) {
+export default function CreatePostAlertDialog({
+  isSubmitting,
+}: CreatePostAlertDialogProps) {
   return (
-    <Dialog>
-      <DialogTrigger disabled={disabled}>
-        <div className="flex md:h-10 md:w-40 h-8 w-32 md:text-xl text-base rounded-lg bg-primary justify-center items-center">
-          Kontakta mig
-        </div>
-      </DialogTrigger>
-      <DialogContent className="max-w-2xl">
-        <DialogHeader>
-          <h1 className="md:text-lg text-sm text-center text-pretty">
+    <AlertDialog>
+      <AlertDialogTrigger className="bg-primary py-1 md:px-4 px-3 md:text-base text-sm rounded-sm">
+        Skapa
+      </AlertDialogTrigger>
+      <AlertDialogContent className="max-w-2xl">
+        <AlertDialogHeader>
+          <AlertDialogTitle className="flex justify-center">Skapa inlägg?</AlertDialogTitle>
+          <h1 className="md:text-base text-sm text-center text-pretty">
             När du skänker eller tar emot begagnad utrustning, tänk på följande
           </h1>
-          <div className="flex flex-col gap-y-2 list-disc md:text-sm text-xs md:px-5 text-center text-balance items-center">
+          <div className="flex flex-col gap-y-2 list-disc md:text-sm text-xs md:px-5 text-center text-pretty items-center">
             <hr />
             <p>
               Säkerställ så att utrustningen är i gott skick och fungerar
@@ -59,17 +58,18 @@ export default function ContactMeDialog({
               bär därför inget ansvar för utrustningens skick eller säkerhet.
             </p>
           </div>
-          <p className="flex justify-center text-lg md:pt-6 pt-2">{fullName}</p>
-          <div className="flex justify-center">
-            <a
-              className="flex w-fit justify-center hover:underline text-blue-600"
-              href={`mailto:${email}`}
-            >
-              {email}
-            </a>
-          </div>
-        </DialogHeader>
-      </DialogContent>
-    </Dialog>
+        </AlertDialogHeader>
+        <AlertDialogFooter>
+          <AlertDialogCancel>Fortsätt redigera</AlertDialogCancel>
+          <AlertDialogAction
+            disabled={isSubmitting}
+            form="create-post-form"
+            type="submit"
+          >
+            Skapa inlägg
+          </AlertDialogAction>
+        </AlertDialogFooter>
+      </AlertDialogContent>
+    </AlertDialog>
   );
 }

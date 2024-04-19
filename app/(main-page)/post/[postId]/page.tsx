@@ -1,7 +1,11 @@
 import Link from "next/link";
 
+import getNameAndEmailFromUserId from "@/utils/get-name-and-email-from-user-id";
+
 import getPostData from "../../utils/get-post-data";
-import Post from "../_components/post";
+import getUserRoleFromUserId from "../../utils/get-user-role-from-user-id";
+import PostComponent from "../_components/post-component";
+import PostModerationActions from "../_components/post-moderation-actions";
 
 interface PostIdPageProps {
   params: {
@@ -10,9 +14,29 @@ interface PostIdPageProps {
 }
 
 export default async function PostIdPage({ params }: PostIdPageProps) {
-  const post = await getPostData(Number(params.postId));
-  if (post) {
-    return <Post post={post} />;
+  const postData = await getPostData(Number(params.postId));
+
+  if (postData) {
+    const { firstName, lastName, email } = await getNameAndEmailFromUserId({
+      userId: postData.userId,
+    });
+    const postUserRole = await getUserRoleFromUserId({
+      userId: postData.userId,
+    });
+    const fullName = firstName + " " + lastName;
+    return (
+      <div className="md:max-w-screen-md max-w-[360px] mt-5 mx-auto">
+        <PostComponent postData={postData} email={email} fullName={fullName} />
+        <div className="w-full flex justify-end md:mt-[-24px] mt-[-16px]">
+          <PostModerationActions
+            postId={postData.id}
+            postEmail={email}
+            postTitle={postData.title}
+            postUserRole={postUserRole}
+          />
+        </div>
+      </div>
+    );
   } else {
     return (
       <div className="flex w-full h-[52vh] items-end justify-center text-center">

@@ -15,13 +15,11 @@ export default async function getNameAndEmailFromUserId({
     console.error(error);
   }
 
-  const name = returnedUser
-    ? returnedUser.firstName + " " + returnedUser.lastName
-    : "Kunde inte hitta namn";
+  const firstName = returnedUser?.firstName ? returnedUser.firstName : "";
 
-  const email = returnedUser
-    ? getUserEmail({ user: returnedUser })
-    : "Kunde inte hitta email";
+  const lastName = returnedUser?.lastName ? returnedUser.lastName : "";
 
-  return { name, email };
+  const email = returnedUser ? getUserEmail({ user: returnedUser }) : "";
+
+  return { firstName, lastName, email };
 }
