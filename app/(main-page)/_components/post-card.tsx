@@ -1,6 +1,8 @@
+import Image from "next/image";
 import Link from "next/link";
 
 import { cn } from "@/lib/utils";
+import { PostCategory } from "@/types/globals";
 
 import creationDateToString from "../utils/creation-date-to-string";
 import getPostColorAndExpirationText from "../utils/get-post-type-specific-data";
@@ -10,6 +12,7 @@ interface PostProps {
   postId: number;
   description: string | null;
   postType: string;
+  category: PostCategory;
   location: string;
   expirationDate: Date;
   creationDate: Date;
@@ -21,6 +24,7 @@ export default function PostCard({
   postId,
   description,
   postType,
+  category,
   location,
   expirationDate,
   creationDate,
@@ -42,8 +46,21 @@ export default function PostCard({
         />
         <div className="grid grid-cols-12 w-full">
           <section className="col-span-4">
-            {/* Post image should replace the div below */}
-            <div className="aspect-[4/3] w-full bg-primary rounded-md" />
+            <Image
+              src={
+                category === "inventarie"
+                  ? "/images/inventory.webp"
+                  : category === "förbrukningsvara"
+                  ? "/images/consumables.webp"
+                  : category === "instrument/maskin"
+                  ? "/images/instrument.webp"
+                  : "/images/image-missing.webp"
+              }
+              alt="Inläggets bild"
+              width={400}
+              height={300}
+              className="aspect-[4/3] w-full rounded-md"
+            />
           </section>
           <section className="flex flex-col col-span-5 md:pl-4 pl-2">
             <div className="grow">

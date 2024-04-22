@@ -1,6 +1,7 @@
 import { Post } from "@prisma/client";
 
 import PostCard from "./post-card";
+import { PostCategory } from "@/types/globals";
 
 interface PostContainerProps {
   posts?: Post[];
@@ -18,6 +19,7 @@ export default async function PostContainer({ posts }: PostContainerProps) {
               postId={post.id}
               description={post.description}
               postType={post.postType}
+              category={post.category as PostCategory}
               location={post.location}
               creationDate={post.createdAt}
               expirationDate={post.expiresAt}
