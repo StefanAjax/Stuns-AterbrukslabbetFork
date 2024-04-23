@@ -12,9 +12,9 @@ export default function Navbar() {
   const userId = getUserId();
   return (
     <header className="flex top-0 h-20 bg-gradient-to-b from-navbarStart to-secondary">
-      <div className="flex justify-between items-center w-full max-w-[1920px] mx-auto px-4">
+      <div className="flex justify-between items-center w-full h-full max-w-[1920px] mx-auto px-4">
         <Logo />
-        <section className="flex md:space-x-4 space-x-3 w-auto items-center">
+        <section className="flex md:space-x-4 space-x-3 w-auto items-center h-full">
           <SignedOut>
             <Link
               className={cn("font-semibold text-xl", source_sans_3.className)}
@@ -26,7 +26,12 @@ export default function Navbar() {
           <SignedIn>
             {(checkRole("admin") || checkRole("moderator")) && (
               <Link href="/admin">
-                <LockKeyhole strokeWidth={1} className="md:hidden block" />
+                <LockKeyhole
+                  strokeWidth={1}
+                  width={30}
+                  height={30}
+                  className="md:hidden block"
+                />
                 <p
                   className={cn(
                     "text-xl font-medium md:block hidden",
@@ -37,39 +42,65 @@ export default function Navbar() {
                 </p>
               </Link>
             )}
-            <Link href="/create-post">
-              <PlusSquare strokeWidth={1} className="md:hidden block" />
+            <Link href={`/profile/${userId}`}>
+              <BookUser
+                strokeWidth={1}
+                width={30}
+                height={30}
+                className="md:hidden block"
+              />
               <p
                 className={cn(
                   "text-xl font-medium md:block hidden",
+                  source_sans_3.className
+                )}
+              >
+                Mina inlägg
+              </p>
+            </Link>
+            <Link href="/create-post">
+              <PlusSquare
+                strokeWidth={1}
+                width={30}
+                height={30}
+                className="md:hidden block"
+              />
+              <p
+                className={cn(
+                  "md:block hidden text-xl font-medium",
                   source_sans_3.className
                 )}
               >
                 Skapa inlägg
               </p>
             </Link>
-            <Link href={`/profile/${userId}`}>
-              <BookUser strokeWidth={1} className="md:hidden block" />
-              <p
-                className={cn(
-                  "text-xl font-medium md:block hidden",
-                  source_sans_3.className
-                )}
-              >
-                Min sida
-              </p>
-            </Link>
-            <UserButton
-              afterSignOutUrl="/"
-              appearance={{
-                elements: {
-                  avatarBox: {
-                    height: 30,
-                    width: 30,
+            <div className="md:block hidden bg-black bg-opacity-70 w-[1px] md:h-1/2 h-2/5" />
+            <div className="md:block hidden">
+              <UserButton
+                afterSignOutUrl="/"
+                appearance={{
+                  elements: {
+                    avatarBox: {
+                      height: 35,
+                      width: 35,
+                    },
                   },
-                },
-              }}
-            />
+                }}
+              />
+            </div>
+            <div className="md:hidden block">
+              <UserButton
+                afterSignOutUrl="/"
+                appearance={{
+                  elements: {
+                    avatarBox: {
+                      height: 30,
+                      width: 30,
+                    },
+                  },
+                }}
+              />
+            </div>
           </SignedIn>
         </section>
       </div>
