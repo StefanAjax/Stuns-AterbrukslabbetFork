@@ -16,6 +16,7 @@ interface PostComponentProps {
   email: string;
   fullName: string;
   isPreview?: boolean;
+  deleteButton?: JSX.Element;
 }
 
 export default function PostComponent({
@@ -23,6 +24,7 @@ export default function PostComponent({
   email,
   fullName,
   isPreview,
+  deleteButton,
 }: PostComponentProps) {
   const creationDateString = creationDateToString(postData.createdAt);
   const { postTypeColor, expirationDateText } = getPostTypeSpecificData({
@@ -101,6 +103,7 @@ export default function PostComponent({
           />
         </div>
       </div>
+      <div className="w-full flex justify-end">{deleteButton}</div>
     </article>
   );
 }

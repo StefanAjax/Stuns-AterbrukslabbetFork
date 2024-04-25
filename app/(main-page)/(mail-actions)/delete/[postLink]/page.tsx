@@ -32,8 +32,11 @@ export default async function DeletePostByMailPage({
     );
   }
 
-  const response = await deletePostsByIds({ postsIds: [soonExpiringPost.id] });
-  if (response.error) {
+  const response = await deletePostsByIds({
+    postsIds: [soonExpiringPost.id],
+    deletionReason: "Borttagen via mejl",
+  });
+  if (response && response.error) {
     console.error(response.error);
     return <div>..Ojdå, något gick fel</div>;
   }
