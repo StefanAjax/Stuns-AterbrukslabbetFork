@@ -1,3 +1,5 @@
+// Can only be used in client components
+
 import Image from "next/image";
 import Link from "next/link";
 
@@ -6,6 +8,7 @@ import { PostCategory } from "@/types/globals";
 
 import creationDateToString from "../utils/creation-date-to-string";
 import getPostColorAndExpirationText from "../utils/get-post-type-specific-data";
+import { useEffect, useState } from "react";
 
 interface PostProps {
   title: string;
@@ -17,6 +20,7 @@ interface PostProps {
   expirationDate: Date;
   creationDate: Date;
   hasCustomExpirationDate: boolean;
+  timezone: string;
 }
 
 export default function PostCard({
@@ -29,11 +33,17 @@ export default function PostCard({
   expirationDate,
   creationDate,
   hasCustomExpirationDate,
+  timezone,
 }: PostProps) {
-  let creationDateString = creationDateToString(creationDate);
+  const [creationDateString, setCreationDateString] = useState("laddar...");
   const { postTypeColor, expirationDateText } = getPostColorAndExpirationText({
     postType,
   });
+
+  useEffect(() => {
+    const dateCreationString = creationDateToString(creationDate, timezone);
+    setCreationDateString(dateCreationString);
+  }, [creationDate, timezone]);
 
   return (
     <Link href={`/post/${postId}`}>
