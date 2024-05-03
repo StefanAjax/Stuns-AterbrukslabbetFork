@@ -83,27 +83,13 @@ On the website there exists an admin dashboard that is only accessible to users 
 npx prisma generate
 ```
 
-- Run this command to run prisma studio locally on your computer.
-
-```bash
-npx prisma studio
-```
-
-- Finally, run this command to push the local database you generated in prisma to your new PostgreSQL database. Do not do this if you already have a database!
-
-```bash
-npx prisma db push
-```
-
-If you make changes to the `schema.prisma` file in the prisma folder in the root of the project, run the following commands to migrate the database changes.
-
-```bash
-npx prisma generate
-```
+- Finally, run this command to push the local database you generated in prisma to your new PostgreSQL database. This is not necessary if you already have a setup database.
 
 ```bash
 npx prisma migrate dev
 ```
+
+For documentation on how to edit and deploy the database to production, refer to https://www.prisma.io/docs/orm/prisma-migrate/workflows/development-and-production
 
 ## Set up webhooks
 
@@ -113,7 +99,7 @@ This application uses webhooks to assign the member role on account creation and
 
 - Go to webhooks on your clerk dashboard, then press add Endpoint.
 
-- The endpoint URL should be your url + /api/webhooks for example https://stuns.ntig.dev/api/webhooks.
+- The endpoint URL should be your websites url + /api/webhooks for example https://YOUR_URL/api/webhooks
 
 - On filter events, user.created, user.deleted and session.created should be picked.
 
@@ -165,7 +151,7 @@ RESEND_SENDING_MAIL=example@yourdomain.com
 cp -r expiring-post-mail-automation ~/
 ```
 
-- Open the newly made copy of expiring-post-mail-automation.sh file and exchange "YOUR SECRET KEY HERE" to the MAIL_AUTOMATION_SECRET in your `.env` file. If you dont use the home directory you will have to edit the path of the output of the file to align with your path.
+- Open the newly made copy of expiring-post-mail-automation.sh file and exchange "YOUR SECRET KEY HERE" to the MAIL_AUTOMATION_SECRET in your `.env` file. If you dont use the home directory you will have to edit the path of the output of the file to align with your path. **Note that the format of the script has to be kept the same or it will not work, after execution see result file for error**. There may be an easy fix in removing the backslash after the url but there was no time to look deeper in to it.
 
 - Exit the file and enter these two commands, make sure to exchange "YOUR_USERNAME" to your profile name.
 
@@ -188,6 +174,6 @@ crontab -e
 
 - This will execute the expiring-post-mail-automation.sh script everyday at 12 pm as long as the server is running. The results of the script will be printed to a file named "results" in the directory of the script. Note that if you dont use your home directory you will have to change the path to align with your directory.
 
-- If you want you can change the time the emails are sent from 12 pm to your desired time however the cron job has to be set to run **only once a day**.
+- If you want you can change the time the emails are sent from 12 pm to your desired time however the cron job should be set to run **only once a day**.
 
 Now users will receive an email if one of their posts is within a week of it's expiration date. The email will let users extend the expiration date or delete the post immediately. If the post reaches it's expiration date it will be deleted.
