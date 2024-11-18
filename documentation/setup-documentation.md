@@ -34,6 +34,12 @@ npm install
 
 ![Image of name settings in clerk](images/clerk-name-settings.png)
 
+
+- Under Session management, customize the session token så that it includes the following:
+{
+	"metadata": "{{user.public_metadata}}"
+}
+
 ### Setting up the .env file
 
 - First, go to the API Keys tab in the clerk dashboard to find your NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY and CLERK_SECRET_KEY and copy them.
