@@ -38,7 +38,7 @@ export default function MunicipalityPicker({
           aria-expanded={open}
           className={cn(
             "md:w-[260px] w-[160px] justify-between capitalize bg-primary bg-opacity-40",
-            !currentMunicipality && "text-muted-foreground normal-case"
+            !currentMunicipality && "text-muted-foreground normal-case",
           )}
         >
           {currentMunicipality
@@ -58,7 +58,7 @@ export default function MunicipalityPicker({
                 className="capitalize"
                 onSelect={(selectedValue) => {
                   setCurrentMunicipality(
-                    selectedValue === currentMunicipality ? "" : selectedValue
+                    selectedValue === currentMunicipality ? "" : selectedValue,
                   );
                   setOpen(false);
                 }}
@@ -68,7 +68,7 @@ export default function MunicipalityPicker({
                     "mr-2 h-4 w-4",
                     currentMunicipality === listItem
                       ? "opacity-100"
-                      : "opacity-0"
+                      : "opacity-0",
                   )}
                 />
                 {listItem}

@@ -85,7 +85,7 @@ export default function CreatePostComponent({
       data.datePicker = new Date(
         data.datePicker.getTime() -
           data.datePicker.getTimezoneOffset() * 60 * 1000 +
-          10 * 60 * 60 * 1000
+          10 * 60 * 60 * 1000,
       );
 
       // Make the date into an ISOString to remove unnecessary information regarding timezone from the object
@@ -190,7 +190,7 @@ export default function CreatePostComponent({
                     "Du får inte ha en mejladress i titeln",
                   phoneValidation: (value) =>
                     value.match(
-                      /[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}/
+                      /[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}/,
                     ) == null || "Du får inte ha ett telefonnummer i titeln",
                 },
               })}
@@ -218,7 +218,7 @@ export default function CreatePostComponent({
                     "Du får inte ha en mejladress i beskrivningen",
                   phoneValidation: (value) =>
                     value.match(
-                      /[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}/
+                      /[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}/,
                     ) == null ||
                     "Du får inte ha ett telefonnummer i beskrivningen",
                 },

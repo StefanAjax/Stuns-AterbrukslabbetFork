@@ -53,7 +53,7 @@ export default function Pagination({
             onClick={() => handlePageChange(pageIndex)}
           >
             {pageIndex}
-          </button>
+          </button>,
         );
       } else {
         pageButtons.push(
@@ -63,7 +63,7 @@ export default function Pagination({
             onClick={() => handlePageChange(pageIndex)}
           >
             {pageIndex}
-          </button>
+          </button>,
         );
       }
     }

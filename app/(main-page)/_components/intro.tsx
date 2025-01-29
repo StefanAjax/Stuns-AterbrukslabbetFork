@@ -12,7 +12,7 @@ export default function Intro() {
           <div
             className={cn(
               "md:text-5xl text-2xl font-semibold md:pb-4 pb-2",
-              source_sans_3.className
+              source_sans_3.className,
             )}
           >
             Välkommen till
@@ -20,7 +20,7 @@ export default function Intro() {
           <div
             className={cn(
               "md:px-12 px-6 md:py-8 py-4 md:text-6xl text-3xl font-medium bg-primary bg-opacity-25 rounded-lg",
-              prompt.className
+              prompt.className,
             )}
           >
             Återbrukslabbet
@@ -28,7 +28,7 @@ export default function Intro() {
           <div
             className={cn(
               "md:px-16 px-4 md:pt-8 pt-4 md:text-3xl text-sm font-light text-center text-balance",
-              source_sans_3.className
+              source_sans_3.className,
             )}
           >
             <p>

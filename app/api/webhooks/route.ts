@@ -16,7 +16,7 @@ export async function POST(req: NextRequest) {
       "Please add WEBHOOK_SECRET from Clerk Dashboard to .env",
       {
         status: 400,
-      }
+      },
     );
   }
 

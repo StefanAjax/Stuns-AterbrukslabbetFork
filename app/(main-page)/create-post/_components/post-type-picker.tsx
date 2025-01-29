@@ -17,7 +17,7 @@ export default function PostTypePicker({
         onClick={() => setPostType("Erbjuds")}
         className={cn(
           "hover:bg-opacity-60 py-[3px] rounded-s-md cursor-pointer bg-primary",
-          currentPostType === "Erbjuds" && "bg-offerColor bg-opacity-65"
+          currentPostType === "Erbjuds" && "bg-offerColor bg-opacity-65",
         )}
       ></input>
       <input
@@ -26,7 +26,7 @@ export default function PostTypePicker({
         onClick={() => setPostType("Efterfrågas")}
         className={cn(
           "hover:bg-opacity-60 py-[3px] rounded-e-md cursor-pointer bg-primary",
-          currentPostType === "Efterfrågas" && "bg-requestColor bg-opacity-65"
+          currentPostType === "Efterfrågas" && "bg-requestColor bg-opacity-65",
         )}
       ></input>
     </div>

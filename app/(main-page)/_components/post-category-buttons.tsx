@@ -17,7 +17,7 @@ export default function PostCategoryButtons() {
       postCategory,
       pathname,
       searchParams,
-      replace
+      replace,
     );
   }
 
@@ -28,7 +28,7 @@ export default function PostCategoryButtons() {
           onClick={() => handlePostCategoryChange(undefined)}
           className={clsx(
             "bg-primary hover:bg-opacity-100 bg-opacity-0 rounded-s-md md:px-3 px-[6px] md:py-[8px] py-1",
-            !searchParams.get("category") && "bg-opacity-100"
+            !searchParams.get("category") && "bg-opacity-100",
           )}
         >
           Alla
@@ -39,7 +39,7 @@ export default function PostCategoryButtons() {
           className={clsx(
             "bg-primary hover:bg-opacity-100 bg-opacity-0 md:px-3 px-[6px] md:py-[8px] py-1",
             searchParams.get("category") === "förbrukningsvara" &&
-              "bg-opacity-100"
+              "bg-opacity-100",
           )}
         >
           Förbrukningsvara
@@ -50,7 +50,7 @@ export default function PostCategoryButtons() {
           className={clsx(
             "bg-primary hover:bg-opacity-100 bg-opacity-0 md:px-3 px-[6px] md:py-[8px] py-1",
             searchParams.get("category") === "instrument/maskin" &&
-              "bg-opacity-100"
+              "bg-opacity-100",
           )}
         >
           Instrument/Maskin
@@ -60,7 +60,7 @@ export default function PostCategoryButtons() {
           onClick={() => handlePostCategoryChange("inventarie")}
           className={clsx(
             "bg-primary hover:bg-opacity-100 bg-opacity-0 rounded-e-md md:px-3 px-[6px] md:py-[8px] py-1",
-            searchParams.get("category") === "inventarie" && "bg-opacity-100"
+            searchParams.get("category") === "inventarie" && "bg-opacity-100",
           )}
         >
           Inventarie

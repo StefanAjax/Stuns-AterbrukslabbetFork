@@ -23,7 +23,7 @@ export default function DatePicker({ date, setDate }: DatePickerProps) {
         <Button
           className={cn(
             "md:w-[260px] w-[160px] justify-start text-left font-normal bg-primary bg-opacity-40",
-            !date && "text-muted-foreground"
+            !date && "text-muted-foreground",
           )}
         >
           <CalendarIcon className="mr-2 h-4 w-4" />

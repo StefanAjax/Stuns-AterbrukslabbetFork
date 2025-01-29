@@ -2,9 +2,9 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 datasource db {
-  provider          = "postgresql"
-  url               = env("DATABASE_URL")
-  directUrl         = env("DIRECT_URL")
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
 }
 
 generator client {
@@ -12,37 +12,37 @@ generator client {
 }
 
 model Post {
-  id                  Int        @id @default(autoincrement())
-  userId              String
-  title               String     @db.VarChar(40)
-  description         String?    @db.Text
-  postType            String
-  category            String
-  location            String
-  imageThumbUrl       String?    @db.Text
-  imageFullUrl        String?    @db.Text
-  createdAt           DateTime   @default(now())
-  expiresAt           DateTime   @default(dbgenerated("NOW() + interval '6 months'"))
-  hasCustomExpirationDate  Boolean @default(false)
-  soonExpiringPosts  SoonExpiringPosts[]
+  id                      Int                 @id @default(autoincrement())
+  userId                  String
+  title                   String              @db.VarChar(40)
+  description             String?             @db.Text
+  postType                String
+  category                String
+  location                String
+  imageThumbUrl           String?             @db.Text
+  imageFullUrl            String?             @db.Text
+  createdAt               DateTime            @default(now())
+  expiresAt               DateTime            @default(dbgenerated("NOW() + interval '6 months'"))
+  hasCustomExpirationDate Boolean             @default(false)
+  soonExpiringPosts       SoonExpiringPosts[]
 }
 
 model SoonExpiringPosts {
-  id                  Int        @id @default(autoincrement())
-  post                Post       @relation(fields: [postId], references: [id], onDelete: Cascade)
-  postId              Int
-  postLink            String
+  id       Int    @id @default(autoincrement())
+  post     Post   @relation(fields: [postId], references: [id], onDelete: Cascade)
+  postId   Int
+  postLink String
 }
 
 model ArchivedPosts {
-  id                  Int        @id @default(autoincrement())
-  deletionReason      String
-  archivedAt          DateTime   @default(now())
-  createdAt           DateTime
-  title               String     @db.VarChar(40)
-  description         String?    @db.Text
-  postType            String
-  category            String
-  location            String
-  hasCustomExpirationDate  Boolean
+  id                      Int      @id @default(autoincrement())
+  deletionReason          String
+  archivedAt              DateTime @default(now())
+  createdAt               DateTime
+  title                   String   @db.VarChar(40)
+  description             String?  @db.Text
+  postType                String
+  category                String
+  location                String
+  hasCustomExpirationDate Boolean
 }

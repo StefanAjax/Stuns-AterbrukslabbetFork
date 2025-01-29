@@ -26,7 +26,7 @@ export default function PostCard({ postData, timezone }: PostCardProps) {
   useEffect(() => {
     const dateCreationString = creationDateToString(
       postData.createdAt,
-      timezone
+      timezone,
     );
     setCreationDateString(dateCreationString);
     setExpirationDateString(postData.expiresAt.toLocaleDateString("sv-SE"));
@@ -38,7 +38,7 @@ export default function PostCard({ postData, timezone }: PostCardProps) {
         <div
           className={cn(
             "md:mr-2 md:min-w-2 min-w-1 mr-1 rounded-e-md",
-            postTypeColor
+            postTypeColor,
           )}
         />
         <div className="grid grid-cols-12 w-full">
@@ -48,10 +48,10 @@ export default function PostCard({ postData, timezone }: PostCardProps) {
                 postData.category === "inventarie"
                   ? "/images/inventory.webp"
                   : postData.category === "förbrukningsvara"
-                  ? "/images/consumables.webp"
-                  : postData.category === "instrument/maskin"
-                  ? "/images/instrument.webp"
-                  : "/images/image-missing.webp"
+                    ? "/images/consumables.webp"
+                    : postData.category === "instrument/maskin"
+                      ? "/images/instrument.webp"
+                      : "/images/image-missing.webp"
               }
               alt="Annonsens bild"
               width={400}
@@ -73,7 +73,7 @@ export default function PostCard({ postData, timezone }: PostCardProps) {
                 <div
                   className={cn(
                     "md:h-3 md:w-3 h-2 w-2 rounded-[50%]",
-                    postTypeColor
+                    postTypeColor,
                   )}
                 ></div>
                 <p className="md:text-sm text-[9px]">{postData.postType}</p>

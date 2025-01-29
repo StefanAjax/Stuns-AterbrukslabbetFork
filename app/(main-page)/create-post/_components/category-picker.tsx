@@ -33,7 +33,7 @@ export default function CategoryPicker({
           aria-expanded={open}
           className={cn(
             "w-full justify-between capitalize bg-primary bg-opacity-40",
-            !currentCategory && "text-muted-foreground normal-case"
+            !currentCategory && "text-muted-foreground normal-case",
           )}
         >
           {currentCategory
@@ -52,7 +52,7 @@ export default function CategoryPicker({
                 className="capitalize"
                 onSelect={(selectedValue) => {
                   setCurrentCategory(
-                    selectedValue === currentCategory ? "" : selectedValue
+                    selectedValue === currentCategory ? "" : selectedValue,
                   );
                   setOpen(false);
                 }}
@@ -60,7 +60,7 @@ export default function CategoryPicker({
                 <Check
                   className={cn(
                     "mr-2 h-4 w-4",
-                    currentCategory === listItem ? "opacity-100" : "opacity-0"
+                    currentCategory === listItem ? "opacity-100" : "opacity-0",
                   )}
                 />
                 {listItem}

@@ -19,7 +19,7 @@ export default authMiddleware({
     if (!auth.userId && !auth.isPublicRoute) {
       const path = new URL(req.url).pathname;
       return NextResponse.redirect(
-        new URL("/sign-in?redirect_url=" + path, req.url)
+        new URL("/sign-in?redirect_url=" + path, req.url),
       );
     }
   },

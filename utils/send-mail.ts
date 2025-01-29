@@ -16,7 +16,7 @@ export default function sendMail({
 
   if (!sendingMail || !process.env.NEXT_PUBLIC_SITE_URL) {
     throw new Error(
-      "Check your .env file and make sure you have a sending mail and a site url"
+      "Check your .env file and make sure you have a sending mail and a site url",
     );
   }
 

@@ -34,11 +34,10 @@ npm install
 
 ![Image of name settings in clerk](images/clerk-name-settings.png)
 
-
 - Under Session management, customize the session token so that it includes the following:\
-{\
-	"metadata": "{{user.public_metadata}}"\
-}
+  {\
+   "metadata": "{{user.public_metadata}}"\
+  }
 
 ### Setting up the .env file
 

@@ -10,7 +10,7 @@ export default async function extendSoonExpiringPost({
   postId,
 }: ExtendSoonExpiringPostProps) {
   const newExpirationDate = new Date(
-    new Date().setMonth(new Date().getMonth() + 6)
+    new Date().setMonth(new Date().getMonth() + 6),
   );
   try {
     await db.post.update({

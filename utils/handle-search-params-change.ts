@@ -5,7 +5,7 @@ export default function handleSearchParamsChange(
   query: string | undefined,
   pathname: string,
   searchParams: URLSearchParams,
-  replace: (url: string, options?: { scroll?: boolean }) => void
+  replace: (url: string, options?: { scroll?: boolean }) => void,
 ) {
   const params = new URLSearchParams(searchParams);
 

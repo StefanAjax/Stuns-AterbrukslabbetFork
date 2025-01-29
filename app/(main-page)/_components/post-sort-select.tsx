@@ -25,7 +25,7 @@ export default function PostSortSelect() {
       sortOrder,
       pathname,
       searchParams,
-      replace
+      replace,
     );
   }
 

@@ -1,6 +1,6 @@
 export default function creationDateToString(
   creationDate: Date,
-  timezone: string
+  timezone: string,
 ): string {
   const todayDate = new Date();
   const yesterdayDate = new Date(Date.now() - 24 * 60 * 60 * 1000);

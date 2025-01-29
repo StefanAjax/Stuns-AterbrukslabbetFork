@@ -38,8 +38,8 @@ export default function FAQPage() {
             ersättas, till exempel filterpapper, engångshandskar, pH-stickor,
             reagens och kemikalier.
             <br /> <br />
-            Instrument/maskiner – Avancerad utrustning som används för att utföra
-            mätningar eller olika processer, till exempel mikroskop,
+            Instrument/maskiner – Avancerad utrustning som används för att
+            utföra mätningar eller olika processer, till exempel mikroskop,
             PCR-utrustning, pumpar, spektrometrar och voltmetrar.
             <br /> <br />
             Inventarie – Enklare utrustning som används på labb, till exempel

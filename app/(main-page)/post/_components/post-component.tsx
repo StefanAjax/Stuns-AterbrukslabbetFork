@@ -36,7 +36,7 @@ export default function PostComponent({
   useEffect(() => {
     const dateCreationString = creationDateToString(
       postData.createdAt,
-      timezone
+      timezone,
     );
     setCreationDateString(dateCreationString);
     setExpirationDateString(postData.expiresAt.toLocaleDateString("sv-SE"));
@@ -52,10 +52,10 @@ export default function PostComponent({
           postData.category === "inventarie"
             ? "/images/inventory.webp"
             : postData.category === "förbrukningsvara"
-            ? "/images/consumables.webp"
-            : postData.category === "instrument/maskin"
-            ? "/images/instrument.webp"
-            : "/images/image-missing.webp"
+              ? "/images/consumables.webp"
+              : postData.category === "instrument/maskin"
+                ? "/images/instrument.webp"
+                : "/images/image-missing.webp"
         }
         alt="annonsens bild"
         width={600}
@@ -80,7 +80,7 @@ export default function PostComponent({
             <div
               className={cn(
                 "md:h-4 md:w-4 h-3 w-3 rounded-[50%]",
-                postTypeColor
+                postTypeColor,
               )}
             />
             {postData.postType}
@@ -102,7 +102,7 @@ export default function PostComponent({
           href={`/profile/${postData.userId}`}
           className={cn(
             "flex w-fit items-center mt-4 hover:opacity-70",
-            isPreview ? "pointer-events-none" : ""
+            isPreview ? "pointer-events-none" : "",
           )}
           aria-disabled={isPreview}
         >

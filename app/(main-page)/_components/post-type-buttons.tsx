@@ -22,7 +22,7 @@ export default function PostTypeButtons() {
           onClick={() => handlePostTypeChange(undefined)}
           className={clsx(
             "bg-primary hover:bg-opacity-100 bg-opacity-0 rounded-s-md md:px-4 px-2 md:py-2 py-[6px]",
-            !searchParams.get("type") && "bg-opacity-100"
+            !searchParams.get("type") && "bg-opacity-100",
           )}
         >
           Alla
@@ -32,7 +32,7 @@ export default function PostTypeButtons() {
           onClick={() => handlePostTypeChange("Erbjuds")}
           className={clsx(
             "bg-primary hover:bg-opacity-100 bg-opacity-0 md:px-4 px-2 md:py-2 py-[6px]",
-            searchParams.get("type") === "Erbjuds" && "bg-opacity-100"
+            searchParams.get("type") === "Erbjuds" && "bg-opacity-100",
           )}
         >
           Erbjuds
@@ -42,7 +42,7 @@ export default function PostTypeButtons() {
           onClick={() => handlePostTypeChange("Efterfrågas")}
           className={clsx(
             "bg-primary hover:bg-opacity-100 bg-opacity-0 rounded-e-md md:px-4 px-2 md:py-2 py-[6px]",
-            searchParams.get("type") === "Efterfrågas" && "bg-opacity-100"
+            searchParams.get("type") === "Efterfrågas" && "bg-opacity-100",
           )}
         >
           Efterfrågas
