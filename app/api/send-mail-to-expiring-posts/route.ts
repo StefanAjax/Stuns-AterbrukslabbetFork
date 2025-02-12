@@ -17,7 +17,7 @@ import findSoonExpiringPosts from "../_utils/find-soon-expiring-posts";
 
 export async function POST() {
   const mailAutomationSecret = process.env.MAIL_AUTOMATION_SECRET;
-  const headersPayload = await headers();
+  const headersPayload = headers();
   const secret = headersPayload.get("secret");
   if (secret !== mailAutomationSecret) {
     return Response.json({

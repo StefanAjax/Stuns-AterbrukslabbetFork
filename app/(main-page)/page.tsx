@@ -17,18 +17,16 @@ interface MainPageProps {
 }
 
 export default async function MainPage({ searchParams }: MainPageProps) {
-  // Await the searchParams promise to get the actual object
-  const resolvedSearchParams = await searchParams;
   const postsPerPage = 10;
 
   const { postsList, queriedPostsCount, totalPostCount } =
     await getPostDataFromDb({
-      type: resolvedSearchParams.type,
-      category: resolvedSearchParams.category,
-      currentPage: Number(resolvedSearchParams.page),
-      searchParams: resolvedSearchParams.search,
-      postsPerPage,
-      sort: resolvedSearchParams.sort,
+      type: searchParams.type,
+      category: searchParams.category,
+      currentPage: Number(searchParams.page),
+      searchParams: searchParams.search,
+      postsPerPage: postsPerPage,
+      sort: searchParams.sort,
     });
   return (
     <div>
