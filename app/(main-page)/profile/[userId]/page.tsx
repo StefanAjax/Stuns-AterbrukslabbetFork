@@ -8,41 +8,43 @@ import PostContainer from "../../_components/post-container";
 import ProfilePageModerationActions from "../_components/profile-page-moderation-actions";
 
 interface ProfilePageProps {
-  params: Promise<{ userId: string }>;
-  searchParams: Promise<{ page?: string }>;
+  params: {
+    userId: string;
+  };
+  searchParams: {
+    page?: string;
+  };
 }
 
 export default async function ProfilePage({
   params,
   searchParams,
 }: ProfilePageProps) {
-  const { userId } = await params;
-  const { page } = await searchParams;
   const postsPerPage = 10;
   const currentUserId = getUserId();
-  const pageUserRole = await getUserRoleFromUserId({ userId });
+  const pageUserRole = await getUserRoleFromUserId({ userId: params.userId });
   const { firstName, lastName, email } = await getNameAndEmailFromUserId({
-    userId,
+    userId: params.userId,
   });
 
   const headerText =
-    currentUserId === userId
+    currentUserId === params.userId
       ? "Mina annonser"
       : `${firstName} ${lastName}'s annonser`;
 
   const { postsList, queriedPostsCount } = await getPostDataFromDb({
     type: undefined,
     category: undefined,
-    currentPage: Number(page),
+    currentPage: Number(searchParams.page),
     postsPerPage: postsPerPage,
     sort: "desc",
-    userId,
+    userId: params.userId,
   });
 
   return (
     <div className="flex flex-col md:mt-5 mt-3 md:px-5 px-2 mx-auto md:max-w-screen-md max-w-[360px]">
       <ProfilePageModerationActions
-        pageUserId={userId}
+        pageUserId={params.userId}
         email={email}
         pageUserRole={pageUserRole}
       />

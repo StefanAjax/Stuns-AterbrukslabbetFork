@@ -7,16 +7,17 @@ import Intro from "./_components/intro";
 import PostContainer from "./_components/post-container";
 
 interface MainPageProps {
-  searchParams: Promise<{
+  searchParams: {
     type?: PostType;
     category?: PostCategory;
     page?: string;
     search?: string;
     sort?: SortOrder;
-  }>;
+  };
 }
 
 export default async function MainPage({ searchParams }: MainPageProps) {
+  // Await the searchParams promise to get the actual object
   const resolvedSearchParams = await searchParams;
   const postsPerPage = 10;
 
@@ -29,7 +30,6 @@ export default async function MainPage({ searchParams }: MainPageProps) {
       postsPerPage,
       sort: resolvedSearchParams.sort,
     });
-
   return (
     <div>
       <Intro />

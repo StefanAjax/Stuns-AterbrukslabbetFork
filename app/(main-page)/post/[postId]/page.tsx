@@ -11,12 +11,13 @@ import PostComponent from "../_components/post-component";
 import PostModerationActions from "../_components/post-moderation-actions";
 
 interface PostIdPageProps {
-  params: Promise<{ postId: string }>;
+  params: {
+    postId: string;
+  };
 }
 
 export default async function PostIdPage({ params }: PostIdPageProps) {
-  const { postId } = await params;
-  const postData = await getPostData(Number(postId));
+  const postData = await getPostData(Number(params.postId));
   const userId = getUserId();
 
   if (postData) {

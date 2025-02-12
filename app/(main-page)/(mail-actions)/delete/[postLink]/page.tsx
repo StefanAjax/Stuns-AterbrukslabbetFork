@@ -5,17 +5,16 @@ import deletePostsByIds from "@/utils/delete-posts-by-ids";
 import getSoonExpiringPost from "../../utils/get-soon-expiring-post";
 
 interface DeletePostByMailPageProps {
-  params: Promise<{ postLink: string }>;
+  params: {
+    postLink: string;
+  };
 }
 
 export default async function DeletePostByMailPage({
   params,
 }: DeletePostByMailPageProps) {
-  // Await the params to get the resolved object
-  const { postLink } = await params;
-
   const soonExpiringPost = await getSoonExpiringPost({
-    postLink,
+    postLink: params.postLink,
   });
   if (!soonExpiringPost) {
     return (
