@@ -14,7 +14,7 @@ import handleSearchParamsChange from "@/utils/handle-search-params-change";
 
 export default function PostSortSelect() {
   const pathname = usePathname();
-  const searchParams = useSearchParams();
+  const searchParams = new URLSearchParams(useSearchParams().toString());
   const { replace } = useRouter();
 
   function handleSortingChange(value: string) {

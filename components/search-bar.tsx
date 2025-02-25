@@ -15,7 +15,7 @@ export default function SearchBar({
   itemsFoundCount,
 }: SearchBarProps) {
   const pathname = usePathname();
-  const searchParams = useSearchParams();
+  const searchParams = new URLSearchParams(useSearchParams().toString());
   const { replace } = useRouter();
   const [showHint, setShowHint] = useState(false);
   const searchParamValue = searchParams.get("search");
