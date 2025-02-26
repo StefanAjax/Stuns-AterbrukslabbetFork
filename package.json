@@ -11,7 +11,7 @@
     "email": "email dev"
   },
   "dependencies": {
-    "@clerk/localizations": "^1.28.9",
+    "@clerk/localizations": "^3.10.7",
     "@clerk/nextjs": "^4.31.6",
     "@prisma/client": "^6.4.1",
     "@radix-ui/react-accordion": "^1.2.3",
