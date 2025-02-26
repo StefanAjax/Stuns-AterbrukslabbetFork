@@ -1,4 +1,4 @@
-import { HelpCircle } from "lucide-react";
+import { CircleHelp } from "lucide-react";
 
 import {
   Popover,
@@ -22,7 +22,7 @@ export default function FormHint({ content }: FormHintProps) {
       <TooltipProvider>
         <Tooltip delayDuration={100}>
           <TooltipTrigger className="xl:block hidden" type="button">
-            <HelpCircle strokeWidth={2} width={20} height={20} />
+            <CircleHelp strokeWidth={2} width={20} height={20} />
           </TooltipTrigger>
           <TooltipContent
             side="bottom"
@@ -36,7 +36,7 @@ export default function FormHint({ content }: FormHintProps) {
       {/* Mobile */}
       <Popover>
         <PopoverTrigger className="xl:hidden block">
-          <HelpCircle strokeWidth={2} width={20} height={20} />
+          <CircleHelp strokeWidth={2} width={20} height={20} />
         </PopoverTrigger>
         <PopoverContent
           align="end"
