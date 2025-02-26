@@ -9,7 +9,7 @@ import getUserData from "./utils/get-user-data";
 import UserCard from "./_components/user-card";
 
 interface AdminDashboardProps {
-  searchParams: { search?: string; page?: string };
+  searchParams: Promise<{ search?: string; page?: string }>;
 }
 
 export default async function AdminDashboard({
@@ -19,8 +19,10 @@ export default async function AdminDashboard({
     redirect("/");
   }
 
-  const query = searchParams.search;
-  const currentPage = searchParams.page;
+  const { search, page } = await searchParams;
+
+  const query = search;
+  const currentPage = page;
   const usersPerPage = 10;
 
   const { usersList, queriedUserCount, totalUserCount } = await getUserData({
@@ -39,7 +41,7 @@ export default async function AdminDashboard({
       </div>
       <SearchBar labelText={labelText} itemsFoundCount={queriedUserCount} />
       <div className="flex flex-col items-center mx-auto gap-y-3 pt-6">
-        {usersList.map((user) => {
+        {usersList.data.map((user) => {
           return <UserCard key={user.id} user={user} />;
         })}
       </div>

@@ -13,7 +13,8 @@ interface ChangeRoleProps {
 }
 
 export default async function changeRole({ id, newRole }: ChangeRoleProps) {
-  const user = await clerkClient.users.getUser(id);
+  const client = await clerkClient();
+  const user = await client.users.getUser(id);
   const userEmail = getUserEmail({ user });
 
   if (
@@ -33,9 +34,8 @@ export default async function changeRole({ id, newRole }: ChangeRoleProps) {
   } catch {
     return { error: "Kunde inte skicka e-post" };
   }
-
   try {
-    await clerkClient.users.updateUser(id, {
+    await client.users.updateUser(id, {
       publicMetadata: { role: newRole },
     });
   } catch {

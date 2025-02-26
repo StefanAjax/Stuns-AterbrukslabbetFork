@@ -1,4 +1,4 @@
-import { clerkClient } from "@clerk/nextjs";
+import { clerkClient } from "@clerk/nextjs/server";
 
 interface GetUserRoleFromUserIdProps {
   userId: string;
@@ -7,8 +7,10 @@ interface GetUserRoleFromUserIdProps {
 export default async function getUserRoleFromUserId({
   userId,
 }: GetUserRoleFromUserIdProps) {
+  const client = await clerkClient();
+
   try {
-    const user = await clerkClient.users.getUser(userId);
+    const user = await client.users.getUser(userId);
     const userRole = user.publicMetadata.role;
     return userRole as string;
   } catch (err) {

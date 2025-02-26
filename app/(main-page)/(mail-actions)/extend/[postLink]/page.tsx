@@ -4,16 +4,17 @@ import extendSoonExpiringPost from "./extend-soon-expiring-post";
 import getSoonExpiringPost from "../../utils/get-soon-expiring-post";
 
 interface ExtendPostByMailPageProps {
-  params: {
+  params: Promise<{
     postLink: string;
-  };
+  }>;
 }
 
 export default async function ExtendPostByMailPage({
   params,
 }: ExtendPostByMailPageProps) {
+  const { postLink } = await params;
   const soonExpiringPost = await getSoonExpiringPost({
-    postLink: params.postLink,
+    postLink: postLink,
   });
 
   if (!soonExpiringPost) {

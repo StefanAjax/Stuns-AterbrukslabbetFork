@@ -7,26 +7,28 @@ import Intro from "./_components/intro";
 import PostContainer from "./_components/post-container";
 
 interface MainPageProps {
-  searchParams: {
+  searchParams: Promise<{
     type?: PostType;
     category?: PostCategory;
     page?: string;
     search?: string;
     sort?: SortOrder;
-  };
+  }>;
 }
 
 export default async function MainPage({ searchParams }: MainPageProps) {
   const postsPerPage = 10;
 
+  const { type, category, page, search, sort } = await searchParams;
+
   const { postsList, queriedPostsCount, totalPostCount } =
     await getPostDataFromDb({
-      type: searchParams.type,
-      category: searchParams.category,
-      currentPage: Number(searchParams.page),
-      searchParams: searchParams.search,
+      type: type,
+      category: category,
+      currentPage: Number(page),
+      searchParams: search,
       postsPerPage: postsPerPage,
-      sort: searchParams.sort,
+      sort: sort,
     });
   return (
     <div>
