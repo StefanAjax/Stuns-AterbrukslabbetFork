@@ -20,7 +20,7 @@ export default function RootLayout({
     "Genom att använda denna webbplats godkänner du våra användarvillkor och integritetspolicy.";
   return (
     <ClerkProvider localization={svSE}>
-      <html lang="en">
+      <html lang="sv">
         <body className={cn("bg-background", inter.className)}>{children}</body>
       </html>
     </ClerkProvider>
