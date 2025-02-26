@@ -18,7 +18,7 @@ export default async function changeRole({ id, newRole }: ChangeRoleProps) {
   const userEmail = getUserEmail({ user });
 
   if (
-    !checkRole("admin") ||
+    !(await checkRole("admin")) ||
     user.publicMetadata.role === "admin" ||
     newRole === "admin"
   ) {

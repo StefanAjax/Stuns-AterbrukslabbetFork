@@ -8,8 +8,8 @@ import Logo from "@/components/logo";
 import { SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 import { source_sans_3 } from "@/app/fonts";
 
-export default function Navbar() {
-  const userId = getUserId();
+export default async function Navbar() {
+  const userId = await getUserId();
   return (
     <header className="flex top-0 h-20 bg-gradient-to-b from-navbarStart to-secondary">
       <div className="flex justify-between items-center w-full h-full max-w-[1920px] mx-auto px-4">
@@ -24,7 +24,7 @@ export default function Navbar() {
             </Link>
           </SignedOut>
           <SignedIn>
-            {(checkRole("admin") || checkRole("moderator")) && (
+            {(await checkRole("admin") || await checkRole("moderator")) && (
               <Link href="/admin">
                 <LockKeyhole
                   strokeWidth={1}

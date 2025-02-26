@@ -7,17 +7,17 @@ interface ProfilePageModerationActionsProps {
   email: string;
 }
 
-export default function ProfilePageModerationActions({
+export default async function ProfilePageModerationActions({
   pageUserId,
   pageUserRole,
   email,
 }: ProfilePageModerationActionsProps) {
-  if (checkRole("admin") || checkRole("moderator")) {
+  if ((await checkRole("admin")) || (await checkRole("moderator"))) {
     if (pageUserRole === "admin" || pageUserRole === "moderator") {
       return (
         <div className="flex md:text-base text-sm pt-1 gap-x-3">
           <p className="font-semibold capitalize">{pageUserRole}</p>
-          {checkRole("admin") && pageUserRole !== "admin" && (
+          {(await checkRole("admin")) && pageUserRole !== "admin" && (
             <DeleteUserButton id={pageUserId} email={email} redirectPath="/" />
           )}
         </div>

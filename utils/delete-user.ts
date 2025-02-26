@@ -1,7 +1,7 @@
 "use server";
 
 import { checkRole } from "@/utils/check-role";
-import { clerkClient } from "@clerk/nextjs";
+import { clerkClient } from "@clerk/nextjs/server";
 
 import DeleteUserEmail from "../emails/deleted-user-email";
 import getUserEmail from "./get-user-email";
@@ -14,17 +14,20 @@ interface DeleteUserProps {
 
 export default async function deleteUser({ id, comment }: DeleteUserProps) {
   let user;
+
+  const client = await clerkClient();
+
   try {
-    user = await clerkClient.users.getUser(id);
+    user = await client.users.getUser(id);
   } catch {
     return { error: "Kunde inte hämta användare" };
   }
   const userEmail = getUserEmail({ user });
 
   if (
-    (!checkRole("admin") && !checkRole("moderator")) ||
+    (!(await checkRole("admin")) && !(await checkRole("moderator"))) ||
     user.publicMetadata.role === "admin" ||
-    (user.publicMetadata.role === "moderator" && checkRole("moderator"))
+    (user.publicMetadata.role === "moderator" && (await checkRole("moderator")))
   ) {
     return { error: "Obehörig" };
   }
@@ -40,7 +43,7 @@ export default async function deleteUser({ id, comment }: DeleteUserProps) {
   }
 
   try {
-    await clerkClient.users.deleteUser(id);
+    await client.users.deleteUser(id);
   } catch {
     return { error: "Kunde inte ta bort användare" };
   }

@@ -6,7 +6,7 @@ import { getUserId } from "@/utils/get-user-id";
 import CreatePostComponent from "./_components/create-post-component";
 
 export default async function createPostPage() {
-  const userId = getUserId();
+  const userId = await getUserId();
 
   if (userId) {
     const { firstName, lastName, email } = await getNameAndEmailFromUserId({

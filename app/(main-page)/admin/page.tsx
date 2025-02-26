@@ -15,7 +15,7 @@ interface AdminDashboardProps {
 export default async function AdminDashboard({
   searchParams,
 }: AdminDashboardProps) {
-  if (!checkRole("admin") && !checkRole("moderator")) {
+  if (!(await checkRole("admin")) && !(await checkRole("moderator"))) {
     redirect("/");
   }
 

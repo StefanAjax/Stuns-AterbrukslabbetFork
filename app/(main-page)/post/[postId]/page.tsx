@@ -17,11 +17,10 @@ interface PostIdPageProps {
 }
 
 export default async function PostIdPage({ params }: PostIdPageProps) {
-
   const { postId } = await params;
 
   const postData = await getPostData(Number(postId));
-  const userId = getUserId();
+  const userId = await getUserId();
 
   if (postData) {
     const { firstName, lastName, email } = await getNameAndEmailFromUserId({
@@ -35,7 +34,7 @@ export default async function PostIdPage({ params }: PostIdPageProps) {
     const deleteButton =
       userId === postData.userId ? (
         <DeleteOwnPostButton postData={postData} redirectPath="/" />
-      ) : checkRole("admin") || checkRole("moderator") ? (
+      ) : (await checkRole("admin")) || (await checkRole("moderator")) ? (
         <PostModerationActions
           postData={postData}
           postUserRole={postUserRole}

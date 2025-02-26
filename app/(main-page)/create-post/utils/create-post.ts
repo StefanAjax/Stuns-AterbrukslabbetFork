@@ -8,7 +8,7 @@ interface CreatePostProps {
 }
 
 export default async function createPost({ data }: CreatePostProps) {
-  const userId = getUserId();
+  const userId = await getUserId();
 
   if (!userId) {
     return { error: "Kunde inte hämta användarinformation" };

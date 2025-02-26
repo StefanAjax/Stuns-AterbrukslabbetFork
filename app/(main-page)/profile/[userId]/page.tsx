@@ -20,12 +20,11 @@ export default async function ProfilePage({
   params,
   searchParams,
 }: ProfilePageProps) {
-
   const { userId } = await params;
   const { page } = await searchParams;
 
   const postsPerPage = 10;
-  const currentUserId = getUserId();
+  const currentUserId = await getUserId();
   const pageUserRole = await getUserRoleFromUserId({ userId: userId });
   const { firstName, lastName, email } = await getNameAndEmailFromUserId({
     userId: userId,
