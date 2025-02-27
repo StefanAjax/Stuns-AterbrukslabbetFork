@@ -9,6 +9,16 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: "Återbrukslabbet",
+  icons: {
+    icon: [
+      {
+        url: "/favicons/favicon.ico",
+        sizes: "any",
+        type: "image/x-icon",
+        href: "/favicons/favicon.ico",
+      },
+    ],
+  },
 };
 
 export default function RootLayout({
