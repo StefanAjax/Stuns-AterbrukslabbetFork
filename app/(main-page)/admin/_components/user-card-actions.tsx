@@ -9,13 +9,13 @@ interface UserCardActionsProps {
   user: User;
 }
 
-export default function UserCardActions({ user }: UserCardActionsProps) {
+export default async function UserCardActions({ user }: UserCardActionsProps) {
   const userEmail = getUserEmail({ user });
 
   if (user.publicMetadata.role === "admin") {
     return "Admin";
   } else if (user.publicMetadata.role === "moderator") {
-    if (checkRole("admin")) {
+    if (await checkRole("admin")) {
       return (
         <>
           <ChangeRoleButton id={user.id} email={userEmail} newRole={"medlem"} />
@@ -26,7 +26,7 @@ export default function UserCardActions({ user }: UserCardActionsProps) {
       return "Moderator";
     }
   } else if (user.publicMetadata.role === "medlem") {
-    if (checkRole("admin")) {
+    if (await checkRole("admin")) {
       return (
         <>
           <ChangeRoleButton

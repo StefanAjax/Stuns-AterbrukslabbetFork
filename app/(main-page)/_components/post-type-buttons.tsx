@@ -8,7 +8,7 @@ import type { PostType } from "@/types/globals";
 
 export default function PostTypeButtons() {
   const pathname = usePathname();
-  const searchParams = useSearchParams();
+  const searchParams = new URLSearchParams(useSearchParams().toString());
   const { replace } = useRouter();
 
   function handlePostTypeChange(postType: PostType) {

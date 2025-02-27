@@ -8,7 +8,7 @@ import type { PostCategory } from "@/types/globals";
 
 export default function PostCategoryButtons() {
   const pathname = usePathname();
-  const searchParams = useSearchParams();
+  const searchParams = new URLSearchParams(useSearchParams().toString());
   const { replace } = useRouter();
 
   function handlePostCategoryChange(postCategory: PostCategory) {

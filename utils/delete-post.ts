@@ -18,7 +18,7 @@ export default async function deletePost({
   postData,
   comment,
 }: DeletePostProps) {
-  if (!checkRole("admin") && !checkRole("moderator")) {
+  if (!(await checkRole("admin")) && !(await checkRole("moderator"))) {
     return { error: "Obehörig" };
   }
   const { email } = await getNameAndEmailFromUserId({

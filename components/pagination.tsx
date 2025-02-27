@@ -20,7 +20,7 @@ export default function Pagination({
   itemsPerPage,
   hashLinkId,
 }: PaginationProps) {
-  const searchParams = useSearchParams();
+  const searchParams = new URLSearchParams(useSearchParams().toString());
   const pathname = usePathname();
   const { replace } = useRouter();
 

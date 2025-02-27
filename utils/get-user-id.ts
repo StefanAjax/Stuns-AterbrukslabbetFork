@@ -1,6 +1,6 @@
-import { auth } from "@clerk/nextjs";
+import { auth } from "@clerk/nextjs/server";
 
-export function getUserId() {
-  const { userId } = auth();
+export async function getUserId() {
+  const { userId } = await auth();
   return userId;
 }

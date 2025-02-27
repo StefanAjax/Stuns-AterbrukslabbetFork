@@ -11,14 +11,16 @@ import PostComponent from "../_components/post-component";
 import PostModerationActions from "../_components/post-moderation-actions";
 
 interface PostIdPageProps {
-  params: {
+  params: Promise<{
     postId: string;
-  };
+  }>;
 }
 
 export default async function PostIdPage({ params }: PostIdPageProps) {
-  const postData = await getPostData(Number(params.postId));
-  const userId = getUserId();
+  const { postId } = await params;
+
+  const postData = await getPostData(Number(postId));
+  const userId = await getUserId();
 
   if (postData) {
     const { firstName, lastName, email } = await getNameAndEmailFromUserId({
@@ -32,7 +34,7 @@ export default async function PostIdPage({ params }: PostIdPageProps) {
     const deleteButton =
       userId === postData.userId ? (
         <DeleteOwnPostButton postData={postData} redirectPath="/" />
-      ) : checkRole("admin") || checkRole("moderator") ? (
+      ) : (await checkRole("admin")) || (await checkRole("moderator")) ? (
         <PostModerationActions
           postData={postData}
           postUserRole={postUserRole}

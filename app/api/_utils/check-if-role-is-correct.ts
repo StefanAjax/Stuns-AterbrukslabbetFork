@@ -9,8 +9,10 @@ interface CheckIfRoleIsCorrectProps {
 export default async function checkIfRoleIsCorrect({
   id,
 }: CheckIfRoleIsCorrectProps) {
+  const client = await clerkClient();
+
   try {
-    const user = await clerkClient.users.getUser(id);
+    const user = await client.users.getUser(id);
     if (
       user.publicMetadata.role === "admin" ||
       user.publicMetadata.role === "moderator" ||
