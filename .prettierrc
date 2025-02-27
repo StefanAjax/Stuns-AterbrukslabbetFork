@@ -1,5 +1,9 @@
 {
+  "plugins": ["prettier-plugin-tailwindcss"],
+  "printWidth": 200,
   "tabWidth": 2,
-  "indent_style": false,
-  "semi": true
+  "semi": true,
+  "trailingComma": "all",
+  "bracketSpacing": true,
+  "endOfLine": "lf"
 }
