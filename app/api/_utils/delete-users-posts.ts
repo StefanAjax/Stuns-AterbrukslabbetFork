@@ -7,9 +7,7 @@ interface DeleteUsersPostsProps {
   deletedUsersId: string;
 }
 
-export default async function deleteUsersPosts({
-  deletedUsersId,
-}: DeleteUsersPostsProps) {
+export default async function deleteUsersPosts({ deletedUsersId }: DeleteUsersPostsProps) {
   const [posts] = await db.$transaction([
     db.post.findMany({
       where: {

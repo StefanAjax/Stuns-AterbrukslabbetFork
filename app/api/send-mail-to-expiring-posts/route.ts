@@ -2,14 +2,7 @@ import { headers } from "next/headers";
 
 import deletePostsByIds from "@/utils/delete-posts-by-ids";
 import getNameAndEmailFromUserId from "@/utils/get-name-and-email-from-user-id";
-import {
-  PostExpiredCustomMail,
-  PostExpiredMail,
-  PostExpiresInAWeekCustomMail,
-  PostExpiresInAWeekMail,
-  PostExpiresTomorrowCustomMail,
-  PostExpiresTomorrowMail,
-} from "@/emails/expiring-posts-emails";
+import { PostExpiredCustomMail, PostExpiredMail, PostExpiresInAWeekCustomMail, PostExpiresInAWeekMail, PostExpiresTomorrowCustomMail, PostExpiresTomorrowMail } from "@/emails/expiring-posts-emails";
 import sendMail from "@/utils/send-mail";
 
 import addPostToExpiringPosts from "../_utils/add-post-to-expiring-posts";
@@ -25,8 +18,7 @@ export async function POST() {
     });
   }
 
-  const { postsExpiringInOneWeek, postsExpiringTomorrow, postsExpiringToday } =
-    await findSoonExpiringPosts();
+  const { postsExpiringInOneWeek, postsExpiringTomorrow, postsExpiringToday } = await findSoonExpiringPosts();
 
   for (const post of postsExpiringInOneWeek) {
     const postLink = await addPostToExpiringPosts({ post });
@@ -107,10 +99,7 @@ export async function POST() {
     postsIds: postsToDeleteIds,
     deletionReason: "Utgången annons",
   });
-  const mailAmount =
-    postsExpiringInOneWeek.length +
-    postsExpiringTomorrow.length +
-    postsExpiringToday.length;
+  const mailAmount = postsExpiringInOneWeek.length + postsExpiringTomorrow.length + postsExpiringToday.length;
 
   return Response.json({
     message: `${mailAmount} mails sent and ${postsToDeleteIds.length} posts deleted`,

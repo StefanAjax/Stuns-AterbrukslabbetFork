@@ -15,23 +15,18 @@ export default async function createPostPage() {
 
     return (
       <div>
-        <CreatePostComponent
-          firstName={firstName}
-          lastName={lastName}
-          email={email}
-          userId={userId}
-        />
+        <CreatePostComponent firstName={firstName} lastName={lastName} email={email} userId={userId} />
       </div>
     );
   } else {
     return (
-      <div className="flex flex-col max-w-screen-sm mx-auto gap-y-2 px-3 h-[75vh] justify-center text-center">
+      <div className="mx-auto flex h-[75vh] max-w-screen-sm flex-col justify-center gap-y-2 px-3 text-center">
         <h1 className="text-xl font-medium">Ogiltig användarinformation</h1>
         <p>
           Ojdå, något gick fel och din användarinformation hittades inte. <br />
           Var god och kontakta oss om problemet kvarstår.
         </p>
-        <Link className="text-blue-600 hover:underline pt-1 text-lg" href="/">
+        <Link className="pt-1 text-lg text-blue-600 hover:underline" href="/">
           Till startsidan
         </Link>
       </div>

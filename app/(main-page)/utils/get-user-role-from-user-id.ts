@@ -4,9 +4,7 @@ interface GetUserRoleFromUserIdProps {
   userId: string;
 }
 
-export default async function getUserRoleFromUserId({
-  userId,
-}: GetUserRoleFromUserIdProps) {
+export default async function getUserRoleFromUserId({ userId }: GetUserRoleFromUserIdProps) {
   const client = await clerkClient();
 
   try {

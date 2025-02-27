@@ -5,17 +5,8 @@ import { useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import {
-  Command,
-  CommandInput,
-  CommandItem,
-  CommandList,
-} from "@/components/ui/command";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
+import { Command, CommandInput, CommandItem, CommandList } from "@/components/ui/command";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 
 interface MunicipalityPickerProps {
   currentMunicipality: string;
@@ -23,11 +14,7 @@ interface MunicipalityPickerProps {
   itemsList: string[];
 }
 
-export default function MunicipalityPicker({
-  currentMunicipality,
-  setCurrentMunicipality,
-  itemsList,
-}: MunicipalityPickerProps) {
+export default function MunicipalityPicker({ currentMunicipality, setCurrentMunicipality, itemsList }: MunicipalityPickerProps) {
   const [open, setOpen] = useState(false);
 
   return (
@@ -36,18 +23,13 @@ export default function MunicipalityPicker({
         <Button
           role="combobox"
           aria-expanded={open}
-          className={cn(
-            "md:w-[260px] w-[160px] justify-between capitalize bg-primary bg-opacity-40",
-            !currentMunicipality && "text-muted-foreground normal-case",
-          )}
+          className={cn("w-[160px] justify-between bg-primary bg-opacity-40 capitalize md:w-[260px]", !currentMunicipality && "normal-case text-muted-foreground")}
         >
-          {currentMunicipality
-            ? itemsList.find((listItem) => listItem === currentMunicipality)
-            : "Välj kommun"}
+          {currentMunicipality ? itemsList.find((listItem) => listItem === currentMunicipality) : "Välj kommun"}
           <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="md:w-[260px] w-[160px] p-0">
+      <PopoverContent className="w-[160px] p-0 md:w-[260px]">
         <Command>
           <CommandInput placeholder="Sök kommuner...." />
           <CommandList>
@@ -57,20 +39,11 @@ export default function MunicipalityPicker({
                 value={listItem}
                 className="capitalize"
                 onSelect={(selectedValue) => {
-                  setCurrentMunicipality(
-                    selectedValue === currentMunicipality ? "" : selectedValue,
-                  );
+                  setCurrentMunicipality(selectedValue === currentMunicipality ? "" : selectedValue);
                   setOpen(false);
                 }}
               >
-                <Check
-                  className={cn(
-                    "mr-2 h-4 w-4",
-                    currentMunicipality === listItem
-                      ? "opacity-100"
-                      : "opacity-0",
-                  )}
-                />
+                <Check className={cn("mr-2 h-4 w-4", currentMunicipality === listItem ? "opacity-100" : "opacity-0")} />
                 {listItem}
               </CommandItem>
             ))}

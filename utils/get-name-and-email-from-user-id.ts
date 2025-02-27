@@ -5,9 +5,7 @@ interface GetNameAndEmailFromUserIdProps {
   userId: string;
 }
 
-export default async function getNameAndEmailFromUserId({
-  userId,
-}: GetNameAndEmailFromUserIdProps) {
+export default async function getNameAndEmailFromUserId({ userId }: GetNameAndEmailFromUserIdProps) {
   const client = await clerkClient();
 
   let returnedUser;

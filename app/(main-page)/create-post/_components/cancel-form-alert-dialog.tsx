@@ -18,17 +18,11 @@ export default function CancelFormAlertDialog() {
   const router = useRouter();
   return (
     <AlertDialog>
-      <AlertDialogTrigger className="bg-destructive text-white py-1 md:px-4 px-3 md:text-base text-sm rounded-sm">
-        Avbryt
-      </AlertDialogTrigger>
+      <AlertDialogTrigger className="rounded-sm bg-destructive px-3 py-1 text-sm text-white md:px-4 md:text-base">Avbryt</AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
-          <AlertDialogTitle>
-            Är du säker på att du vill avbryta?
-          </AlertDialogTitle>
-          <AlertDialogDescription>
-            Om du avbryter nu kommer du att förlora alla ändringar.
-          </AlertDialogDescription>
+          <AlertDialogTitle>Är du säker på att du vill avbryta?</AlertDialogTitle>
+          <AlertDialogDescription>Om du avbryter nu kommer du att förlora alla ändringar.</AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
           <AlertDialogCancel>Fortsätt redigera</AlertDialogCancel>

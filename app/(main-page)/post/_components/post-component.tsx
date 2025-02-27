@@ -20,13 +20,7 @@ interface PostComponentProps {
   deleteButton?: JSX.Element;
 }
 
-export default function PostComponent({
-  postData,
-  email,
-  fullName,
-  isPreview,
-  deleteButton,
-}: PostComponentProps) {
+export default function PostComponent({ postData, email, fullName, isPreview, deleteButton }: PostComponentProps) {
   const [creationDateString, setCreationDateString] = useState("laddar...");
   const [expirationDateString, setExpirationDateString] = useState("laddar...");
 
@@ -34,10 +28,7 @@ export default function PostComponent({
 
   // UseEffect is used here to prevent hydration errors caused by differing times on server and client
   useEffect(() => {
-    const dateCreationString = creationDateToString(
-      postData.createdAt,
-      timezone,
-    );
+    const dateCreationString = creationDateToString(postData.createdAt, timezone);
     setCreationDateString(dateCreationString);
     setExpirationDateString(postData.expiresAt.toLocaleDateString("sv-SE"));
   }, [postData.createdAt, postData.expiresAt, timezone]);
@@ -46,7 +37,7 @@ export default function PostComponent({
     postType: postData.postType,
   });
   return (
-    <article className="md:pt-10 pt-3 md:px-16 px-6 md:pb-6 pb-4 md:max-w-screen-md max-w-[360px] bg-secondary rounded-2xl mx-auto">
+    <article className="mx-auto max-w-[360px] rounded-2xl bg-secondary px-6 pb-4 pt-3 md:max-w-screen-md md:px-16 md:pb-6 md:pt-10">
       <Image
         src={
           postData.category === "inventarie"
@@ -62,67 +53,43 @@ export default function PostComponent({
         height={450}
         className="aspect-[4/3] w-full rounded-md"
       />
-      <div className="w-full flex flex-col gap-y-1">
-        <div className="flex pt-2 md:text-base text-xs justify-between">
-          <section className="flex gap-x-1 items-center capitalize">
-            <MapPin className="md:block hidden shrink-0" size={16} />
-            <MapPin className="md:hidden block shrink-0" size={12} />
+      <div className="flex w-full flex-col gap-y-1">
+        <div className="flex justify-between pt-2 text-xs md:text-base">
+          <section className="flex items-center gap-x-1 capitalize">
+            <MapPin className="hidden shrink-0 md:block" size={16} />
+            <MapPin className="block shrink-0 md:hidden" size={12} />
             {postData.location}
           </section>
-          <section className="flex text-end gap-x-1 text-nowrap items-center">
-            <Clock className="md:block hidden" size={16} />
-            <Clock className="md:hidden block" size={12} />
+          <section className="flex items-center gap-x-1 text-nowrap text-end">
+            <Clock className="hidden md:block" size={16} />
+            <Clock className="block md:hidden" size={12} />
             {creationDateString}
           </section>
         </div>
-        <div className="flex md:text-base text-xs md:h-14 h-10 justify-between">
-          <section className="flex gap-x-1 h-1/2 items-center">
-            <div
-              className={cn(
-                "md:h-4 md:w-4 h-3 w-3 rounded-[50%]",
-                postTypeColor,
-              )}
-            />
+        <div className="flex h-10 justify-between text-xs md:h-14 md:text-base">
+          <section className="flex h-1/2 items-center gap-x-1">
+            <div className={cn("h-3 w-3 rounded-[50%] md:h-4 md:w-4", postTypeColor)} />
             {postData.postType}
           </section>
           {postData.hasCustomExpirationDate && (
-            <section className="text-red-500 text-end">
+            <section className="text-end text-red-500">
               <p>{expirationDateText}</p>
               <p>{expirationDateString}</p>
             </section>
           )}
         </div>
-        <h1 className="w-full md:text-3xl text-2xl break-words">
-          {postData.title}
-        </h1>
-        <p className="w-full md:text-base text-xs md:pt-2 break-words">
-          {postData.description}
-        </p>
-        <Link
-          href={`/profile/${postData.userId}`}
-          className={cn(
-            "flex w-fit items-center mt-4 hover:opacity-70",
-            isPreview ? "pointer-events-none" : "",
-          )}
-          aria-disabled={isPreview}
-        >
-          <User className="md:block hidden shrink-0" size={18} />
-          <User className="md:hidden block shrink-0" size={12} />
-          <p className="md:text-xl text-sm pl-1 break-all line-clamp-1">
-            {fullName}
-          </p>
+        <h1 className="w-full break-words text-2xl md:text-3xl">{postData.title}</h1>
+        <p className="w-full break-words text-xs md:pt-2 md:text-base">{postData.description}</p>
+        <Link href={`/profile/${postData.userId}`} className={cn("mt-4 flex w-fit items-center hover:opacity-70", isPreview ? "pointer-events-none" : "")} aria-disabled={isPreview}>
+          <User className="hidden shrink-0 md:block" size={18} />
+          <User className="block shrink-0 md:hidden" size={12} />
+          <p className="line-clamp-1 break-all pl-1 text-sm md:text-xl">{fullName}</p>
         </Link>
-        <div className="flex justify-between items-center">
-          <ContactMeDialog
-            fullName={fullName}
-            email={email}
-            disabled={isPreview}
-          />
+        <div className="flex items-center justify-between">
+          <ContactMeDialog fullName={fullName} email={email} disabled={isPreview} />
         </div>
       </div>
-      {deleteButton && (
-        <div className="w-full flex justify-end">{deleteButton}</div>
-      )}
+      {deleteButton && <div className="flex w-full justify-end">{deleteButton}</div>}
     </article>
   );
 }

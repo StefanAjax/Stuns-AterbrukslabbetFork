@@ -10,10 +10,7 @@ interface SearchBarProps {
   itemsFoundCount?: number;
 }
 
-export default function SearchBar({
-  labelText,
-  itemsFoundCount,
-}: SearchBarProps) {
+export default function SearchBar({ labelText, itemsFoundCount }: SearchBarProps) {
   const pathname = usePathname();
   const searchParams = new URLSearchParams(useSearchParams().toString());
   const { replace } = useRouter();
@@ -40,23 +37,17 @@ export default function SearchBar({
       onSubmit={async (e) => {
         e.preventDefault();
       }}
-      className="flex flex-col w-full"
+      className="flex w-full flex-col"
     >
       <div className="flex items-end justify-between px-1 pb-1">
-        <label htmlFor="search" className="md:text-lg text-sm font-medium">
+        <label htmlFor="search" className="text-sm font-medium md:text-lg">
           {labelText}
         </label>
-        {searchParamValue
-          ? searchParamValue.length > 2 && (
-              <p className="md:text-base text-xs">
-                {`${itemsFoundCount} resultat`}
-              </p>
-            )
-          : showHint && <p className="md:text-base text-xs">Minst 3 tecken</p>}
+        {searchParamValue ? searchParamValue.length > 2 && <p className="text-xs md:text-base">{`${itemsFoundCount} resultat`}</p> : showHint && <p className="text-xs md:text-base">Minst 3 tecken</p>}
       </div>
       <input
         id="search"
-        className="rounded-md bg-primary md:h-12 h-9 md:px-3 px-2 md:text-lg text-sm"
+        className="h-9 rounded-md bg-primary px-2 text-sm md:h-12 md:px-3 md:text-lg"
         placeholder="Sök..."
         onChange={handleSearchChange}
         defaultValue={searchParamValue?.toString()}

@@ -24,11 +24,7 @@ export default async function deleteUser({ id, comment }: DeleteUserProps) {
   }
   const userEmail = getUserEmail({ user });
 
-  if (
-    (!(await checkRole("admin")) && !(await checkRole("moderator"))) ||
-    user.publicMetadata.role === "admin" ||
-    (user.publicMetadata.role === "moderator" && (await checkRole("moderator")))
-  ) {
+  if ((!(await checkRole("admin")) && !(await checkRole("moderator"))) || user.publicMetadata.role === "admin" || (user.publicMetadata.role === "moderator" && (await checkRole("moderator")))) {
     return { error: "Obehörig" };
   }
 

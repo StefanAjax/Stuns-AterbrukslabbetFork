@@ -23,10 +23,7 @@ interface DeletePostButtonProps {
   redirectPath?: string;
 }
 
-export default function DeletePostButton({
-  postData,
-  redirectPath,
-}: DeletePostButtonProps) {
+export default function DeletePostButton({ postData, redirectPath }: DeletePostButtonProps) {
   const router = useRouter();
   const [comment, setComment] = useState("");
 
@@ -46,9 +43,7 @@ export default function DeletePostButton({
 
   return (
     <AlertDialog>
-      <AlertDialogTrigger className="text-destructive font-semibold hover:opacity-80">
-        Ta bort annons
-      </AlertDialogTrigger>
+      <AlertDialogTrigger className="font-semibold text-destructive hover:opacity-80">Ta bort annons</AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
           <AlertDialogTitle>Är du säker?</AlertDialogTitle>
@@ -59,7 +54,7 @@ export default function DeletePostButton({
         </AlertDialogHeader>
         <AlertDialogFooter>
           <input
-            className="rounded-md p-2 w-full hidden sm:block"
+            className="hidden w-full rounded-md p-2 sm:block"
             type="text"
             value={comment}
             onChange={(e) => setComment(e.target.value)}
@@ -71,7 +66,7 @@ export default function DeletePostButton({
             Ta bort
           </AlertDialogAction>
           <input
-            className="rounded-md p-2 w-full block sm:hidden mb-2"
+            className="mb-2 block w-full rounded-md p-2 sm:hidden"
             type="text"
             value={comment}
             onChange={(e) => setComment(e.target.value)}

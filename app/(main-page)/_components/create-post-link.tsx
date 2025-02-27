@@ -3,12 +3,9 @@ import { Plus } from "lucide-react";
 
 export default function CreatePostLink() {
   return (
-    <Link
-      className="flex text-white bg-sky-600 hover:opacity-85 rounded-md md:px-4 px-2 md:py-2 py-[6px] md:gap-x-2 gap-x-1 items-center"
-      href="/create-post"
-    >
-      <Plus className="md:w-6 md:h-6 w-4 h-4" />
-      <p className="md:text-lg text-xs">Skapa annons</p>
+    <Link className="flex items-center gap-x-1 rounded-md bg-sky-600 px-2 py-[6px] text-white hover:opacity-85 md:gap-x-2 md:px-4 md:py-2" href="/create-post">
+      <Plus className="h-4 w-4 md:h-6 md:w-6" />
+      <p className="text-xs md:text-lg">Skapa annons</p>
     </Link>
   );
 }

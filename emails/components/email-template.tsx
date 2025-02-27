@@ -1,13 +1,6 @@
 import React from "react";
 
-import {
-  Html,
-  Preview,
-  Tailwind,
-  Body,
-  Container,
-  Section,
-} from "@react-email/components";
+import { Html, Preview, Tailwind, Body, Container, Section } from "@react-email/components";
 
 import EmailFooter from "./email-footer";
 import EmailHeader from "./email-header";
@@ -18,11 +11,7 @@ interface EmailTemplateProps {
   main: React.ReactNode;
 }
 
-export default function EmailTemplate({
-  preview,
-  header,
-  main,
-}: EmailTemplateProps) {
+export default function EmailTemplate({ preview, header, main }: EmailTemplateProps) {
   return (
     <Html>
       <Preview>{preview}</Preview>

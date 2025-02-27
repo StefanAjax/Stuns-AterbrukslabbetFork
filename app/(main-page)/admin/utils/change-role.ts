@@ -17,11 +17,7 @@ export default async function changeRole({ id, newRole }: ChangeRoleProps) {
   const user = await client.users.getUser(id);
   const userEmail = getUserEmail({ user });
 
-  if (
-    !(await checkRole("admin")) ||
-    user.publicMetadata.role === "admin" ||
-    newRole === "admin"
-  ) {
+  if (!(await checkRole("admin")) || user.publicMetadata.role === "admin" || newRole === "admin") {
     return { error: "Obehörig" };
   }
 

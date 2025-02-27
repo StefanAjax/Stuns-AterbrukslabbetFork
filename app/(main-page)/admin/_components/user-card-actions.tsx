@@ -29,11 +29,7 @@ export default async function UserCardActions({ user }: UserCardActionsProps) {
     if (await checkRole("admin")) {
       return (
         <>
-          <ChangeRoleButton
-            id={user.id}
-            email={userEmail}
-            newRole={"moderator"}
-          />
+          <ChangeRoleButton id={user.id} email={userEmail} newRole={"moderator"} />
           <DeleteUserButton id={user.id} email={userEmail} />
         </>
       );
@@ -49,10 +45,7 @@ export default async function UserCardActions({ user }: UserCardActionsProps) {
     return (
       <>
         <p>
-          Okänd roll:{" "}
-          <span className="capitalize">
-            {user.publicMetadata.role as string}
-          </span>
+          Okänd roll: <span className="capitalize">{user.publicMetadata.role as string}</span>
         </p>
         <DeleteUserButton id={user.id} email={userEmail} />
       </>

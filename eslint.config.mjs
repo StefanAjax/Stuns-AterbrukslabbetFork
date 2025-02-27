@@ -10,6 +10,4 @@ const compat = new FlatCompat({
   baseDirectory: __dirname,
 });
 
-export default fixupConfigRules([
-  ...compat.extends("next/core-web-vitals", "prettier"),
-]);
+export default fixupConfigRules([...compat.extends("next/core-web-vitals", "prettier")]);

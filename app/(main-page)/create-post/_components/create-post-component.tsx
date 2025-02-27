@@ -39,12 +39,7 @@ interface FormInputs {
   datePicker: any;
 }
 
-export default function CreatePostComponent({
-  firstName,
-  lastName,
-  email,
-  userId,
-}: CreatePostComponentProps) {
+export default function CreatePostComponent({ firstName, lastName, email, userId }: CreatePostComponentProps) {
   const {
     control,
     register,
@@ -82,11 +77,7 @@ export default function CreatePostComponent({
   const onSubmit = async (data: FormInputs) => {
     // Adjust the date created by the datePicker component to 10:00 UTC
     if (data.datePicker) {
-      data.datePicker = new Date(
-        data.datePicker.getTime() -
-          data.datePicker.getTimezoneOffset() * 60 * 1000 +
-          10 * 60 * 60 * 1000,
-      );
+      data.datePicker = new Date(data.datePicker.getTime() - data.datePicker.getTimezoneOffset() * 60 * 1000 + 10 * 60 * 60 * 1000);
 
       // Make the date into an ISOString to remove unnecessary information regarding timezone from the object
       data.datePicker = data.datePicker.toISOString();
@@ -106,55 +97,34 @@ export default function CreatePostComponent({
   };
 
   return (
-    <div className="flex flex-wrap justify-center gap-x-20 md:gap-y-6 gap-y-3 max-w-screen-xl mx-auto mt-10">
-      <div className="bg-secondary h-fit md:p-6 p-3 md:w-[600px] w-[360px] rounded-2xl">
-        <form
-          id="create-post-form"
-          className="flex flex-col gap-y-5"
-          onSubmit={handleSubmit(onSubmit)}
-        >
-          <h1 className="text-center md:text-3xl text-xl ">Skapa en annons</h1>
+    <div className="mx-auto mt-10 flex max-w-screen-xl flex-wrap justify-center gap-x-20 gap-y-3 md:gap-y-6">
+      <div className="h-fit w-[360px] rounded-2xl bg-secondary p-3 md:w-[600px] md:p-6">
+        <form id="create-post-form" className="flex flex-col gap-y-5" onSubmit={handleSubmit(onSubmit)}>
+          <h1 className="text-center text-xl md:text-3xl">Skapa en annons</h1>
           <Controller
             name="postTypePicker"
             control={control}
             rules={{ required: true }}
             defaultValue="Erbjuds"
-            render={({ field: { onChange, value } }) => (
-              <PostTypePicker currentPostType={value} setPostType={onChange} />
-            )}
+            render={({ field: { onChange, value } }) => <PostTypePicker currentPostType={value} setPostType={onChange} />}
           />
-          <div className="flex md:gap-x-8 gap-x-4 justify-between">
-            <div className="flex flex-col w-full">
+          <div className="flex justify-between gap-x-4 md:gap-x-8">
+            <div className="flex w-full flex-col">
               <FormLabel htmlFor="firstName" labelText="Förnamn" />
               <fieldset disabled>
-                <input
-                  id="firstName"
-                  {...register("firstName", { required: "Förnamn saknas" })}
-                  className="bg-primary w-full md:text-base text-sm px-2 py-1 rounded-sm"
-                  value={firstName}
-                />
+                <input id="firstName" {...register("firstName", { required: "Förnamn saknas" })} className="w-full rounded-sm bg-primary px-2 py-1 text-sm md:text-base" value={firstName} />
               </fieldset>
-              {errors.firstName?.message && (
-                <FormErrorParagraph content={errors.firstName.message} />
-              )}
+              {errors.firstName?.message && <FormErrorParagraph content={errors.firstName.message} />}
             </div>
-            <div className="flex flex-col w-full">
+            <div className="flex w-full flex-col">
               <div className="flex justify-between">
                 <FormLabel htmlFor="lastName" labelText="Efternamn" />
                 <FormHint content="Förnamn, efternamn och mejladress kan ändras via din profilsida" />
               </div>
               <fieldset disabled>
-                <input
-                  id="lastName"
-                  {...register("lastName", { required: "Efternamn saknas" })}
-                  className="bg-primary w-full md:text-base text-sm px-2 py-1 rounded-sm"
-                  value={lastName}
-                  readOnly
-                />
+                <input id="lastName" {...register("lastName", { required: "Efternamn saknas" })} className="w-full rounded-sm bg-primary px-2 py-1 text-sm md:text-base" value={lastName} readOnly />
               </fieldset>
-              {errors.lastName?.message && (
-                <FormErrorParagraph content={errors.lastName.message} />
-              )}
+              {errors.lastName?.message && <FormErrorParagraph content={errors.lastName.message} />}
             </div>
           </div>
           <div className="flex w-full flex-col">
@@ -164,15 +134,13 @@ export default function CreatePostComponent({
                 id="email"
                 {...register("email", { required: "Mejladress saknas" })}
                 type="email"
-                className="bg-primary w-full md:text-base text-sm px-2 py-1 rounded-sm"
+                className="w-full rounded-sm bg-primary px-2 py-1 text-sm md:text-base"
                 value={email}
                 readOnly
                 autoComplete="off"
               />
             </fieldset>
-            {errors.email?.message && (
-              <FormErrorParagraph content={errors.email.message} />
-            )}
+            {errors.email?.message && <FormErrorParagraph content={errors.email.message} />}
           </div>
           <div className="flex w-full flex-col">
             <div className="flex justify-between">
@@ -185,21 +153,14 @@ export default function CreatePostComponent({
                 required: "Titel saknas",
                 maxLength: { value: 40, message: "Max 40 tecken" },
                 validate: {
-                  emailValidation: (value) =>
-                    value.match(/[\w-\.]+@([\w-]+\.)+[\w-]{2,4}/g) == null ||
-                    "Du får inte ha en mejladress i titeln",
-                  phoneValidation: (value) =>
-                    value.match(
-                      /[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}/,
-                    ) == null || "Du får inte ha ett telefonnummer i titeln",
+                  emailValidation: (value) => value.match(/[\w-\.]+@([\w-]+\.)+[\w-]{2,4}/g) == null || "Du får inte ha en mejladress i titeln",
+                  phoneValidation: (value) => value.match(/[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}/) == null || "Du får inte ha ett telefonnummer i titeln",
                 },
               })}
-              className="bg-primary w-full md:text-base text-sm bg-opacity-40 px-2 py-1 rounded-sm"
+              className="w-full rounded-sm bg-primary bg-opacity-40 px-2 py-1 text-sm md:text-base"
               placeholder="Skriv titel här..."
             />
-            {errors.title?.message && (
-              <FormErrorParagraph content={errors.title.message} />
-            )}
+            {errors.title?.message && <FormErrorParagraph content={errors.title.message} />}
           </div>
 
           <div className="flex w-full flex-col">
@@ -213,104 +174,61 @@ export default function CreatePostComponent({
                 required: "Beskrivning saknas",
                 maxLength: { value: 1500, message: "Max 1500 tecken" },
                 validate: {
-                  emailValidation: (value) =>
-                    value.match(/[\w-\.]+@([\w-]+\.)+[\w-]{2,4}/g) == null ||
-                    "Du får inte ha en mejladress i beskrivningen",
-                  phoneValidation: (value) =>
-                    value.match(
-                      /[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}/,
-                    ) == null ||
-                    "Du får inte ha ett telefonnummer i beskrivningen",
+                  emailValidation: (value) => value.match(/[\w-\.]+@([\w-]+\.)+[\w-]{2,4}/g) == null || "Du får inte ha en mejladress i beskrivningen",
+                  phoneValidation: (value) => value.match(/[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}/) == null || "Du får inte ha ett telefonnummer i beskrivningen",
                 },
               })}
-              className="resize-none w-full h-32 bg-primary md:text-base text-sm bg-opacity-40 px-2 py-1 rounded-sm"
+              className="h-32 w-full resize-none rounded-sm bg-primary bg-opacity-40 px-2 py-1 text-sm md:text-base"
               placeholder="Skriv beskrivning här..."
             ></textarea>
-            {errors.description?.message && (
-              <FormErrorParagraph content={errors.description.message} />
-            )}
+            {errors.description?.message && <FormErrorParagraph content={errors.description.message} />}
           </div>
-          <div className="flex flex-col w-full">
+          <div className="flex w-full flex-col">
             <div className="flex justify-between">
-              <h2 className="font-medium md:text-base text-sm">Kategori</h2>
+              <h2 className="text-sm font-medium md:text-base">Kategori</h2>
               <FormHint content="Välj den kategori som bäst överensstämmer med produkten" />
             </div>
             <Controller
               name="categoryPicker"
               control={control}
               rules={{ required: "Kategori ej vald" }}
-              render={({ field: { onChange, value } }) => (
-                <CategoryPicker
-                  currentCategory={value}
-                  setCurrentCategory={onChange}
-                  Itemslist={categoryList}
-                />
-              )}
+              render={({ field: { onChange, value } }) => <CategoryPicker currentCategory={value} setCurrentCategory={onChange} Itemslist={categoryList} />}
             />
-            {errors.categoryPicker?.message && (
-              <FormErrorParagraph content={errors.categoryPicker.message} />
-            )}
+            {errors.categoryPicker?.message && <FormErrorParagraph content={errors.categoryPicker.message} />}
           </div>
           <div className="flex justify-between">
             <div className="flex flex-col">
               <div className="flex justify-between">
-                <h2 className="font-medium md:text-base text-sm">Kommun</h2>
+                <h2 className="text-sm font-medium md:text-base">Kommun</h2>
                 <FormHint content="Välj den kommun där produkten kan hämtas/överlämnas" />
               </div>
               <Controller
                 name="municipalityPicker"
                 control={control}
                 rules={{ required: "Kommun ej vald" }}
-                render={({ field: { onChange, value } }) => (
-                  <MunicipalityPicker
-                    currentMunicipality={value}
-                    setCurrentMunicipality={onChange}
-                    itemsList={municipalities}
-                  />
-                )}
+                render={({ field: { onChange, value } }) => <MunicipalityPicker currentMunicipality={value} setCurrentMunicipality={onChange} itemsList={municipalities} />}
               />
-              {errors.municipalityPicker?.message && (
-                <FormErrorParagraph
-                  content={errors.municipalityPicker.message}
-                />
-              )}
+              {errors.municipalityPicker?.message && <FormErrorParagraph content={errors.municipalityPicker.message} />}
             </div>
             <div className="flex flex-col">
               <div className="flex justify-between">
-                <h2 className="font-medium md:text-base text-sm">
-                  Slutdatum (frivilligt)
-                </h2>
+                <h2 className="text-sm font-medium md:text-base">Slutdatum (frivilligt)</h2>
                 <FormHint content="Ange sista datum då annonsen är aktuell. Om ej ifylld får du en påminnelse efter sex månader." />
               </div>
-              <Controller
-                name="datePicker"
-                control={control}
-                render={({ field: { onChange, value } }) => (
-                  <DatePicker date={value} setDate={onChange} />
-                )}
-              />
+              <Controller name="datePicker" control={control} render={({ field: { onChange, value } }) => <DatePicker date={value} setDate={onChange} />} />
             </div>
           </div>
-          <div className="flex justify-between mt-5">
-            <PostPreviewForMobile
-              postData={postData}
-              email={email}
-              fullName={fullName}
-            />
-            <div className="flex w-full justify-end md:gap-x-5 gap-x-2">
+          <div className="mt-5 flex justify-between">
+            <PostPreviewForMobile postData={postData} email={email} fullName={fullName} />
+            <div className="flex w-full justify-end gap-x-2 md:gap-x-5">
               <CancelFormAlertDialog />
               <CreatePostAlertDialog isSubmitting={isSubmitting} />
             </div>
           </div>
         </form>
       </div>
-      <div className="w-[600px] md:block hidden">
-        <PostComponent
-          postData={postData}
-          email={email}
-          fullName={fullName}
-          isPreview={true}
-        />
+      <div className="hidden w-[600px] md:block">
+        <PostComponent postData={postData} email={email} fullName={fullName} isPreview={true} />
       </div>
     </div>
   );

@@ -6,9 +6,7 @@ interface ChangeRoleToMemberProps {
   id: string;
 }
 
-export default async function ChangeRoleToMember({
-  id,
-}: ChangeRoleToMemberProps) {
+export default async function ChangeRoleToMember({ id }: ChangeRoleToMemberProps) {
   const client = await clerkClient();
 
   try {
