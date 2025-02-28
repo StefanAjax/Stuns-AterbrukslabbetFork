@@ -11,7 +11,7 @@ import { source_sans_3 } from "@/app/fonts";
 export default async function Navbar() {
   const userId = await getUserId();
   return (
-    <header className="top-0 flex h-20 bg-gradient-to-b from-navbarStart to-secondary">
+    <header className="top-0 flex h-20 w-full bg-white">
       <div className="mx-auto flex h-full w-full max-w-[1920px] items-center justify-between px-4">
         <Logo />
         <section className="flex h-full w-auto items-center space-x-3 md:space-x-4">
