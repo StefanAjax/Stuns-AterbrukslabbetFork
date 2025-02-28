@@ -43,6 +43,10 @@ export const metadata: Metadata = {
       name: "Tim Kelso",
       url: "https://timkelso.github.io/",
     },
+    {
+      name: "David Cavalli-Björkman",
+      url: "https://davidcavallib.github.io/",
+    },
   ],
   creator: "STUNS Life science",
   description: description,
