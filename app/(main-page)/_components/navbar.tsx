@@ -38,7 +38,6 @@ export default async function Navbar() {
             <div className="hidden h-2/5 w-[1px] bg-black bg-opacity-70 md:block md:h-1/2" />
             <div className="hidden md:block">
               <UserButton
-                afterSignOutUrl="/"
                 appearance={{
                   elements: {
                     avatarBox: {
@@ -51,7 +50,6 @@ export default async function Navbar() {
             </div>
             <div className="block md:hidden">
               <UserButton
-                afterSignOutUrl="/"
                 appearance={{
                   elements: {
                     avatarBox: {
