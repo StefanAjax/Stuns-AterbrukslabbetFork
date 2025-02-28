@@ -14,32 +14,38 @@ Link to [development environment](documentation/environments-languages.md)
 
 Link to [setup documentation](documentation/setup-documentation.md)
 
-## Run server
+## Commands
 
-To run the development server:
+### To run the development server:
 
 ```bash
-npm run dev
+pnpm dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to view the website. The development server refreshes automatically when files are changed.
 
-To run the server for release:
+### To run the server for release:
 
 ```bash
-npm run build
+pnpm build
 ```
 
 ```bash
-npm run start
+pnpm start
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to view the website.
 
-## How to lint
+### To check for code errors & warnings:
 
 ```bash
-npm run lint
+pnpm lint
+```
+
+### To format the code & align with the project rules:
+
+```bash
+pnpm format
 ```
 
 ## Fonts
