@@ -35,6 +35,10 @@ export const metadata: Metadata = {
       name: "Axel Thornberg",
       url: "https://axel.thornberg.se/",
     },
+    {
+      name: "Eskil Tornberg",
+      url: "https://github.com/EskilNTI",
+    },
   ],
   creator: "STUNS Life science",
   description: description,
