@@ -1,3 +1,5 @@
+const staticRoutes = ["/", "/faq", "/about", "/terms-of-service"];
+
 /** @type {import('next-sitemap').IConfig} */
 export default {
   siteUrl: process.env.SITE_URL || "https://aterbrukslabbet.nu",
@@ -7,13 +9,11 @@ export default {
     policies: [
       {
         userAgent: "*",
-        allow: "/",
+        allow: staticRoutes,
       },
     ],
   },
   additionalPaths: async () => {
-    const staticRoutes = ["/", "/faq", "/about", "/terms-of-service"];
-
     return staticRoutes.map((route) => {
       return {
         loc: route,

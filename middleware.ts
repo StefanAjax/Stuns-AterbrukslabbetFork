@@ -11,12 +11,13 @@ const isPublicRoute = createRouteMatcher([
   "/extend(.*)",
   "/sign-in",
   "/sign-up",
+  /^\/sitemap(-\d+)?\.xml$/,
 ]);
 
 export default clerkMiddleware(async (auth, req) => {
   const { userId, redirectToSignIn } = await auth();
   if (!userId && !isPublicRoute(req)) {
-    return redirectToSignIn({ returnBackUrl: "/sign-in" });
+    return redirectToSignIn({ returnBackUrl: req.url });
   }
 });
 
