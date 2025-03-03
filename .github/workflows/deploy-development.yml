@@ -44,5 +44,5 @@ jobs:
             git checkout Main
             git fetch origin Main
             git reset --hard origin/Main
-            pnpm prod
+            pnpm prod:build
             sudo systemctl reboot
