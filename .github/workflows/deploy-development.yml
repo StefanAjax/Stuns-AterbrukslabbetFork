@@ -43,6 +43,7 @@ jobs:
           script: |
             cd Stuns-Aterbrukslabbet/
             git checkout Main
-            git pull origin Main
+            git fetch origin Main
+            git reset --hard origin/Main
             pnpm prod
             sudo systemctl reboot
