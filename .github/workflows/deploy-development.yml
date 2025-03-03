@@ -46,4 +46,4 @@ jobs:
             git fetch origin Main
             git reset --hard origin/Main
             pnpm prod:build
-            sudo systemctl reboot
+            sudo shutdown -r +1 "Rebooting in 1 minute"
