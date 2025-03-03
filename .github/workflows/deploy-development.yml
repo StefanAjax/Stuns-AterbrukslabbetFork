@@ -44,5 +44,5 @@ jobs:
             git checkout Main
             git fetch origin Main
             git reset --hard origin/Main
-            pnpm prod:build
+            pnpm build
             sudo shutdown -r +1 "Rebooting in 1 minute"
