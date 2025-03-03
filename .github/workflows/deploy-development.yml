@@ -1,0 +1,36 @@
+name: Deploy to Development Server
+
+on:
+  workflow_dispatch:
+
+jobs:
+  check_linting:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Install dependencies
+        run: pnpm i
+
+      - name: Lint code
+        run: pnpm format:check
+
+  deploy:
+    needs: check_linting
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Deploy to development server
+        uses: appleboy/ssh-action@v1.2.1
+        with:
+          host: ${{ secrets.DEV_SERVER_HOST }}
+          password: ${{ secrets.DEV_SERVER_PASSWORD }}
+          port: ${{ secrets.DEV_SERVER_PORT }}
+          script: |
+            cd Stuns-Aterbrukslabbet/
+            git checkout Main
+            git pull origin Main
+            pnpm prod
+            sudo systemctl reboot
