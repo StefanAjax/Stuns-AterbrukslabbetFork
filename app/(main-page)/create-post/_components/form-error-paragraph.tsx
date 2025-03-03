@@ -4,7 +4,7 @@ interface FormErrorParagraphProps {
 
 export default function FormErrorParagraph({ content }: FormErrorParagraphProps) {
   return (
-    <p className="text-sm text-red-500 md:text-base" role="alert">
+    <p className="text-red-500 text-sm md:text-base" role="alert">
       {content}
     </p>
   );

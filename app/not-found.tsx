@@ -13,7 +13,7 @@ export default async function NotFound() {
         <Logo />
         <h1 className="text-pretty pt-4 text-2xl font-semibold">Ojdå... sidan kunde inte hittas</h1>
         <p className="max-w-screen-sm text-balance text-lg">Om felet är hos oss ber vi om ursäkt! Kolla gärna att adressen stämmer överens med dit du ville.</p>
-        <Link className="pt-1 text-blue-500" href="/">
+        <Link className="text-blue-500 pt-1" href="/">
           Gå till startsidan
         </Link>
       </div>
