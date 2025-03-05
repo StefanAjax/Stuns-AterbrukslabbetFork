@@ -16,6 +16,12 @@
 
 1.  Under the `Personal information` field, enable `Name`.
 
+1.  Press the cogwheel next to `Name` and enable `Require`.
+
+1.  Press `Continue`.
+
+1.  Press `Save` at the bottom of the screen.
+
 1.  Go to the `Sessions` tab in the sidebar.
 
 1.  Under the `Customize session token` press the `Edit` button and enter:
@@ -39,8 +45,8 @@
 1.  The `.env` file should now contain two new entries, like this:
 
     ```sh
-    NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=<Publishable key>
-    CLERK_SECRET_KEY=<Secret key>
+    NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=Publishable key
+    CLERK_SECRET_KEY=Secret key
     ```
 
 ## Creating a Production Instance
@@ -80,7 +86,7 @@ _**Webhooks require a public IP address to work. This limits the projects functi
 1.  The `.env` file should now contain a new entry, like this:
 
     ```sh
-    WEBHOOK_SECRET=<Signing Secret>
+    WEBHOOK_SECRET=Signing Secret
     ```
 
 ---

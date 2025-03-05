@@ -46,7 +46,9 @@ NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL=/
 - [Resend](./resend-setup.md)
 - [Other](./other-setup.md)
 
-## Recommended VSCode Extensions
+## Other Configurations
+
+- [Automatic E-mails](./automatic-emails.md)
 
 ---
 
