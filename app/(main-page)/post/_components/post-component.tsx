@@ -37,7 +37,7 @@ export default function PostComponent({ postData, email, fullName, isPreview, de
     postType: postData.postType,
   });
   return (
-    <article className="rounded-2xl mx-auto max-w-[360px] bg-secondary px-6 pb-4 pt-3 md:max-w-screen-md md:px-16 md:pb-6 md:pt-10">
+    <article className="mx-auto max-w-[360px] rounded-2xl bg-secondary px-6 pb-4 pt-3 md:max-w-screen-md md:px-16 md:pb-6 md:pt-10">
       <Image
         src={
           postData.category === "inventarie"
@@ -72,7 +72,7 @@ export default function PostComponent({ postData, email, fullName, isPreview, de
             {postData.postType}
           </section>
           {postData.hasCustomExpirationDate && (
-            <section className="text-red-500 text-end">
+            <section className="text-end text-red-500">
               <p>{expirationDateText}</p>
               <p>{expirationDateString}</p>
             </section>
