@@ -10,7 +10,6 @@ body,
 
 @layer base {
   :root {
-
     --white: 0 0% 100%;
     --black: 0 0% 0%;
 
@@ -26,70 +25,72 @@ body,
     --neutral-900: 0 0% 9%;
     --neutral-950: 0 0% 4%;
 
-    --green-50: 143 76% 97%;
-    --green-100: 144 84% 93%;
-    --green-200: 145 76% 85%;
-    --green-300: 146 75% 73%;
-    --green-400: 146 67% 58%;
-    --green-500: 146 69% 45%;
-    --green-600: 146 74% 36%;
-    --green-700: 146 70% 29%;
-    --green-800: 146 63% 24%;
-    --green-900: 148 59% 20%;
-    --green-950: 149 80% 10%;
+    --emerald-50: 143 76% 97%;
+    --emerald-100: 144 84% 93%;
+    --emerald-200: 145 76% 85%;
+    --emerald-300: 146 75% 73%;
+    --emerald-400: 146 67% 58%;
+    --emerald-500: 146 69% 45%;
+    --emerald-600: 146 74% 36%;
+    --emerald-700: 146 70% 29%;
+    --emerald-800: 146 63% 24%;
+    --emerald-900: 148 59% 20%;
+    --emerald-950: 149 80% 10%;
 
-    --blue-50: 173 100% 97%;
-    --blue-100: 176 100% 89%;
-    --blue-200: 177 100% 78%;
-    --blue-300: 178 96% 64%;
-    --blue-400: 180 82% 50%;
-    --blue-500: 181 100% 38%;
-    --blue-600: 182 100% 32%;
-    --blue-700: 183 97% 26%;
-    --blue-800: 183 86% 22%;
-    --blue-900: 183 75% 19%;
-    --blue-950: 186 100% 10%;
+    --azure-50: 173 100% 97%;
+    --azure-100: 176 100% 89%;
+    --azure-200: 177 100% 78%;
+    --azure-300: 178 96% 64%;
+    --azure-400: 180 82% 50%;
+    --azure-500: 181 100% 38%;
+    --azure-600: 182 100% 32%;
+    --azure-700: 183 97% 26%;
+    --azure-800: 183 86% 22%;
+    --azure-900: 183 75% 19%;
+    --azure-950: 186 100% 10%;
 
-    --orange-50: 13 100% 97%;
-    --orange-100: 12 100% 94%;
-    --orange-200: 12 100% 89%;
-    --orange-300: 12 100% 81%;
-    --orange-400: 12 100% 72%;
-    --orange-500: 12 93% 60%;
-    --orange-600: 12 79% 51%;
-    --orange-700: 12 81% 42%;
-    --orange-800: 12 78% 35%;
-    --orange-900: 12 69% 31%;
-    --orange-950: 12 82% 15%;
+    --salmon-50: 13 100% 97%;
+    --salmon-100: 12 100% 94%;
+    --salmon-200: 12 100% 89%;
+    --salmon-300: 12 100% 81%;
+    --salmon-400: 12 100% 72%;
+    --salmon-500: 12 93% 60%;
+    --salmon-600: 12 79% 51%;
+    --salmon-700: 12 81% 42%;
+    --salmon-800: 12 78% 35%;
+    --salmon-900: 12 69% 31%;
+    --salmon-950: 12 82% 15%;
 
-    
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    --background: var(--neutral-50);
+    --foreground: var(--neutral-900);
 
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card: var(--neutral-100);
+    --card-foreground: var(--neutral-900);
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover: var(--neutral-100);
+    --popover-foreground: var(--neutral-900);
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    --primary: var(--emerald-600);
+    --primary-foreground: var(--emerald-700);
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    --secondary: var(--azure-100);
+    --secondary-foreground: var(--azure-700);
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --tertiary: var(--salmon-200);
+    --tertiary-foreground: var(--salmon-700);
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --muted: var(--neutral-200);
+    --muted-foreground: var(--neutral-700);
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    --accent: var(--azure-400);
+    --accent-foreground: var(--azure-800);
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --destructive: var(--salmon-400);
+    --destructive-foreground: var(--salmon-800);
+
+    --border: var(--neutral-200);
+    --input: var(--neutral-100);
+    --ring: var(--azure-400);
 
     --radius: 0.5rem;
 
