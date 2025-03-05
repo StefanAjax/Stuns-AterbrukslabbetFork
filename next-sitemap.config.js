@@ -2,7 +2,7 @@ const staticRoutes = ["/", "/faq", "/about", "/terms-of-service"];
 
 /** @type {import('next-sitemap').IConfig} */
 export default {
-  siteUrl: process.env.SITE_URL || "https://aterbrukslabbet.nu",
+  siteUrl: process.env.NEXT_PUBLIC_SITE_URL || "https://aterbrukslabbet.nu",
   generateRobotsTxt: true,
   sitemapSize: 5000,
   robotsTxtOptions: {
