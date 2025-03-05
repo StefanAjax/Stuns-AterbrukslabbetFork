@@ -51,7 +51,7 @@ export default async function PostIdPage({ params }: PostIdPageProps) {
           <p className="text-pretty">
             Denna annons verkar inte finnas. Om du tror att annonsen bör finnas kontrollera då URL:en. Om du precis skapat annonsen kan det ta en liten stund för den att dyka upp.
           </p>
-          <Link className="text-blue-600 pt-1 text-lg hover:underline" href="/">
+          <Link className="pt-1 text-lg text-blue-600 hover:underline" href="/">
             Till startsidan
           </Link>
         </div>

@@ -50,10 +50,10 @@ export function PostExpiresInAWeekCustomMail({ postTitle, postLink, postId }: Ex
             vecka.
           </Text>
           <Section className="mb-6">
-            <Button className="mr-4 rounded-md bg-gray-300 p-3 text-black" href={`${process.env.NEXT_PUBLIC_SITE_URL}/extend/${postLink}`}>
+            <Button className="bg-gray-300 mr-4 rounded-md p-3 text-black" href={`${process.env.NEXT_PUBLIC_SITE_URL}/extend/${postLink}`}>
               Förläng
             </Button>
-            <Button className="rounded-md bg-gray-300 p-3 text-black" href={`${process.env.NEXT_PUBLIC_SITE_URL}/delete/${postLink}`}>
+            <Button className="bg-gray-300 rounded-md p-3 text-black" href={`${process.env.NEXT_PUBLIC_SITE_URL}/delete/${postLink}`}>
               Ta bort
             </Button>
           </Section>
@@ -76,10 +76,10 @@ export function PostExpiresInAWeekMail({ postTitle, postLink, postId }: Expiring
             görs kommer annonsen att tas bort om en vecka.
           </Text>
           <Section className="mb-6">
-            <Button className="mr-4 rounded-md bg-gray-300 p-3 text-black" href={`${process.env.NEXT_PUBLIC_SITE_URL}/extend/${postLink}`}>
+            <Button className="bg-gray-300 mr-4 rounded-md p-3 text-black" href={`${process.env.NEXT_PUBLIC_SITE_URL}/extend/${postLink}`}>
               Förläng
             </Button>
-            <Button className="rounded-md bg-gray-300 p-3 text-black" href={`${process.env.NEXT_PUBLIC_SITE_URL}/delete/${postLink}`}>
+            <Button className="bg-gray-300 rounded-md p-3 text-black" href={`${process.env.NEXT_PUBLIC_SITE_URL}/delete/${postLink}`}>
               Ta bort
             </Button>
           </Section>
@@ -101,10 +101,10 @@ export function PostExpiresTomorrowCustomMail({ postTitle, postLink, postId }: E
             Din valda tidsperiod för annonsen tar slut imorgon. Du kan förlänga annonsen om det fortfarande är aktuellt eller så kan du ta bort den. Om inget görs kommer annonsen att tas bort imorgon.
           </Text>
           <Section className="mb-6">
-            <Button className="mr-4 rounded-md bg-gray-300 p-3 text-black" href={`${process.env.NEXT_PUBLIC_SITE_URL}/extend/${postLink}`}>
+            <Button className="bg-gray-300 mr-4 rounded-md p-3 text-black" href={`${process.env.NEXT_PUBLIC_SITE_URL}/extend/${postLink}`}>
               Förläng
             </Button>
-            <Button className="rounded-md bg-gray-300 p-3 text-black" href={`${process.env.NEXT_PUBLIC_SITE_URL}/delete/${postLink}`}>
+            <Button className="bg-gray-300 rounded-md p-3 text-black" href={`${process.env.NEXT_PUBLIC_SITE_URL}/delete/${postLink}`}>
               Ta bort
             </Button>
           </Section>
@@ -127,10 +127,10 @@ export function PostExpiresTomorrowMail({ postTitle, postLink, postId }: Expirin
             görs kommer annonsen att tas bort imorgon.
           </Text>
           <Section className="mb-6">
-            <Button className="mr-4 rounded-md bg-gray-300 p-3 text-black" href={`${process.env.NEXT_PUBLIC_SITE_URL}/extend/${postLink}`}>
+            <Button className="bg-gray-300 mr-4 rounded-md p-3 text-black" href={`${process.env.NEXT_PUBLIC_SITE_URL}/extend/${postLink}`}>
               Förläng
             </Button>
-            <Button className="rounded-md bg-gray-300 p-3 text-black" href={`${process.env.NEXT_PUBLIC_SITE_URL}/delete/${postLink}`}>
+            <Button className="bg-gray-300 rounded-md p-3 text-black" href={`${process.env.NEXT_PUBLIC_SITE_URL}/delete/${postLink}`}>
               Ta bort
             </Button>
           </Section>

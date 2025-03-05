@@ -98,7 +98,7 @@ export default function CreatePostComponent({ firstName, lastName, email, userId
 
   return (
     <div className="mx-auto mt-10 flex max-w-screen-xl flex-wrap justify-center gap-x-20 gap-y-3 md:gap-y-6">
-      <div className="h-fit w-[360px] rounded-2xl bg-secondary p-3 md:w-[600px] md:p-6">
+      <div className="rounded-2xl h-fit w-[360px] bg-secondary p-3 md:w-[600px] md:p-6">
         <form id="create-post-form" className="flex flex-col gap-y-5" onSubmit={handleSubmit(onSubmit)}>
           <h1 className="text-center text-xl md:text-3xl">Skapa en annons</h1>
           <Controller

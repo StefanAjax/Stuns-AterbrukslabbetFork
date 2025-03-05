@@ -34,7 +34,7 @@ export default function ContactMeDialog({ fullName, email, disabled }: ContactMe
             </p>
           </div>
           <p className="line-clamp-1 break-all pt-2 text-center text-lg md:pt-6">{fullName}</p>
-          <a className="text-blue-600 mx-auto line-clamp-2 w-fit break-all text-center hover:underline" href={`mailto:${email}`}>
+          <a className="mx-auto line-clamp-2 w-fit break-all text-center text-blue-600 hover:underline" href={`mailto:${email}`}>
             {email}
           </a>
         </DialogHeader>
