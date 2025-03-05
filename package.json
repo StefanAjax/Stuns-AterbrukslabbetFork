@@ -5,7 +5,7 @@
   "license": "MIT",
   "type": "module",
   "scripts": {
-    "postinstall": "pnpm prisma:generate",
+    "postinstall": "pnpm prisma:generate && pnpm prisma:migrate:dev",
     "dev": "concurrently \"pnpm prisma:generate:watch\" \"pnpm prisma:studio\" \"pnpm dev:next\" \"pnpm dev:email\"",
     "dev:next": "next dev",
     "dev:email": "email dev -p 3001",
