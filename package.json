@@ -5,7 +5,7 @@
   "license": "MIT",
   "type": "module",
   "scripts": {
-    "postinstall": "pnpm prisma:generate && pnpm prisma:migrate:dev",
+    "postinstall": "pnpm prisma:generate",
     "dev": "concurrently \"pnpm prisma:generate:watch\" \"pnpm prisma:studio\" \"pnpm dev:next\" \"pnpm dev:email\"",
     "dev:next": "next dev",
     "dev:email": "email dev -p 3001",
@@ -20,6 +20,7 @@
     "format:check": "prettier --check . && next lint && prisma format --check",
     "prisma:generate": "prisma generate",
     "prisma:generate:watch": "prisma generate --watch",
+    "prisma:db:push": "prisma db push",
     "prisma:studio": "prisma studio",
     "prisma:migrate:dev": "prisma migrate dev",
     "prisma:migrate:deploy": "prisma migrate deploy"

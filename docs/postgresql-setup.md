@@ -16,7 +16,15 @@
 
 1.  Wait until the installation has completed.
 
-1.  Uncheck the box for `Stack Builder` and press `Finnish >`
+1.  Uncheck the box for `Stack Builder` and press `Finnish >`.
+
+1.  Follow the instructions under [Configuring Environment Variables](#configuring-environment-variables) before proceeding.
+
+1.  Run the following command in a terminal:
+
+    ```sh
+    pnpm prisma:db:push
+    ```
 
 ## Configuring Environment Variables
 
