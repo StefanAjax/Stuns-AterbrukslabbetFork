@@ -1,6 +1,6 @@
 "use client";
 
-import clsx from "clsx";
+import { cn } from "@/lib/utils";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 import handleSearchParamsChange from "@/utils/handle-search-params-change";
@@ -16,29 +16,28 @@ export default function PostTypeButtons() {
   }
 
   return (
-    <div className="flex gap-x-3 rounded-md">
-      <div className="flex items-center rounded-md bg-primary bg-opacity-40 text-xs md:text-lg">
-        <button
-          onClick={() => handlePostTypeChange(undefined)}
-          className={clsx("rounded-s-md bg-primary bg-opacity-0 px-2 py-[6px] hover:bg-opacity-100 md:px-4 md:py-2", !searchParams.get("type") && "bg-opacity-100")}
-        >
-          Alla
-        </button>
-        <div className="h-5/6 w-[1px] bg-black bg-opacity-20 md:hidden"></div>
-        <button
-          onClick={() => handlePostTypeChange("Erbjuds")}
-          className={clsx("bg-primary bg-opacity-0 px-2 py-[6px] hover:bg-opacity-100 md:px-4 md:py-2", searchParams.get("type") === "Erbjuds" && "bg-opacity-100")}
-        >
-          Erbjuds
-        </button>
-        <div className="h-5/6 w-[1px] bg-black bg-opacity-20 md:hidden"></div>
-        <button
-          onClick={() => handlePostTypeChange("Efterfrågas")}
-          className={clsx("rounded-e-md bg-primary bg-opacity-0 px-2 py-[6px] hover:bg-opacity-100 md:px-4 md:py-2", searchParams.get("type") === "Efterfrågas" && "bg-opacity-100")}
-        >
-          Efterfrågas
-        </button>
-      </div>
+    <div className="flex rounded-md bg-primary text-xs text-neutral-900 md:text-lg">
+      <button
+        onClick={() => handlePostTypeChange(undefined)}
+        className={cn("rounded-s-md px-2 py-1 hover:bg-primary-foreground hover:text-neutral-100 md:px-4 md:py-2", !searchParams.get("type") && "bg-primary-foreground text-neutral-100")}
+      >
+        Alla
+      </button>
+      <button
+        onClick={() => handlePostTypeChange("Erbjuds")}
+        className={cn("px-2 py-1 hover:bg-primary-foreground hover:text-neutral-100 md:px-4 md:py-2", searchParams.get("type") === "Erbjuds" && "bg-primary-foreground text-neutral-100")}
+      >
+        Erbjuds
+      </button>
+      <button
+        onClick={() => handlePostTypeChange("Efterfrågas")}
+        className={cn(
+          "rounded-e-md px-2 py-1 hover:bg-primary-foreground hover:text-neutral-100 md:px-4 md:py-2",
+          searchParams.get("type") === "Efterfrågas" && "bg-primary-foreground text-neutral-100",
+        )}
+      >
+        Efterfrågas
+      </button>
     </div>
   );
 }

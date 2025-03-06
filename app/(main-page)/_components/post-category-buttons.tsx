@@ -1,6 +1,6 @@
 "use client";
 
-import clsx from "clsx";
+import { cn } from "@/lib/utils";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 import handleSearchParamsChange from "@/utils/handle-search-params-change";
@@ -20,28 +20,28 @@ export default function PostCategoryButtons() {
       <div className="flex items-center rounded-md bg-primary bg-opacity-40 text-[9px] md:text-base">
         <button
           onClick={() => handlePostCategoryChange(undefined)}
-          className={clsx("rounded-s-md bg-primary bg-opacity-0 px-[6px] py-1 hover:bg-opacity-100 md:px-3 md:py-[8px]", !searchParams.get("category") && "bg-opacity-100")}
+          className={cn("rounded-s-md bg-primary bg-opacity-0 px-[6px] py-1 hover:bg-opacity-100 md:px-3 md:py-[8px]", !searchParams.get("category") && "bg-opacity-100")}
         >
           Alla
         </button>
         <div className="h-5/6 w-[1px] bg-black bg-opacity-20 md:hidden"></div>
         <button
           onClick={() => handlePostCategoryChange("förbrukningsvara")}
-          className={clsx("bg-primary bg-opacity-0 px-[6px] py-1 hover:bg-opacity-100 md:px-3 md:py-[8px]", searchParams.get("category") === "förbrukningsvara" && "bg-opacity-100")}
+          className={cn("bg-primary bg-opacity-0 px-[6px] py-1 hover:bg-opacity-100 md:px-3 md:py-[8px]", searchParams.get("category") === "förbrukningsvara" && "bg-opacity-100")}
         >
           Förbrukningsvara
         </button>
         <div className="h-5/6 w-[1px] bg-black bg-opacity-20 md:hidden"></div>
         <button
           onClick={() => handlePostCategoryChange("instrument/maskin")}
-          className={clsx("bg-primary bg-opacity-0 px-[6px] py-1 hover:bg-opacity-100 md:px-3 md:py-[8px]", searchParams.get("category") === "instrument/maskin" && "bg-opacity-100")}
+          className={cn("bg-primary bg-opacity-0 px-[6px] py-1 hover:bg-opacity-100 md:px-3 md:py-[8px]", searchParams.get("category") === "instrument/maskin" && "bg-opacity-100")}
         >
           Instrument/Maskin
         </button>
         <div className="h-5/6 w-[1px] bg-black bg-opacity-20 md:hidden"></div>
         <button
           onClick={() => handlePostCategoryChange("inventarie")}
-          className={clsx("rounded-e-md bg-primary bg-opacity-0 px-[6px] py-1 hover:bg-opacity-100 md:px-3 md:py-[8px]", searchParams.get("category") === "inventarie" && "bg-opacity-100")}
+          className={cn("rounded-e-md bg-primary bg-opacity-0 px-[6px] py-1 hover:bg-opacity-100 md:px-3 md:py-[8px]", searchParams.get("category") === "inventarie" && "bg-opacity-100")}
         >
           Inventarie
         </button>
