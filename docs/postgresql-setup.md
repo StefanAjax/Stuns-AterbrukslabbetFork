@@ -23,7 +23,7 @@
 1.  Run the following command in a terminal:
 
     ```sh
-    pnpm prisma:db:push
+    prisma db push
     ```
 
 ## Configuring Environment Variables

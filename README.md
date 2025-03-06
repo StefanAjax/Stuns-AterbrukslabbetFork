@@ -7,6 +7,7 @@ The webpage for Återbrukslabbet can be found at [aterbrukslabbet.nu](https://at
 - [Setup](docs/setup.md)
 - [Development Environment](documentation/environments-languages.md)
 - [Licenses](documentation/licenses.md)
+- [Command List](docs/command-list.md)
 
 ## Running the project
 
@@ -21,8 +22,8 @@ pnpm dev
 This opens the following ports:
 
 - [localhost:3000](http://localhost:3000) for accessing the web page.
-- [localhost:3001](http://localhost:3001) for accessing React Mail templates.
-- [localhost:5555](http://localhost:5555) for accessing Prisma Studio.
+- [localhost:4000](http://localhost:4000) for accessing Prisma Studio.
+- [localhost:5000](http://localhost:5000) for accessing React Mail templates.
 
 ### Running in production mode
 
@@ -41,7 +42,7 @@ This opens the following ports:
 Alternatively, run the following to do both in a single command:
 
 ```bash
-pnpm prod
+pnpm launch
 ```
 
 ## Backlog

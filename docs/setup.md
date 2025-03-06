@@ -29,8 +29,6 @@
     pnpm i
     ```
 
-1.  Enter an appropriate name for the new migration when prompted to do so.
-
 1.  Create a `.env` file in the root of the project and paste in the following:
 
 ```sh
