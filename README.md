@@ -5,8 +5,8 @@ The webpage for Återbrukslabbet can be found at [aterbrukslabbet.nu](https://at
 ## Development Documents
 
 - [Setup](docs/setup.md)
-- [Development Environment](documentation/environments-languages.md)
-- [Licenses](documentation/licenses.md)
+- [Development Environment](docs/environments-languages.md)
+- [Licenses](docs/licenses.md)
 - [Command List](docs/command-list.md)
 
 ## Running the project
