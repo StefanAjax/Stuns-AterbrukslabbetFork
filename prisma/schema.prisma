@@ -1,5 +1,6 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
+generator client {
+  provider = "prisma-client-js"
+}
 
 datasource db {
   provider  = "postgresql"
@@ -7,42 +8,38 @@ datasource db {
   directUrl = env("DIRECT_URL")
 }
 
-generator client {
-  provider = "prisma-client-js"
-}
-
 model Post {
   id                      Int                 @id @default(autoincrement())
   userId                  String
   title                   String              @db.VarChar(40)
-  description             String?             @db.Text
+  description             String?
   postType                String
   category                String
   location                String
-  imageThumbUrl           String?             @db.Text
-  imageFullUrl            String?             @db.Text
+  imageThumbUrl           String?
+  imageFullUrl            String?
   createdAt               DateTime            @default(now())
-  expiresAt               DateTime            @default(dbgenerated("NOW() + interval '6 months'"))
+  expiresAt               DateTime            @default(dbgenerated("(now() + '6 mons'::interval)"))
   hasCustomExpirationDate Boolean             @default(false)
   soonExpiringPosts       SoonExpiringPosts[]
 }
 
 model SoonExpiringPosts {
   id       Int    @id @default(autoincrement())
-  post     Post   @relation(fields: [postId], references: [id], onDelete: Cascade)
   postId   Int
   postLink String
+  post     Post   @relation(fields: [postId], references: [id], onDelete: Cascade)
 }
 
 model ArchivedPosts {
   id                      Int      @id @default(autoincrement())
-  deletionReason          String
-  archivedAt              DateTime @default(now())
-  createdAt               DateTime
   title                   String   @db.VarChar(40)
-  description             String?  @db.Text
+  description             String?
   postType                String
   category                String
   location                String
+  createdAt               DateTime
   hasCustomExpirationDate Boolean
+  archivedAt              DateTime @default(now())
+  deletionReason          String
 }
