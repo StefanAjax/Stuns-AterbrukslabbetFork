@@ -44,5 +44,6 @@ jobs:
             git checkout ${{ github.ref_name }}
             git fetch origin ${{ github.ref_name }}
             git reset --hard origin/${{ github.ref_name }}
+            pnpm i --frozen-lockfile
             pnpm build
             sudo shutdown -r +1 "Rebooting in 1 minute"
