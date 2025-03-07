@@ -11,11 +11,7 @@
     "launch": "pnpm build && pnpm start",
     "format:write": "prettier --write . && next lint --fix && prisma format",
     "format:check": "prettier --check . && next lint && prisma format --check",
-    "prisma:generate": "prisma generate",
-    "prisma:db:push": "prisma db push",
-    "prisma:migrate:dev": "prisma migrate dev",
-    "prisma:migrate:deploy": "",
-    "db:sync": "prisma db pull && prisma migrate dev",
+    "db:migrate:dev": "prisma migrate dev",
     "postinstall": "prisma generate"
   },
   "dependencies": {

@@ -23,7 +23,7 @@
 1.  Run the following command in a terminal:
 
     ```sh
-    prisma db push
+    pnpm db:migrate:dev
     ```
 
 ## Configuring Environment Variables
