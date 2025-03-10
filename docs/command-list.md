@@ -12,7 +12,7 @@ Here is a full list of commands and what they do:
 | `format:check`   | Checks if your code adheres to formatting standards defined by Prettier, Next.js linting, and Prisma formatting.                                                                                         | Use to verify that your code meets the project's formatting standards before committing changes or during CI checks. |
 | `db:migrate:dev` | Creates and applies migrations based on your Prisma schema.                                                                                                                                              | Use this after making changes to the schematic.                                                                      |
 | `test`           | Builds the application and runs all tests.                                                                                                                                                               | Use after making any changes or during CI checks to ensure no previous functionality has been broken.                |
-| `postinstall`    | Automatically generates the Prisma client after package installation.                                                                                                                                    | _**There is no need to run this.**_ <br/><br/> This runs automatically after installing dependencies.                |
+| `postinstall`    | Automatically generates the Prisma client and installs Playwright after package installation.                                                                                                            | _**There is no need to run this.**_ <br/><br/> This runs automatically after installing dependencies.                |
 
 ---
 
