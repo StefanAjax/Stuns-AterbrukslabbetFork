@@ -13,7 +13,7 @@
     "format:check": "prettier --check . && next lint && prisma format --check",
     "db:migrate:dev": "prisma migrate dev",
     "test": "playwright test",
-    "postinstall": "prisma generate && pnpm exec playwright install"
+    "postinstall": "prisma generate && pnpm exec playwright install --with-deps webkit"
   },
   "dependencies": {
     "@clerk/localizations": "^3.10.8",
