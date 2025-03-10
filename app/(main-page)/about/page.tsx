@@ -19,10 +19,6 @@ export default function AboutPage() {
         <h2 className="text-xl font-semibold">Utvecklare våren 2024:</h2>
         <div>
           <span className="font-semibold">Simon Clavensjö</span>,{" "}
-          <a className="text-blue-600 hover:underline" href="mailto:simon@clavensjo.se">
-            simon@clavensjo.se
-          </a>
-          ,{" "}
           <a className="text-blue-600 hover:underline" href="https://www.linkedin.com/in/simon-clavensj%C3%B6-a6059021b/">
             LinkedIn
           </a>
@@ -34,14 +30,9 @@ export default function AboutPage() {
           <a className="text-blue-600 hover:underline" href="https://simon.clavensjo.se/">
             portfolio
           </a>
-          <p>Planerar att plugga datavetenskap i Stockholm 2024/2027. Intresserad av backend-utveckling.</p>
         </div>
         <div>
           <span className="font-semibold">Lukas Gustafsson</span>,{" "}
-          <a className="text-blue-600 hover:underline" href="mailto:lukashansgustafsson@gmail.com">
-            lukashansgustafsson@gmail.com
-          </a>
-          ,{" "}
           <a className="text-blue-600 hover:underline" href="https://www.linkedin.com/in/lukas-gustafsson-b4296b293/">
             LinkedIn
           </a>
@@ -53,14 +44,10 @@ export default function AboutPage() {
           <a className="text-blue-600 hover:underline" href="https://lukasgurra.github.io/">
             portfolio
           </a>
-          <p>Planerar att plugga pedagogik i Uppsala 2024/2025 och sedan plugga till danslärare. Intresserad av frontend-utveckling och design.</p>
+          <p>Planerar att utbilda sig till danslärare eller teknik- och mattelärare. Intresserad av frontend-utveckling och design av spel och hemsidor.</p>
         </div>
         <div>
           <span className="font-semibold">Mohamad Hamdan</span>,{" "}
-          <a className="text-blue-600 hover:underline" href="mailto:Hamdan756@icloud.com">
-            Hamdan756@icloud.com
-          </a>
-          ,{" "}
           <a className="text-blue-600 hover:underline" href="https://www.linkedin.com/in/mohamad-hamdan-874670297/">
             LinkedIn
           </a>
@@ -68,17 +55,10 @@ export default function AboutPage() {
           <a className="text-blue-600 hover:underline" href="https://mohamadhamdan13.github.io/">
             portfolio
           </a>
-          <p>
-            Mönstrat och kommit in så kanske gör värnplikten, sökte frivilligt vilket betyder att jag kan välja. Jag kollar även vidareutbildningar inom mjukvaruutveckling inriktning frontend och
-            design. Funderar även på att börja jobba direkt.
-          </p>
+          <p>Jobbar på Nordic Wellness och inleder studier inom systemvetenskap hösten 2025.</p>
         </div>
         <div>
           <span className="font-semibold">Ambjörn Hogmark</span>,{" "}
-          <a className="text-blue-600 hover:underline" href="mailto:ambehog04@gmail.com">
-            ambehog04@gmail.com
-          </a>
-          ,{" "}
           <a className="text-blue-600 hover:underline" href="https://www.linkedin.com/in/ambj%C3%B6rn-hogmark-a86801293/">
             LinkedIn
           </a>
@@ -86,10 +66,7 @@ export default function AboutPage() {
           <a className="text-blue-600 hover:underline" href="https://ambjorn-hogmark.github.io/">
             portfolio
           </a>
-          <p>
-            Under kommande år fram till 2029 hittar du mig mest troligt i Stockholm där jag kommer att studera teknisk fysik. Inom mjukvarudesign föredrar jag att arbeta med backend-utveckling men
-            behärskar även frontend.
-          </p>
+          <p>Studerar till civilingenjör på KTH.</p>
         </div>
       </div>
       <p className="mt-6">
