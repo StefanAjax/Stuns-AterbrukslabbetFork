@@ -12,7 +12,7 @@
     "format:write": "prettier --write . && next lint --fix && prisma format",
     "format:check": "prettier --check . && next lint && prisma format --check",
     "db:migrate:dev": "prisma migrate dev",
-    "test": "concurrently \"pnpm launch\" \"wait-on http://localhost:3000 && playwright test\"",
+    "test": "playwright test",
     "postinstall": "prisma generate"
   },
   "dependencies": {
@@ -70,10 +70,8 @@
     "prettier": "^3.5.2",
     "prettier-plugin-tailwindcss": "^0.6.11",
     "prisma": "^6.4.1",
-    "start-server-and-test": "^2.0.10",
     "tailwindcss": "^3.4.17",
-    "typescript": "^5.7.3",
-    "wait-on": "^8.0.2"
+    "typescript": "^5.7.3"
   },
   "pnpm": {
     "ignoredBuiltDependencies": [
