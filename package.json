@@ -5,7 +5,7 @@
   "license": "MIT",
   "type": "module",
   "scripts": {
-    "dev": "concurrently \"prisma generate --watch\" \"next dev -p 3000\" \"prisma studio -p 4000\" \"email dev -p 5000\"",
+    "dev": "concurrently \"prisma generate --watch\" \"next dev -p 3000\" \"prisma studio -p 4000 -b None\" \"email dev -p 5000\"",
     "build": "rimraf .next && prisma migrate deploy && prisma generate && next build && next-sitemap",
     "start": "next start",
     "launch": "pnpm build && pnpm start",
