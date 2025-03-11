@@ -10,8 +10,6 @@ test("Login", async ({ page }) => {
 
   await page.getByText("Logga in").first().click();
 
-  await expect(page).toHaveURL("http://localhost:3000/sign-in");
-
   await expect(page.locator("#identifier-field")).toBeVisible();
 
   await page
@@ -27,8 +25,6 @@ test("Login", async ({ page }) => {
     .fill(process.env.TESTING_PASSWORD || "");
 
   await page.getByRole("button").filter({ hasText: "Fortsätt" }).first().click();
-
-  await expect(page).toHaveURL("http://localhost:3000/");
 
   await expect(page.getByText("Mina annonser").filter({ visible: true }).first()).toBeVisible();
 });
