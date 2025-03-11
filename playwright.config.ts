@@ -40,6 +40,8 @@ export default defineConfig({
     },
   },
 
+  outputDir: "./tests/logs",
+
   /* Configure projects for major browsers */
   projects: [
     {

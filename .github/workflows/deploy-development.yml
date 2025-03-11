@@ -81,6 +81,13 @@ jobs:
       - name: Run tests
         run: pnpm test
 
+      - name: Upload Playwright Logs
+        uses: actions/upload-artifact@v4.6.1
+        if: failure()
+        with:
+          name: playwright-logs
+          path: ./tests/logs
+
   deploy:
     needs: [check_linting, testing]
     runs-on: ubuntu-latest
