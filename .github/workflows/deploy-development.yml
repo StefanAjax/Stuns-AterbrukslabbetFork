@@ -36,9 +36,6 @@ jobs:
       CLERK_SECRET_KEY: ${{ secrets.CLERK_SECRET_KEY }}
       TESTING_EMAIL: ${{ secrets.TESTING_EMAIL }}
       TESTING_PASSWORD: ${{ secrets.TESTING_PASSWORD }}
-      LANG: sv_SE.UTF-8
-      LANGUAGE: sv_SE:sv
-      LC_ALL: sv_SE.UTF-8
 
     services:
       postgres:
