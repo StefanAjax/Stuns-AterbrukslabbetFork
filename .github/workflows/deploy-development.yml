@@ -34,6 +34,8 @@ jobs:
       DIRECT_URL: postgres://${{ secrets.DB_USER }}:${{ secrets.DB_PASSWORD }}@${{ secrets.DB_HOST }}:${{ secrets.DB_PORT }}/${{ secrets.DB_NAME }}
       NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY: ${{ secrets.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY }}
       CLERK_SECRET_KEY: ${{ secrets.CLERK_SECRET_KEY }}
+      TESTING_EMAIL: ${{ secrets.TESTING_EMAIL }}
+      TESTING_PASSWORD: ${{ secrets.TESTING_PASSWORD }}
 
     services:
       postgres:
