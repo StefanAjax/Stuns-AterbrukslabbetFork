@@ -1,24 +1,29 @@
 import { test, expect } from "@playwright/test";
-import { db } from "@/lib/db";
 
-test("Title", async ({ page }) => {
-  await page.goto("/");
+import { setup, screenshot } from "./utils/utils";
+
+test("Title", async ({ page, browserName }) => {
+  await setup(page);
+
+  await screenshot(page, browserName);
 
   await expect(page.getByText("Återbrukslabbet").filter({ visible: true }).first()).toBeVisible();
 });
 
-test("No posts", async ({ page }) => {
-  await db.post.deleteMany({});
+test("No posts", async ({ page, browserName }) => {
+  await setup(page);
 
-  await page.goto("/");
+  await screenshot(page, browserName);
 
   await expect(page.getByText("Inga annonser hittades").filter({ visible: true }).first()).toBeVisible();
 
   await expect(page.getByText("Sök bland 0 annonser").filter({ visible: true }).first()).toBeVisible();
 });
 
-test("Categories", async ({ page }) => {
-  await page.goto("/");
+test("Categories", async ({ page, browserName }) => {
+  await setup(page);
+
+  await screenshot(page, browserName);
 
   await expect(page.getByText("Alla").filter({ visible: true }).first()).toBeVisible();
 

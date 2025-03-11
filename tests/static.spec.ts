@@ -1,9 +1,13 @@
 import { test, expect } from "@playwright/test";
 
-test("FAQ", async ({ page }) => {
-  await page.goto("/");
+import { setup, screenshot } from "./utils/utils";
+
+test("FAQ", async ({ page, browserName }) => {
+  await setup(page);
 
   await page.getByText("Vanliga frågor").first().click();
+
+  await screenshot(page, browserName);
 
   await expect(page.getByText("Vanliga frågor och svar").filter({ visible: true }).first()).toBeVisible();
 
@@ -22,10 +26,12 @@ test("FAQ", async ({ page }) => {
   await expect(page.getByText("När jag tar bort min annons blir jag frågad om annonsen resulterade i en donation?").filter({ visible: true }).first()).toBeVisible();
 });
 
-test("About us", async ({ page }) => {
-  await page.goto("/");
+test("About us", async ({ page, browserName }) => {
+  await setup(page);
 
   await page.getByText("Om oss").first().click();
+
+  await screenshot(page, browserName);
 
   await expect(page.getByText("Om Återbrukslabbet").filter({ visible: true }).first()).toBeVisible();
 
@@ -40,10 +46,12 @@ test("About us", async ({ page }) => {
   await expect(page.getByText("Ambjörn Hogmark").filter({ visible: true }).first()).toBeVisible();
 });
 
-test("TOS", async ({ page }) => {
-  await page.goto("/");
+test("TOS", async ({ page, browserName }) => {
+  await setup(page);
 
   await page.getByText("Användarvillkor").first().click();
+
+  await screenshot(page, browserName);
 
   await expect(page.getByText("Användarvillkor och integritetspolicy").filter({ visible: true }).first()).toBeVisible();
 
