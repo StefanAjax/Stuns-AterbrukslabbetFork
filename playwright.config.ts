@@ -1,4 +1,7 @@
 import { defineConfig, devices } from "@playwright/test";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 /**
  * Read environment variables from file.
@@ -31,6 +34,10 @@ export default defineConfig({
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: "on-first-retry",
+
+    launchOptions: {
+      slowMo: process.env.SLOW_MODE ? parseInt(process.env.SLOW_MODE, 10) : 0,
+    },
   },
 
   /* Configure projects for major browsers */

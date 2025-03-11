@@ -12,7 +12,8 @@
     "format:write": "prettier --write . && next lint --fix && prisma format",
     "format:check": "prettier --check . && next lint && prisma format --check",
     "db:migrate:dev": "prisma migrate dev",
-    "test": "playwright test",
+    "test": "cross-env SLOW_MODE=0 playwright test",
+    "test:debug": "cross-env SLOW_MODE=500 playwright test --headed --workers=1",
     "postinstall": "prisma generate && pnpm exec playwright install --with-deps"
   },
   "dependencies": {
@@ -63,6 +64,7 @@
     "@types/react": "19.0.10",
     "@types/react-dom": "19.0.4",
     "autoprefixer": "^10.4.20",
+    "cross-env": "^7.0.3",
     "eslint": "^9.21.0",
     "eslint-config-next": "^15.2.0",
     "eslint-config-prettier": "^10.0.2",
