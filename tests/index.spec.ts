@@ -1,4 +1,5 @@
 import { test, expect } from "@playwright/test";
+import { db } from "@/lib/db";
 
 test("Title", async ({ page }) => {
   await page.goto("/");
@@ -7,6 +8,8 @@ test("Title", async ({ page }) => {
 });
 
 test("No posts", async ({ page }) => {
+  await db.post.deleteMany({});
+
   await page.goto("/");
 
   await expect(page.getByText("Inga annonser hittades").filter({ visible: true }).first()).toBeVisible();
