@@ -5,29 +5,20 @@ interface PostTypePickerProps {
   setPostType: (...event: any[]) => void;
 }
 
-export default function PostTypePicker({
-  currentPostType,
-  setPostType,
-}: PostTypePickerProps) {
+export default function PostTypePicker({ currentPostType, setPostType }: PostTypePickerProps) {
   return (
-    <div className="grid grid-cols-2 md:w-60 w-52 mx-auto md:text-lg text-sm">
+    <div className="mx-auto grid w-52 grid-cols-2 text-sm md:w-60 md:text-lg">
       <input
         type="button"
         value="Erbjuds"
         onClick={() => setPostType("Erbjuds")}
-        className={cn(
-          "hover:bg-opacity-60 py-[3px] rounded-s-md cursor-pointer bg-primary",
-          currentPostType === "Erbjuds" && "bg-offerColor bg-opacity-65"
-        )}
+        className={cn("cursor-pointer rounded-s-md bg-primary py-[3px] hover:bg-opacity-60", currentPostType === "Erbjuds" && "bg-offerColor bg-opacity-65")}
       ></input>
       <input
         type="button"
         value="Efterfrågas"
         onClick={() => setPostType("Efterfrågas")}
-        className={cn(
-          "hover:bg-opacity-60 py-[3px] rounded-e-md cursor-pointer bg-primary",
-          currentPostType === "Efterfrågas" && "bg-requestColor bg-opacity-65"
-        )}
+        className={cn("cursor-pointer rounded-e-md bg-primary py-[3px] hover:bg-opacity-60", currentPostType === "Efterfrågas" && "bg-requestColor bg-opacity-65")}
       ></input>
     </div>
   );

@@ -24,11 +24,7 @@ interface ChangeRoleButtonProps {
   newRole: Roles;
 }
 
-export default function ChangeRoleButton({
-  id,
-  email,
-  newRole,
-}: ChangeRoleButtonProps) {
+export default function ChangeRoleButton({ id, email, newRole }: ChangeRoleButtonProps) {
   const router = useRouter();
 
   const onChangeRole = async () => {
@@ -46,18 +42,13 @@ export default function ChangeRoleButton({
   if (newRole === "medlem") {
     return (
       <AlertDialog>
-        <AlertDialogTrigger className="font-medium hover:line-through hover:opacity-80">
-          Moderator
-        </AlertDialogTrigger>
+        <AlertDialogTrigger className="font-medium hover:line-through hover:opacity-80">Moderator</AlertDialogTrigger>
         <AlertDialogContent>
           <AlertDialogHeader>
             <AlertDialogTitle>Är du säker?</AlertDialogTitle>
             <AlertDialogDescription>
               Detta kommer ta bort moderator rollen från
-              <span className="font-semibold text-black break-all">
-                {" "}
-                {email}
-              </span>
+              <span className="break-all font-semibold text-black"> {email}</span>
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
@@ -72,24 +63,18 @@ export default function ChangeRoleButton({
   } else if (newRole === "moderator") {
     return (
       <AlertDialog>
-        <AlertDialogTrigger className="font-medium hover:opacity-80">
-          Gör moderator
-        </AlertDialogTrigger>
+        <AlertDialogTrigger className="font-medium hover:opacity-80">Gör moderator</AlertDialogTrigger>
         <AlertDialogContent>
           <AlertDialogHeader>
             <AlertDialogTitle>Är du säker?</AlertDialogTitle>
             <AlertDialogDescription>
-              Detta kommer att göra{" "}
-              <span className="font-semibold break-all">{email}</span> till
-              moderator. <br /> Moderatorer har tillgång till fler funktioner så
-              som att ta bort annonser och användare.
+              Detta kommer att göra <span className="break-all font-semibold">{email}</span> till moderator. <br /> Moderatorer har tillgång till fler funktioner så som att ta bort annonser och
+              användare.
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
             <AlertDialogCancel>Avbryt</AlertDialogCancel>
-            <AlertDialogAction onClick={onChangeRole}>
-              Gör moderator
-            </AlertDialogAction>
+            <AlertDialogAction onClick={onChangeRole}>Gör moderator</AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>

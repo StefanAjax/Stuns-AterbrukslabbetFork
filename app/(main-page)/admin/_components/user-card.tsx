@@ -11,19 +11,16 @@ interface UserCardProps {
 
 export default function UserCard({ user }: UserCardProps) {
   return (
-    <div
-      key={user.id}
-      className="flex justify-between p-3 md:gap-x-20 gap-x-10 bg-secondary w-full rounded-md"
-    >
+    <div key={user.id} className="flex w-full justify-between gap-x-10 rounded-md bg-secondary p-3 md:gap-x-20">
       <div className="flex flex-col gap-y-2">
-        <div className="break-all line-clamp-1">
+        <div className="line-clamp-1 break-all">
           <Link href={`/profile/${user.id}`} className="hover:opacity-70">
             {user.firstName} {user.lastName}
           </Link>
         </div>
-        <div className="break-all line-clamp-1">{getUserEmail({ user })}</div>
+        <div className="line-clamp-1 break-all">{getUserEmail({ user })}</div>
       </div>
-      <div className="flex flex-col gap-y-2 items-end min-w-fit">
+      <div className="flex min-w-fit flex-col items-end gap-y-2">
         <UserCardActions user={user} />
       </div>
     </div>

@@ -11,14 +11,16 @@ import PostComponent from "../_components/post-component";
 import PostModerationActions from "../_components/post-moderation-actions";
 
 interface PostIdPageProps {
-  params: {
+  params: Promise<{
     postId: string;
-  };
+  }>;
 }
 
 export default async function PostIdPage({ params }: PostIdPageProps) {
-  const postData = await getPostData(Number(params.postId));
-  const userId = getUserId();
+  const { postId } = await params;
+
+  const postData = await getPostData(Number(postId));
+  const userId = await getUserId();
 
   if (postData) {
     const { firstName, lastName, email } = await getNameAndEmailFromUserId({
@@ -32,36 +34,24 @@ export default async function PostIdPage({ params }: PostIdPageProps) {
     const deleteButton =
       userId === postData.userId ? (
         <DeleteOwnPostButton postData={postData} redirectPath="/" />
-      ) : checkRole("admin") || checkRole("moderator") ? (
-        <PostModerationActions
-          postData={postData}
-          postUserRole={postUserRole}
-        />
+      ) : (await checkRole("admin")) || (await checkRole("moderator")) ? (
+        <PostModerationActions postData={postData} postUserRole={postUserRole} />
       ) : undefined;
 
     return (
-      <div className="md:max-w-screen-md max-w-[360px] mt-5 mx-auto">
-        <PostComponent
-          postData={postData}
-          email={email}
-          fullName={fullName}
-          deleteButton={deleteButton}
-        />
+      <div className="mx-auto mt-5 max-w-[360px] md:max-w-screen-md">
+        <PostComponent postData={postData} email={email} fullName={fullName} deleteButton={deleteButton} />
       </div>
     );
   } else {
     return (
-      <div className="flex w-full h-[52vh] items-end justify-center text-center">
-        <div className="flex flex-col max-w-screen-sm gap-y-2 px-3">
-          <h1 className="text-xl font-medium">
-            Oj då, ingen annons hittades...
-          </h1>
+      <div className="flex h-[52vh] w-full items-end justify-center text-center">
+        <div className="flex max-w-screen-sm flex-col gap-y-2 px-3">
+          <h1 className="text-xl font-medium">Oj då, ingen annons hittades...</h1>
           <p className="text-pretty">
-            Denna annons verkar inte finnas. Om du tror att annonsen bör finnas
-            kontrollera då URL:en. Om du precis skapat annonsen kan det ta en
-            liten stund för den att dyka upp.
+            Denna annons verkar inte finnas. Om du tror att annonsen bör finnas kontrollera då URL:en. Om du precis skapat annonsen kan det ta en liten stund för den att dyka upp.
           </p>
-          <Link className="text-blue-600 hover:underline pt-1 text-lg" href="/">
+          <Link className="pt-1 text-lg text-blue-600 hover:underline" href="/">
             Till startsidan
           </Link>
         </div>

@@ -12,15 +12,12 @@ export async function POST(req: NextRequest) {
   const WEBHOOK_SECRET = process.env.WEBHOOK_SECRET;
 
   if (!WEBHOOK_SECRET) {
-    return new NextResponse(
-      "Please add WEBHOOK_SECRET from Clerk Dashboard to .env",
-      {
-        status: 400,
-      }
-    );
+    return new NextResponse("Please add WEBHOOK_SECRET from Clerk Dashboard to .env", {
+      status: 400,
+    });
   }
 
-  const headerPayload = headers();
+  const headerPayload = await headers();
   const svix_id = headerPayload.get("svix-id");
   const svix_timestamp = headerPayload.get("svix-timestamp");
   const svix_signature = headerPayload.get("svix-signature");

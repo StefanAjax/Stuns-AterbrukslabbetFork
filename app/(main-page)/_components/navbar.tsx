@@ -8,76 +8,36 @@ import Logo from "@/components/logo";
 import { SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 import { source_sans_3 } from "@/app/fonts";
 
-export default function Navbar() {
-  const userId = getUserId();
+export default async function Navbar() {
+  const userId = await getUserId();
   return (
-    <header className="flex top-0 h-20 bg-gradient-to-b from-navbarStart to-secondary">
-      <div className="flex justify-between items-center w-full h-full max-w-[1920px] mx-auto px-4">
+    <header className="top-0 flex h-20 w-full bg-white">
+      <div className="mx-auto flex h-full w-full max-w-[1920px] items-center justify-between px-4">
         <Logo />
-        <section className="flex md:space-x-4 space-x-3 w-auto items-center h-full">
+        <section className="flex h-full w-auto items-center space-x-3 md:space-x-4">
           <SignedOut>
-            <Link
-              className={cn("font-semibold text-xl", source_sans_3.className)}
-              href={"/sign-in"}
-            >
+            <Link className={cn("text-xl font-semibold", source_sans_3.className)} href={"/sign-in"}>
               Logga in
             </Link>
           </SignedOut>
           <SignedIn>
-            {(checkRole("admin") || checkRole("moderator")) && (
+            {((await checkRole("admin")) || (await checkRole("moderator"))) && (
               <Link href="/admin">
-                <LockKeyhole
-                  strokeWidth={1}
-                  width={30}
-                  height={30}
-                  className="md:hidden block"
-                />
-                <p
-                  className={cn(
-                    "text-xl hover:opacity-80 font-medium md:block hidden",
-                    source_sans_3.className
-                  )}
-                >
-                  Adminpanel
-                </p>
+                <LockKeyhole strokeWidth={1} width={30} height={30} className="block md:hidden" />
+                <p className={cn("hidden text-xl font-medium hover:opacity-80 md:block", source_sans_3.className)}>Adminpanel</p>
               </Link>
             )}
             <Link href={`/profile/${userId}`}>
-              <BookUser
-                strokeWidth={1}
-                width={30}
-                height={30}
-                className="md:hidden block"
-              />
-              <p
-                className={cn(
-                  "text-xl hover:opacity-80 font-medium md:block hidden",
-                  source_sans_3.className
-                )}
-              >
-                Mina annonser
-              </p>
+              <BookUser strokeWidth={1} width={30} height={30} className="block md:hidden" />
+              <p className={cn("hidden text-xl font-medium hover:opacity-80 md:block", source_sans_3.className)}>Mina annonser</p>
             </Link>
             <Link href="/create-post">
-              <PlusSquare
-                strokeWidth={1}
-                width={30}
-                height={30}
-                className="md:hidden block"
-              />
-              <p
-                className={cn(
-                  "md:block hidden text-xl text-white bg-sky-600 hover:opacity-85 rounded-md px-4 py-[6px] font-medium",
-                  source_sans_3.className
-                )}
-              >
-                Skapa annons
-              </p>
+              <PlusSquare strokeWidth={1} width={30} height={30} className="block md:hidden" />
+              <p className={cn("hidden rounded-md bg-sky-600 px-4 py-[6px] text-xl font-medium text-white hover:opacity-85 md:block", source_sans_3.className)}>Skapa annons</p>
             </Link>
-            <div className="md:block hidden bg-black bg-opacity-70 w-[1px] md:h-1/2 h-2/5" />
-            <div className="md:block hidden">
+            <div className="hidden h-2/5 w-[1px] bg-black bg-opacity-70 md:block md:h-1/2" />
+            <div className="hidden md:block">
               <UserButton
-                afterSignOutUrl="/"
                 appearance={{
                   elements: {
                     avatarBox: {
@@ -88,9 +48,8 @@ export default function Navbar() {
                 }}
               />
             </div>
-            <div className="md:hidden block">
+            <div className="block md:hidden">
               <UserButton
-                afterSignOutUrl="/"
                 appearance={{
                   elements: {
                     avatarBox: {

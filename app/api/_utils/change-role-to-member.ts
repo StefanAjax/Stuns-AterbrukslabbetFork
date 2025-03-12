@@ -6,11 +6,11 @@ interface ChangeRoleToMemberProps {
   id: string;
 }
 
-export default async function ChangeRoleToMember({
-  id,
-}: ChangeRoleToMemberProps) {
+export default async function ChangeRoleToMember({ id }: ChangeRoleToMemberProps) {
+  const client = await clerkClient();
+
   try {
-    await clerkClient.users.updateUser(id, {
+    await client.users.updateUser(id, {
       publicMetadata: { role: "medlem" },
     });
   } catch {

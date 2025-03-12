@@ -6,10 +6,7 @@ interface ArchivePostProps {
   deletionReason: string;
 }
 
-export default async function archivePost({
-  postData,
-  deletionReason,
-}: ArchivePostProps) {
+export default async function archivePost({ postData, deletionReason }: ArchivePostProps) {
   try {
     await db.archivedPosts.create({
       data: {

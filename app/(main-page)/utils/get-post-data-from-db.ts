@@ -12,15 +12,7 @@ interface GetPostDataFromDbProps {
   userId?: string;
 }
 
-export default async function getPostDataFromDb({
-  type,
-  category,
-  currentPage,
-  searchParams,
-  postsPerPage,
-  sort,
-  userId,
-}: GetPostDataFromDbProps) {
+export default async function getPostDataFromDb({ type, category, currentPage, searchParams, postsPerPage, sort, userId }: GetPostDataFromDbProps) {
   const query = {
     skip: currentPage ? (currentPage - 1) * postsPerPage : 0,
     take: postsPerPage,
@@ -40,11 +32,7 @@ export default async function getPostDataFromDb({
     },
   } satisfies Prisma.PostFindManyArgs;
 
-  const [postsList, queriedPostsCount, totalPostCount] = await db.$transaction([
-    db.post.findMany(query),
-    db.post.count({ where: query.where }),
-    db.post.count({ where: { postType: type } }),
-  ]);
+  const [postsList, queriedPostsCount, totalPostCount] = await db.$transaction([db.post.findMany(query), db.post.count({ where: query.where }), db.post.count({ where: { postType: type } })]);
 
   return { postsList, queriedPostsCount, totalPostCount };
 }

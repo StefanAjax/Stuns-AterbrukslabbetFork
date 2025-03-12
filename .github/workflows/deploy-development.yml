@@ -1,0 +1,49 @@
+name: Deploy to Development Server
+
+on:
+  workflow_dispatch:
+
+jobs:
+  check_linting:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4.2.2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4.2.0
+        with:
+          node-version: "latest"
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4.1.0
+        with:
+          version: "latest"
+
+      - name: Install dependencies
+        run: pnpm i
+
+      - name: Lint code
+        run: pnpm format:check
+
+  deploy:
+    needs: check_linting
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Deploy to development server
+        uses: appleboy/ssh-action@v1.2.1
+        with:
+          host: ${{ secrets.DEV_SERVER_HOST }}
+          username: ${{ secrets.DEV_SERVER_USERNAME }}
+          password: ${{ secrets.DEV_SERVER_PASSWORD }}
+          port: ${{ secrets.DEV_SERVER_PORT }}
+          script: |
+            cd Stuns-Aterbrukslabbet/
+            git checkout ${{ github.ref_name }}
+            git fetch origin ${{ github.ref_name }}
+            git reset --hard origin/${{ github.ref_name }}
+            pnpm i --frozen-lockfile
+            pnpm build
+            sudo shutdown -r +1 "Rebooting in 1 minute"

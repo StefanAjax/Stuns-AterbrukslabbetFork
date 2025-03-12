@@ -4,28 +4,25 @@ import extendSoonExpiringPost from "./extend-soon-expiring-post";
 import getSoonExpiringPost from "../../utils/get-soon-expiring-post";
 
 interface ExtendPostByMailPageProps {
-  params: {
+  params: Promise<{
     postLink: string;
-  };
+  }>;
 }
 
-export default async function ExtendPostByMailPage({
-  params,
-}: ExtendPostByMailPageProps) {
+export default async function ExtendPostByMailPage({ params }: ExtendPostByMailPageProps) {
+  const { postLink } = await params;
   const soonExpiringPost = await getSoonExpiringPost({
-    postLink: params.postLink,
+    postLink: postLink,
   });
 
   if (!soonExpiringPost) {
     return (
-      <div className="flex flex-col max-w-screen-sm mx-auto gap-y-2 px-3 h-[75vh] justify-center text-center">
+      <div className="mx-auto flex h-[75vh] max-w-screen-sm flex-col justify-center gap-y-2 px-3 text-center">
         <h1 className="text-xl font-medium">Ingen annons hittades</h1>
         <p>
-          Ojdå, något gick fel och ingen annons hittades. <br /> Säkerställ att
-          annonsen inte redan förlängts eller tagits bort. <br /> Var god och
-          kontakta oss om problemet kvarstår.
+          Ojdå, något gick fel och ingen annons hittades. <br /> Säkerställ att annonsen inte redan förlängts eller tagits bort. <br /> Var god och kontakta oss om problemet kvarstår.
         </p>
-        <Link className="text-blue-600 hover:underline pt-1 text-lg" href="/">
+        <Link className="pt-1 text-lg text-blue-600 hover:underline" href="/">
           Till startsidan
         </Link>
       </div>
@@ -42,13 +39,12 @@ export default async function ExtendPostByMailPage({
   }
 
   return (
-    <div className="flex flex-col max-w-screen-sm mx-auto gap-y-2 px-3 h-[75vh] justify-center text-center">
+    <div className="mx-auto flex h-[75vh] max-w-screen-sm flex-col justify-center gap-y-2 px-3 text-center">
       <h1 className="text-xl font-medium">Annons förlängd</h1>
       <p className="text-balance">
-        Din annons &quot;{soonExpiringPost.title}&quot; har förlängts med sex
-        månader. Annonsens nya utgångsdatum är {String(response.data)}.
+        Din annons &quot;{soonExpiringPost.title}&quot; har förlängts med sex månader. Annonsens nya utgångsdatum är {String(response.data)}.
       </p>
-      <Link className="text-blue-600 hover:underline pt-1 text-lg" href="/">
+      <Link className="pt-1 text-lg text-blue-600 hover:underline" href="/">
         Till startsidan
       </Link>
     </div>

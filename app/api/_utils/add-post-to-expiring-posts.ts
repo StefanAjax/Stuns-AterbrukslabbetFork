@@ -6,9 +6,7 @@ interface AddPostToExpiringPostsProps {
   post: Post;
 }
 
-export default async function addPostToExpiringPosts({
-  post,
-}: AddPostToExpiringPostsProps) {
+export default async function addPostToExpiringPosts({ post }: AddPostToExpiringPostsProps) {
   const alreadyExists = await db.soonExpiringPosts.findFirst({
     where: {
       postId: post.id,

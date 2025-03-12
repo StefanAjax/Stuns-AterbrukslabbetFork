@@ -5,7 +5,7 @@ interface FormLabelProps {
 
 export default function FormLabel({ htmlFor, labelText }: FormLabelProps) {
   return (
-    <label htmlFor={htmlFor} className="font-medium md:text-base text-sm">
+    <label htmlFor={htmlFor} className="text-sm font-medium md:text-base">
       {labelText}
     </label>
   );

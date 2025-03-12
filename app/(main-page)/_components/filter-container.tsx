@@ -10,20 +10,17 @@ interface FilterContainerProps {
   postCount: number;
 }
 
-export default function FilterContainer({
-  totalPostCount,
-  postCount,
-}: FilterContainerProps) {
+export default function FilterContainer({ totalPostCount, postCount }: FilterContainerProps) {
   const labelText = `Sök bland ${totalPostCount} annonser`;
 
   return (
-    <div className="flex flex-col md:gap-y-3 gap-y-2 mt-4">
+    <div className="mt-4 flex flex-col gap-y-2 md:gap-y-3">
       <SearchBar labelText={labelText} itemsFoundCount={postCount} />
-      <div className="flex justify-between items-center gap-x-2 w-full">
+      <div className="flex w-full items-center justify-between gap-x-2">
         <PostTypeButtons />
         <CreatePostLink />
       </div>
-      <section className="flex justify-between w-full gap-x-2">
+      <section className="flex w-full justify-between gap-x-2">
         <PostCategoryButtons />
         <PostSortSelect />
       </section>

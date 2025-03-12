@@ -1,16 +1,16 @@
-import { clerkClient } from "@clerk/nextjs";
+import { clerkClient } from "@clerk/nextjs/server";
 import getUserEmail from "@/utils/get-user-email";
 
 interface GetNameAndEmailFromUserIdProps {
   userId: string;
 }
 
-export default async function getNameAndEmailFromUserId({
-  userId,
-}: GetNameAndEmailFromUserIdProps) {
+export default async function getNameAndEmailFromUserId({ userId }: GetNameAndEmailFromUserIdProps) {
+  const client = await clerkClient();
+
   let returnedUser;
   try {
-    returnedUser = await clerkClient.users.getUser(userId);
+    returnedUser = await client.users.getUser(userId);
   } catch (error) {
     console.error(error);
   }

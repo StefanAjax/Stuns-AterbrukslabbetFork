@@ -17,10 +17,7 @@ export function PostExpiredCustomMail({ postTitle }: ExpiringPostsEmailsProps) {
       header={`Din annons "${postTitle}" har blivit borttaget`}
       main={
         <>
-          <Text>
-            Din valda tidsperiod för din annons har nu gått ut. Eftersom
-            annonsen inte förlängdes har det nu blivit borttaget.
-          </Text>
+          <Text>Din valda tidsperiod för din annons har nu gått ut. Eftersom annonsen inte förlängdes har det nu blivit borttaget.</Text>
         </>
       }
     />
@@ -34,22 +31,14 @@ export function PostExpiredMail({ postTitle }: ExpiringPostsEmailsProps) {
       header={`Din annons "${postTitle}" har blivit borttaget`}
       main={
         <>
-          <Text>
-            Det har nu gått 6 månader sen du publicerade annonsen eller förnyade
-            dess utgångsdatum. Eftersom annonsen inte förlängdes har det nu
-            blivit borttaget.
-          </Text>
+          <Text>Det har nu gått 6 månader sen du publicerade annonsen eller förnyade dess utgångsdatum. Eftersom annonsen inte förlängdes har det nu blivit borttaget.</Text>
         </>
       }
     />
   );
 }
 
-export function PostExpiresInAWeekCustomMail({
-  postTitle,
-  postLink,
-  postId,
-}: ExpiringPostsEmailsProps) {
+export function PostExpiresInAWeekCustomMail({ postTitle, postLink, postId }: ExpiringPostsEmailsProps) {
   return (
     <EmailTemplate
       preview={`Din annons "${postTitle}" kommer tas bort om en vecka`}
@@ -57,38 +46,25 @@ export function PostExpiresInAWeekCustomMail({
       main={
         <>
           <Text>
-            Din valda tidsperiod för annonsen har snart gått ut. Du kan förlänga
-            annonsen om det fortfarande är aktuellt eller så kan du ta bort den.
-            Om inget görs kommer annonsen att tas bort om en vecka.
+            Din valda tidsperiod för annonsen har snart gått ut. Du kan förlänga annonsen om det fortfarande är aktuellt eller så kan du ta bort den. Om inget görs kommer annonsen att tas bort om en
+            vecka.
           </Text>
           <Section className="mb-6">
-            <Button
-              className="p-3 mr-4 rounded-md bg-gray-300 text-black"
-              href={`${process.env.NEXT_PUBLIC_SITE_URL}/extend/${postLink}`}
-            >
+            <Button className="mr-4 rounded-md bg-gray-300 p-3 text-black" href={`${process.env.NEXT_PUBLIC_SITE_URL}/extend/${postLink}`}>
               Förläng
             </Button>
-            <Button
-              className="p-3 rounded-md bg-gray-300 text-black"
-              href={`${process.env.NEXT_PUBLIC_SITE_URL}/delete/${postLink}`}
-            >
+            <Button className="rounded-md bg-gray-300 p-3 text-black" href={`${process.env.NEXT_PUBLIC_SITE_URL}/delete/${postLink}`}>
               Ta bort
             </Button>
           </Section>
-          <Link href={`${process.env.NEXT_PUBLIC_SITE_URL}/post/${postId}`}>
-            Gå till annons
-          </Link>
+          <Link href={`${process.env.NEXT_PUBLIC_SITE_URL}/post/${postId}`}>Gå till annons</Link>
         </>
       }
     />
   );
 }
 
-export function PostExpiresInAWeekMail({
-  postTitle,
-  postLink,
-  postId,
-}: ExpiringPostsEmailsProps) {
+export function PostExpiresInAWeekMail({ postTitle, postLink, postId }: ExpiringPostsEmailsProps) {
   return (
     <EmailTemplate
       preview={`Din annons "${postTitle}" kommer tas bort om en vecka`}
@@ -96,39 +72,25 @@ export function PostExpiresInAWeekMail({
       main={
         <>
           <Text>
-            Det har snart gått 6 månader sen du publicerade annonsen eller
-            förnyade dess utgångsdatum. Du kan förlänga annonsen om det
-            fortfarande är aktuellt eller så kan du ta bort den. Om inget görs
-            kommer annonsen att tas bort om en vecka.
+            Det har snart gått 6 månader sen du publicerade annonsen eller förnyade dess utgångsdatum. Du kan förlänga annonsen om det fortfarande är aktuellt eller så kan du ta bort den. Om inget
+            görs kommer annonsen att tas bort om en vecka.
           </Text>
           <Section className="mb-6">
-            <Button
-              className="p-3 mr-4 rounded-md bg-gray-300 text-black"
-              href={`${process.env.NEXT_PUBLIC_SITE_URL}/extend/${postLink}`}
-            >
+            <Button className="mr-4 rounded-md bg-gray-300 p-3 text-black" href={`${process.env.NEXT_PUBLIC_SITE_URL}/extend/${postLink}`}>
               Förläng
             </Button>
-            <Button
-              className="p-3 rounded-md bg-gray-300 text-black"
-              href={`${process.env.NEXT_PUBLIC_SITE_URL}/delete/${postLink}`}
-            >
+            <Button className="rounded-md bg-gray-300 p-3 text-black" href={`${process.env.NEXT_PUBLIC_SITE_URL}/delete/${postLink}`}>
               Ta bort
             </Button>
           </Section>
-          <Link href={`${process.env.NEXT_PUBLIC_SITE_URL}/post/${postId}`}>
-            Gå till annons
-          </Link>
+          <Link href={`${process.env.NEXT_PUBLIC_SITE_URL}/post/${postId}`}>Gå till annons</Link>
         </>
       }
     />
   );
 }
 
-export function PostExpiresTomorrowCustomMail({
-  postTitle,
-  postLink,
-  postId,
-}: ExpiringPostsEmailsProps) {
+export function PostExpiresTomorrowCustomMail({ postTitle, postLink, postId }: ExpiringPostsEmailsProps) {
   return (
     <EmailTemplate
       preview={`Din annons "${postTitle}" kommer tas bort imorgon`}
@@ -136,38 +98,24 @@ export function PostExpiresTomorrowCustomMail({
       main={
         <>
           <Text>
-            Din valda tidsperiod för annonsen tar slut imorgon. Du kan förlänga
-            annonsen om det fortfarande är aktuellt eller så kan du ta bort den.
-            Om inget görs kommer annonsen att tas bort imorgon.
+            Din valda tidsperiod för annonsen tar slut imorgon. Du kan förlänga annonsen om det fortfarande är aktuellt eller så kan du ta bort den. Om inget görs kommer annonsen att tas bort imorgon.
           </Text>
           <Section className="mb-6">
-            <Button
-              className="p-3 mr-4 rounded-md bg-gray-300 text-black"
-              href={`${process.env.NEXT_PUBLIC_SITE_URL}/extend/${postLink}`}
-            >
+            <Button className="mr-4 rounded-md bg-gray-300 p-3 text-black" href={`${process.env.NEXT_PUBLIC_SITE_URL}/extend/${postLink}`}>
               Förläng
             </Button>
-            <Button
-              className="p-3 rounded-md bg-gray-300 text-black"
-              href={`${process.env.NEXT_PUBLIC_SITE_URL}/delete/${postLink}`}
-            >
+            <Button className="rounded-md bg-gray-300 p-3 text-black" href={`${process.env.NEXT_PUBLIC_SITE_URL}/delete/${postLink}`}>
               Ta bort
             </Button>
           </Section>
-          <Link href={`${process.env.NEXT_PUBLIC_SITE_URL}/post/${postId}`}>
-            Gå till annonsen
-          </Link>
+          <Link href={`${process.env.NEXT_PUBLIC_SITE_URL}/post/${postId}`}>Gå till annonsen</Link>
         </>
       }
     />
   );
 }
 
-export function PostExpiresTomorrowMail({
-  postTitle,
-  postLink,
-  postId,
-}: ExpiringPostsEmailsProps) {
+export function PostExpiresTomorrowMail({ postTitle, postLink, postId }: ExpiringPostsEmailsProps) {
   return (
     <EmailTemplate
       preview={`Din annons "${postTitle}" kommer tas bort imorgon`}
@@ -175,28 +123,18 @@ export function PostExpiresTomorrowMail({
       main={
         <>
           <Text>
-            Det har snart gått 6 månader sen du publicerade annonsen eller
-            förnyade dess utgångsdatum. Du kan förlänga annonsen om den
-            fortfarande är aktuellt eller så kan du ta bort den. Om inget görs
-            kommer annonsen att tas bort imorgon.
+            Det har snart gått 6 månader sen du publicerade annonsen eller förnyade dess utgångsdatum. Du kan förlänga annonsen om den fortfarande är aktuellt eller så kan du ta bort den. Om inget
+            görs kommer annonsen att tas bort imorgon.
           </Text>
           <Section className="mb-6">
-            <Button
-              className="p-3 mr-4 rounded-md bg-gray-300 text-black"
-              href={`${process.env.NEXT_PUBLIC_SITE_URL}/extend/${postLink}`}
-            >
+            <Button className="mr-4 rounded-md bg-gray-300 p-3 text-black" href={`${process.env.NEXT_PUBLIC_SITE_URL}/extend/${postLink}`}>
               Förläng
             </Button>
-            <Button
-              className="p-3 rounded-md bg-gray-300 text-black"
-              href={`${process.env.NEXT_PUBLIC_SITE_URL}/delete/${postLink}`}
-            >
+            <Button className="rounded-md bg-gray-300 p-3 text-black" href={`${process.env.NEXT_PUBLIC_SITE_URL}/delete/${postLink}`}>
               Ta bort
             </Button>
           </Section>
-          <Link href={`${process.env.NEXT_PUBLIC_SITE_URL}/post/${postId}`}>
-            Gå till annons
-          </Link>
+          <Link href={`${process.env.NEXT_PUBLIC_SITE_URL}/post/${postId}`}>Gå till annons</Link>
         </>
       }
     />

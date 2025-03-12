@@ -1,11 +1,6 @@
 "use client";
 
-import {
-  ChevronFirst,
-  ChevronLast,
-  ChevronLeft,
-  ChevronRight,
-} from "lucide-react";
+import { ChevronFirst, ChevronLast, ChevronLeft, ChevronRight } from "lucide-react";
 import { ReactElement } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
@@ -15,12 +10,8 @@ interface PaginationProps {
   hashLinkId?: string;
 }
 
-export default function Pagination({
-  itemCount,
-  itemsPerPage,
-  hashLinkId,
-}: PaginationProps) {
-  const searchParams = useSearchParams();
+export default function Pagination({ itemCount, itemsPerPage, hashLinkId }: PaginationProps) {
+  const searchParams = new URLSearchParams(useSearchParams().toString());
   const pathname = usePathname();
   const { replace } = useRouter();
 
@@ -36,9 +27,7 @@ export default function Pagination({
     } else {
       params.delete("page");
     }
-    hashLinkId
-      ? replace(`${pathname}?${params.toString()}#${hashLinkId}`)
-      : replace(`${pathname}?${params.toString()}`);
+    hashLinkId ? replace(`${pathname}?${params.toString()}#${hashLinkId}`) : replace(`${pathname}?${params.toString()}`);
   }
 
   const pageButtons: Array<ReactElement> = [];
@@ -47,23 +36,15 @@ export default function Pagination({
     for (let pageIndex = startPage; pageIndex <= endPage; pageIndex++) {
       if (pageIndex === currentPage) {
         pageButtons.push(
-          <button
-            key={pageIndex}
-            className="underline font-semibold md:p-4 p-2"
-            onClick={() => handlePageChange(pageIndex)}
-          >
+          <button key={pageIndex} className="p-2 font-semibold underline md:p-4" onClick={() => handlePageChange(pageIndex)}>
             {pageIndex}
-          </button>
+          </button>,
         );
       } else {
         pageButtons.push(
-          <button
-            className="md:p-4 p-2"
-            key={pageIndex}
-            onClick={() => handlePageChange(pageIndex)}
-          >
+          <button className="p-2 md:p-4" key={pageIndex} onClick={() => handlePageChange(pageIndex)}>
             {pageIndex}
-          </button>
+          </button>,
         );
       }
     }
@@ -87,27 +68,25 @@ export default function Pagination({
     return;
   } else {
     return (
-      <div className="flex justify-center items-center mt-4 gap-x-2">
-        <div className="flex items-center p-2 gap-x-2">
+      <div className="mt-4 flex items-center justify-center gap-x-2">
+        <div className="flex items-center gap-x-2 p-2">
           {pages > 5 && (
             <button onClick={() => handlePageChange(1)}>
-              <ChevronFirst className="md:h-6 md:w-6 h-4 w-4" />
+              <ChevronFirst className="h-4 w-4 md:h-6 md:w-6" />
             </button>
           )}
           <button onClick={() => handlePageChange(currentPage - 1)}>
-            <ChevronLeft className="md:h-6 md:w-6 h-4 w-4" />
+            <ChevronLeft className="h-4 w-4 md:h-6 md:w-6" />
           </button>
         </div>
-        <div className="flex justify-center gap-x-2 md:text-xl text-base">
-          {pageButtons}
-        </div>
-        <div className="flex items-center p-2 gap-x-2">
+        <div className="flex justify-center gap-x-2 text-base md:text-xl">{pageButtons}</div>
+        <div className="flex items-center gap-x-2 p-2">
           <button onClick={() => handlePageChange(currentPage + 1)}>
-            <ChevronRight className="md:h-6 md:w-6 h-4 w-4" />
+            <ChevronRight className="h-4 w-4 md:h-6 md:w-6" />
           </button>
           {pages > 5 && (
             <button onClick={() => handlePageChange(pages)}>
-              <ChevronLast className="md:h-6 md:w-6 h-4 w-4" />
+              <ChevronLast className="h-4 w-4 md:h-6 md:w-6" />
             </button>
           )}
         </div>

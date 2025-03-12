@@ -8,53 +8,42 @@ import PostContainer from "../../_components/post-container";
 import ProfilePageModerationActions from "../_components/profile-page-moderation-actions";
 
 interface ProfilePageProps {
-  params: {
+  params: Promise<{
     userId: string;
-  };
-  searchParams: {
+  }>;
+  searchParams: Promise<{
     page?: string;
-  };
+  }>;
 }
 
-export default async function ProfilePage({
-  params,
-  searchParams,
-}: ProfilePageProps) {
+export default async function ProfilePage({ params, searchParams }: ProfilePageProps) {
+  const { userId } = await params;
+  const { page } = await searchParams;
+
   const postsPerPage = 10;
-  const currentUserId = getUserId();
-  const pageUserRole = await getUserRoleFromUserId({ userId: params.userId });
+  const currentUserId = await getUserId();
+  const pageUserRole = await getUserRoleFromUserId({ userId: userId });
   const { firstName, lastName, email } = await getNameAndEmailFromUserId({
-    userId: params.userId,
+    userId: userId,
   });
 
-  const headerText =
-    currentUserId === params.userId
-      ? "Mina annonser"
-      : `${firstName} ${lastName}'s annonser`;
+  const headerText = currentUserId === userId ? "Mina annonser" : `${firstName} ${lastName}'s annonser`;
 
   const { postsList, queriedPostsCount } = await getPostDataFromDb({
     type: undefined,
     category: undefined,
-    currentPage: Number(searchParams.page),
+    currentPage: Number(page),
     postsPerPage: postsPerPage,
     sort: "desc",
-    userId: params.userId,
+    userId: userId,
   });
 
   return (
-    <div className="flex flex-col md:mt-5 mt-3 md:px-5 px-2 mx-auto md:max-w-screen-md max-w-[360px]">
-      <ProfilePageModerationActions
-        pageUserId={params.userId}
-        email={email}
-        pageUserRole={pageUserRole}
-      />
-      <div className="grid grid-cols-12 grid-cols md:text-xl text-base">
-        <p className="md:col-span-8 col-span-6 break-words line-clamp-2">
-          {headerText}
-        </p>
-        <p className="text-end md:col-span-4 col-span-6">
-          {queriedPostsCount} aktiva annonser
-        </p>
+    <div className="mx-auto mt-3 flex max-w-[360px] flex-col px-2 md:mt-5 md:max-w-screen-md md:px-5">
+      <ProfilePageModerationActions pageUserId={userId} email={email} pageUserRole={pageUserRole} />
+      <div className="grid-cols grid grid-cols-12 text-base md:text-xl">
+        <p className="col-span-6 line-clamp-2 break-words md:col-span-8">{headerText}</p>
+        <p className="col-span-6 text-end md:col-span-4">{queriedPostsCount} aktiva annonser</p>
       </div>
       <PostContainer posts={postsList} />
       <Pagination itemCount={queriedPostsCount} itemsPerPage={postsPerPage} />

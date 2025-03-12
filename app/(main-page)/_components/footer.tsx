@@ -2,8 +2,8 @@ import Link from "next/link";
 
 export default function Footer() {
   return (
-    <footer className="w-full md:mt-16 mt-12 bg-gradient-to-b from-secondary to-navbarStart">
-      <div className="flex w-full justify-around max-w-[1000px] md:text-base text-sm font-semibold py-10 mx-auto">
+    <footer className="mt-12 w-full bg-white md:mt-16">
+      <div className="mx-auto flex w-full max-w-[1000px] justify-around py-10 text-sm font-semibold md:text-base">
         <Link href="/faq" className="hover:underline">
           Vanliga frågor
         </Link>

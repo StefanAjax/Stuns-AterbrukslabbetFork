@@ -4,16 +4,7 @@ import { Controller, useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 
-import {
-  AlertDialog,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogTrigger,
-} from "@/components/ui/alert-dialog";
+import { AlertDialog, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
 import deleteOwnPost from "@/utils/delete-own-post";
 import type { Post } from "@prisma/client";
@@ -30,10 +21,7 @@ type Inputs = {
   reason: string;
 };
 
-export default function DeleteOwnPostButton({
-  postData,
-  redirectPath,
-}: DeleteOwnPostButtonProps) {
+export default function DeleteOwnPostButton({ postData, redirectPath }: DeleteOwnPostButtonProps) {
   const {
     control,
     handleSubmit,
@@ -59,9 +47,7 @@ export default function DeleteOwnPostButton({
 
   return (
     <AlertDialog>
-      <AlertDialogTrigger className="text-destructive font-semibold md:text-base text-sm hover:opacity-80">
-        Ta bort annons
-      </AlertDialogTrigger>
+      <AlertDialogTrigger className="text-sm font-semibold text-destructive hover:opacity-80 md:text-base">Ta bort annons</AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
           <AlertDialogTitle>Är du säker?</AlertDialogTitle>
@@ -72,19 +58,13 @@ export default function DeleteOwnPostButton({
         </AlertDialogHeader>
         <form onSubmit={handleSubmit(onDelete)}>
           <div className="flex flex-col items-center md:items-start">
-            <h2 className="text-base font-semibold">
-              Resulterade annonsen i en donation?
-            </h2>
+            <h2 className="text-base font-semibold">Resulterade annonsen i en donation?</h2>
             <Controller
               name="reason"
               control={control}
               rules={{ required: "Välj ett alternativ" }}
               render={({ field: { onChange, value } }) => (
-                <RadioGroup
-                  className="flex items-center"
-                  value={value}
-                  onValueChange={(value) => onChange(value)}
-                >
+                <RadioGroup className="flex items-center" value={value} onValueChange={(value) => onChange(value)}>
                   <h3>Ja</h3>
                   <RadioGroupItem value="Lyckad" />
                   <h3>Nej</h3>
@@ -92,9 +72,7 @@ export default function DeleteOwnPostButton({
                 </RadioGroup>
               )}
             />
-            {errors.reason?.message && (
-              <FormErrorParagraph content={errors.reason.message} />
-            )}
+            {errors.reason?.message && <FormErrorParagraph content={errors.reason.message} />}
           </div>
           <AlertDialogFooter className="pt-8">
             <AlertDialogCancel>Avbryt</AlertDialogCancel>

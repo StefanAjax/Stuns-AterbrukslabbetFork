@@ -10,10 +10,7 @@ interface DeletePostProps {
   deletionReason: string;
 }
 
-export default async function deletePost({
-  postData,
-  deletionReason,
-}: DeletePostProps) {
+export default async function deletePost({ postData, deletionReason }: DeletePostProps) {
   try {
     await archivePost({ postData, deletionReason });
   } catch (err) {

@@ -23,11 +23,7 @@ interface DeleteUserButtonProps {
   redirectPath?: string;
 }
 
-export default function DeleteUserButton({
-  id,
-  email,
-  redirectPath,
-}: DeleteUserButtonProps) {
+export default function DeleteUserButton({ id, email, redirectPath }: DeleteUserButtonProps) {
   const router = useRouter();
   const [comment, setComment] = useState("");
 
@@ -47,23 +43,21 @@ export default function DeleteUserButton({
 
   return (
     <AlertDialog>
-      <AlertDialogTrigger className="text-destructive font-semibold hover:opacity-80">
-        Ta bort konto
-      </AlertDialogTrigger>
+      <AlertDialogTrigger className="font-semibold text-destructive hover:opacity-80">Ta bort konto</AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
           <AlertDialogTitle>Är du säker?</AlertDialogTitle>
           <AlertDialogDescription>
             Detta kommer
             <span className="font-bold"> permanent</span> ta bort användaren
-            <span className="font-semibold break-all"> {email} </span>
+            <span className="break-all font-semibold"> {email} </span>
             och
             <span className="font-bold"> alla</span> deras annonser.
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
           <input
-            className="rounded-md p-2 w-full hidden sm:block"
+            className="hidden w-full rounded-md p-2 sm:block"
             type="text"
             value={comment}
             onChange={(e) => setComment(e.target.value)}
@@ -75,7 +69,7 @@ export default function DeleteUserButton({
             Ta bort
           </AlertDialogAction>
           <input
-            className="rounded-md p-2 w-full block sm:hidden mb-2"
+            className="mb-2 block w-full rounded-md p-2 sm:hidden"
             type="text"
             value={comment}
             onChange={(e) => setComment(e.target.value)}

@@ -8,7 +8,7 @@ interface CreatePostProps {
 }
 
 export default async function createPost({ data }: CreatePostProps) {
-  const userId = getUserId();
+  const userId = await getUserId();
 
   if (!userId) {
     return { error: "Kunde inte hämta användarinformation" };
@@ -23,8 +23,7 @@ export default async function createPost({ data }: CreatePostProps) {
         postType: data.postTypePicker,
         category: data.categoryPicker,
         location: data.municipalityPicker,
-        expiresAt:
-          data.datePicker !== undefined ? new Date(data.datePicker) : undefined,
+        expiresAt: data.datePicker !== undefined ? new Date(data.datePicker) : undefined,
         hasCustomExpirationDate: data.datePicker !== undefined,
       },
     });

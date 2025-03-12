@@ -1,0 +1,29 @@
+name: Code Verification on Push
+
+on:
+  push:
+    branches: "**"
+
+jobs:
+  check_linting:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4.2.2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4.2.0
+        with:
+          node-version: "latest"
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4.1.0
+        with:
+          version: "latest"
+
+      - name: Install dependencies
+        run: pnpm i
+
+      - name: Lint code
+        run: pnpm format:check

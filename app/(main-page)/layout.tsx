@@ -3,13 +3,9 @@ import { Toaster } from "sonner";
 import Footer from "./_components/footer";
 import Navbar from "./_components/navbar";
 
-export default function MainPageLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function MainPageLayout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="flex flex-col justify-between h-full">
+    <div className="flex h-full flex-col justify-between">
       <div>
         <Navbar />
         <div>{children}</div>

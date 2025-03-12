@@ -7,45 +7,36 @@ import Intro from "./_components/intro";
 import PostContainer from "./_components/post-container";
 
 interface MainPageProps {
-  searchParams: {
+  searchParams: Promise<{
     type?: PostType;
     category?: PostCategory;
     page?: string;
     search?: string;
     sort?: SortOrder;
-  };
+  }>;
 }
 
 export default async function MainPage({ searchParams }: MainPageProps) {
   const postsPerPage = 10;
 
-  const { postsList, queriedPostsCount, totalPostCount } =
-    await getPostDataFromDb({
-      type: searchParams.type,
-      category: searchParams.category,
-      currentPage: Number(searchParams.page),
-      searchParams: searchParams.search,
-      postsPerPage: postsPerPage,
-      sort: searchParams.sort,
-    });
+  const { type, category, page, search, sort } = await searchParams;
+
+  const { postsList, queriedPostsCount, totalPostCount } = await getPostDataFromDb({
+    type: type,
+    category: category,
+    currentPage: Number(page),
+    searchParams: search,
+    postsPerPage: postsPerPage,
+    sort: sort,
+  });
   return (
     <div>
       <Intro />
-      <div
-        className="mx-auto md:px-5 px-2 md:max-w-screen-md max-w-[360px]"
-        id="filters"
-      >
-        <FilterContainer
-          totalPostCount={totalPostCount}
-          postCount={queriedPostsCount}
-        />
+      <div className="mx-auto max-w-[360px] px-2 md:max-w-screen-md md:px-5" id="filters">
+        <FilterContainer totalPostCount={totalPostCount} postCount={queriedPostsCount} />
         <PostContainer posts={postsList} />
       </div>
-      <Pagination
-        itemCount={queriedPostsCount}
-        itemsPerPage={postsPerPage}
-        hashLinkId="filters"
-      />
+      <Pagination itemCount={queriedPostsCount} itemsPerPage={postsPerPage} hashLinkId="filters" />
     </div>
   );
 }

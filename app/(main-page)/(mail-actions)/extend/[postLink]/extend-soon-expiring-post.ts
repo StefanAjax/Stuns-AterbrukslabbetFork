@@ -6,12 +6,8 @@ interface ExtendSoonExpiringPostProps {
   postId: number;
 }
 
-export default async function extendSoonExpiringPost({
-  postId,
-}: ExtendSoonExpiringPostProps) {
-  const newExpirationDate = new Date(
-    new Date().setMonth(new Date().getMonth() + 6)
-  );
+export default async function extendSoonExpiringPost({ postId }: ExtendSoonExpiringPostProps) {
+  const newExpirationDate = new Date(new Date().setMonth(new Date().getMonth() + 6));
   try {
     await db.post.update({
       where: {

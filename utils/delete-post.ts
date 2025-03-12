@@ -14,11 +14,8 @@ interface DeletePostProps {
   comment?: string;
 }
 
-export default async function deletePost({
-  postData,
-  comment,
-}: DeletePostProps) {
-  if (!checkRole("admin") && !checkRole("moderator")) {
+export default async function deletePost({ postData, comment }: DeletePostProps) {
+  if (!(await checkRole("admin")) && !(await checkRole("moderator"))) {
     return { error: "Obehörig" };
   }
   const { email } = await getNameAndEmailFromUserId({

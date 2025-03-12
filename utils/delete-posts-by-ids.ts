@@ -7,10 +7,7 @@ interface DeletePostsByIdProps {
   deletionReason: string;
 }
 
-export default async function deletePostsByIds({
-  postsIds,
-  deletionReason,
-}: DeletePostsByIdProps) {
+export default async function deletePostsByIds({ postsIds, deletionReason }: DeletePostsByIdProps) {
   const [posts] = await db.$transaction([
     db.post.findMany({
       where: {

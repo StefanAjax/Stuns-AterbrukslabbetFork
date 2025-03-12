@@ -2,9 +2,7 @@ interface GetPostTypeSpecificDataProps {
   postType: string;
 }
 
-export default function getPostTypeSpecificData({
-  postType,
-}: GetPostTypeSpecificDataProps) {
+export default function getPostTypeSpecificData({ postType }: GetPostTypeSpecificDataProps) {
   let postTypeColor, expirationDateText;
 
   if (postType === "Erbjuds") {

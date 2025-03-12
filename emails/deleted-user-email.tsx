@@ -16,9 +16,7 @@ export default function DeleteUserEmail({ comment }: DeletedUserEmailProps) {
       main={
         <>
           <Text>
-            Detta kan bero på att du har uppfört dig olämpligt på sidan
-            och/eller brutit våra regler. Om du tror att det har skett ett
-            fel och inte känner igen detta kan du höra av dig till oss.
+            Detta kan bero på att du har uppfört dig olämpligt på sidan och/eller brutit våra regler. Om du tror att det har skett ett fel och inte känner igen detta kan du höra av dig till oss.
           </Text>
           {comment && comment.length > 0 && (
             <Section>

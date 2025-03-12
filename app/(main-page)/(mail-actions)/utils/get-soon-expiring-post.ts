@@ -6,9 +6,7 @@ interface GetSoonExpiringPostProps {
   postLink: string;
 }
 
-export default async function getSoonExpiringPost({
-  postLink,
-}: GetSoonExpiringPostProps) {
+export default async function getSoonExpiringPost({ postLink }: GetSoonExpiringPostProps) {
   const soonExpiringPost = await db.soonExpiringPosts.findFirst({
     where: {
       postLink,
