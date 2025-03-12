@@ -24,8 +24,8 @@ export const setup = async (page: Page, { login = false, directory = "/" }: { lo
 
     await page
       .getByRole("button")
-      .filter({ hasText: "Fortsätt" })
-      .or(page.getByRole("button").filter({ hasText: "Continue" }))
+      .filter({ hasText: "Fortsätt", hasNotText: "Google" })
+      .or(page.getByRole("button").filter({ hasText: "Continue", hasNotText: "Google" }))
       .first()
       .click();
   }
