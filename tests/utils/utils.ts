@@ -31,6 +31,12 @@ export const setup = async (page: Page, { login = false, directory = "/" }: { lo
   }
 
   await page.goto(directory);
+
+  if (login) {
+    if (await page.isVisible("text=Logga in")) {
+      await page.getByText("Logga in").first().click();
+    }
+  }
 };
 
 export const screenshot = async (page: Page, browserName: string) => {
