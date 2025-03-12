@@ -31,22 +31,6 @@ export const setup = async (page: Page, { login = false, directory = "/" }: { lo
   }
 
   await page.goto(directory);
-
-  if (login) {
-    if (await page.isVisible("text=Logga in")) {
-      await page.screenshot({
-        path: `./tests/logs/screenshot-${test.info().title}-login1-${Date.now()}.png`,
-        fullPage: true,
-      });
-
-      await page.getByText("Logga in").first().click();
-
-      await page.screenshot({
-        path: `./tests/logs/screenshot-${test.info().title}-login2-${Date.now()}.png`,
-        fullPage: true,
-      });
-    }
-  }
 };
 
 export const screenshot = async (page: Page, browserName: string) => {
