@@ -1,16 +1,19 @@
 import { test } from "@playwright/test";
 import type { Page } from "@playwright/test";
 import { db } from "@/lib/db";
+import { clerkSetup, setupClerkTestingToken } from "@clerk/testing/playwright";
 import dotenv from "dotenv";
 
 dotenv.config();
 
 export const setup = async (page: Page, { login = false, directory = "/" }: { login?: boolean; directory?: string } = {}) => {
+  await clerkSetup();
+
+  await setupClerkTestingToken({ page });
+
   await db.post.deleteMany({});
   if (login) {
-    await page.goto("/");
-
-    await page.getByText("Logga in").first().click();
+    await page.goto("/sign-in");
 
     await page
       .locator("#identifier-field")

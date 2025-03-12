@@ -58,19 +58,7 @@ export default defineConfig({
 
     {
       name: "webkit",
-      use: {
-        ...devices["Desktop Safari"],
-        // Increase timeout specifically for WebKit
-        navigationTimeout: 60000,
-        // Increase slowMo for WebKit in CI environments
-        launchOptions: {
-          slowMo: process.env.CI ? 2000 : 1000,
-        },
-        // Set user agent to a more standard Safari version
-        userAgent: "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/15.4 Safari/605.1.15",
-        // Enable local storage persistence
-        storageState: process.env.CI ? "./tests/storage-state.json" : undefined,
-      },
+      use: { ...devices["Desktop Safari"] },
     },
 
     /* Test against mobile viewports. */
