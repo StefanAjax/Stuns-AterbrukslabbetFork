@@ -17,10 +17,10 @@ interface PostComponentProps {
   email: string;
   fullName: string;
   isPreview?: boolean;
-  deleteButton?: JSX.Element;
+  userPostActionButton?: JSX.Element;
 }
 
-export default function PostComponent({ postData, email, fullName, isPreview, deleteButton }: PostComponentProps) {
+export default function PostComponent({ postData, email, fullName, isPreview, userPostActionButton: deleteButton }: PostComponentProps) {
   const [creationDateString, setCreationDateString] = useState("laddar...");
   const [expirationDateString, setExpirationDateString] = useState("laddar...");
 

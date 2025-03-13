@@ -9,6 +9,7 @@ import getPostData from "../../utils/get-post-data";
 import getUserRoleFromUserId from "../../utils/get-user-role-from-user-id";
 import PostComponent from "../_components/post-component";
 import PostModerationActions from "../_components/post-moderation-actions";
+import ReportPostButton from "../_components/report-post";
 
 interface PostIdPageProps {
   params: Promise<{
@@ -31,16 +32,18 @@ export default async function PostIdPage({ params }: PostIdPageProps) {
     });
     const fullName = firstName + " " + lastName;
 
-    const deleteButton =
+    const userPostActionButton =
       userId === postData.userId ? (
         <DeleteOwnPostButton postData={postData} redirectPath="/" />
       ) : (await checkRole("admin")) || (await checkRole("moderator")) ? (
         <PostModerationActions postData={postData} postUserRole={postUserRole} />
-      ) : undefined;
+      ) : (await checkRole("medlem")) ? (
+        <ReportPostButton postData={postData} />
+      ) : null;
 
     return (
       <div className="mx-auto mt-5 max-w-[360px] md:max-w-screen-md">
-        <PostComponent postData={postData} email={email} fullName={fullName} deleteButton={deleteButton} />
+        <PostComponent postData={postData} email={email} fullName={fullName} userPostActionButton={userPostActionButton} />
       </div>
     );
   } else {
