@@ -12,7 +12,9 @@
     "format:write": "prettier --write . && next lint --fix && prisma format",
     "format:check": "prettier --check . && next lint && prisma format --check",
     "db:migrate:dev": "prisma migrate dev",
-    "postinstall": "prisma generate"
+    "test": "rimraf ./tests/logs && playwright test",
+    "test:debug": "rimraf ./tests/logs && playwright test --headed",
+    "postinstall": "prisma generate && pnpm exec playwright install --with-deps"
   },
   "dependencies": {
     "@clerk/localizations": "^3.10.8",
@@ -33,6 +35,7 @@
     "cmdk": "^0.2.1",
     "concurrently": "^9.1.2",
     "date-fns": "^4.1.0",
+    "dotenv": "^16.4.7",
     "exceljs": "^4.4.0",
     "file-saver": "^2.0.5",
     "lucide-react": "^0.476.0",
@@ -53,8 +56,10 @@
     "tailwindcss-animate": "^1.0.7"
   },
   "devDependencies": {
+    "@clerk/testing": "^1.4.27",
     "@eslint/compat": "^1.2.7",
     "@next/eslint-plugin-next": "^15.2.0",
+    "@playwright/test": "^1.51.0",
     "@types/file-saver": "^2.0.7",
     "@types/node": "^22.13.5",
     "@types/react": "19.0.10",
