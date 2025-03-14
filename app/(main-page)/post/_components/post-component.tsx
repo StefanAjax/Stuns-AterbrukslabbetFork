@@ -20,7 +20,7 @@ interface PostComponentProps {
   userPostActionButton?: JSX.Element;
 }
 
-export default function PostComponent({ postData, email, fullName, isPreview, userPostActionButton: deleteButton }: PostComponentProps) {
+export default function PostComponent({ postData, email, fullName, isPreview, userPostActionButton }: PostComponentProps) {
   const [creationDateString, setCreationDateString] = useState("laddar...");
   const [expirationDateString, setExpirationDateString] = useState("laddar...");
 
@@ -89,7 +89,7 @@ export default function PostComponent({ postData, email, fullName, isPreview, us
           <ContactMeDialog fullName={fullName} email={email} disabled={isPreview} />
         </div>
       </div>
-      {deleteButton && <div className="flex w-full justify-end">{deleteButton}</div>}
+      {userPostActionButton && <div className="flex w-full justify-end">{userPostActionButton}</div>}
     </article>
   );
 }

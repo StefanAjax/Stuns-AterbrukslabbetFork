@@ -1,40 +1,52 @@
+"use client";
+
 import { Controller, useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 
 import { AlertDialog, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
-import deleteOwnPost from "@/utils/delete-own-post";
+import { Textarea } from "@/components/ui/textarea";
 import type { Post } from "@prisma/client";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { useUser } from "@clerk/nextjs";
 
 import FormErrorParagraph from "../../create-post/_components/form-error-paragraph";
+import reportPost from "@/utils/report-post";
 
-interface DeleteOwnPostButtonProps {
+interface ReportPostButtonProps {
   postData: Post;
-  redirectPath?: string;
 }
 
+type Inputs = {
+  reason: string;
+};
 
-export default function ReportPostButton({ postData, redirectPath }: DeleteOwnPostButtonProps) {
+export default function ReportPostButton({ postData }: ReportPostButtonProps) {
   const {
     control,
     handleSubmit,
     formState: { errors },
   } = useForm<Inputs>();
   const router = useRouter();
+  const { user } = useUser();
 
-  const onDelete = async (data: Inputs) => {
-    const result = await deleteOwnPost({
+  const onReport = async (data: Inputs) => {
+    if (!user) {
+      return {
+        error: "Något gick fel",
+      };
+    }
+
+    const result = await reportPost({
       postData,
-      deletionReason: data.reason,
+      reportReason: data.reason,
+      userId: user.id,
     });
+    router.refresh();
     if (result && result.error) {
       toast.error(result.error);
     } else if (result && result.data) {
-      redirectPath && router.push(redirectPath);
-      router.refresh();
-      toast.success(postData.title + " " + result.data);
+      toast.success(result.data);
     } else {
       toast.error("Något gick fel");
     }
@@ -48,14 +60,10 @@ export default function ReportPostButton({ postData, redirectPath }: DeleteOwnPo
           <AlertDialogTitle>Är du säker?</AlertDialogTitle>
           <AlertDialogDescription>Ditt konto kommer att bli avstängt om du rapporterar en annons utan anledning.</AlertDialogDescription>
         </AlertDialogHeader>
-        <form onSubmit={handleSubmit(onDelete)}>
+        <form onSubmit={handleSubmit(onReport)}>
           <div className="flex flex-col items-center md:items-start">
-            <h2 className="text-base font-semibold">Anledning till rapportering</h2>
-            <Controller
-              name="reason"
-              control={control}
-              render={({ field: { onChange, value } }) => <TextField className="w-full" label="Anledning" value={value} onChange={onChange} placeholder="Anledning" />}
-            />
+            <h2 className="text-base font-semibold">Anledning till rapporteringen</h2>
+            <Controller name="reason" control={control} render={({ field: { onChange, value } }) => <Textarea className="w-full" value={value} onChange={onChange} placeholder="Anledning" />} />
             {errors.reason?.message && <FormErrorParagraph content={errors.reason.message} />}
           </div>
           <AlertDialogFooter className="pt-8">

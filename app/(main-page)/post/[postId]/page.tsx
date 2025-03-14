@@ -39,7 +39,7 @@ export default async function PostIdPage({ params }: PostIdPageProps) {
         <PostModerationActions postData={postData} postUserRole={postUserRole} />
       ) : (await checkRole("medlem")) ? (
         <ReportPostButton postData={postData} />
-      ) : null;
+      ) : undefined;
 
     return (
       <div className="mx-auto mt-5 max-w-[360px] md:max-w-screen-md">
