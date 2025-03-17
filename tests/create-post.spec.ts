@@ -1,11 +1,11 @@
 import { test, expect } from "@playwright/test";
 
-import { setup, screenshot } from "./utils/utils";
+import { setup, screenshot, login } from "./utils/utils";
 
 test("Create, View, and Delete Post", async ({ page, browserName }) => {
-  await setup(page, {
-    login: true,
-  });
+  await setup(page);
+
+  await login(page);
 
   await page.getByText("Skapa annons").first().click();
 

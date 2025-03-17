@@ -6,27 +6,36 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
-export const setup = async (page: Page, { login = false, directory = "/" }: { login?: boolean; directory?: string } = {}) => {
+export const setup = async (page: Page) => {
   await db.post.deleteMany({});
 
-  await page.goto(directory);
+  await page.goto("/");
 
-  if (login) {
-    await clerkSetup();
+};
 
-    await setupClerkTestingToken({ page });
+export const login = async (page: Page) => {
+  await page.goto("/");
 
-    await clerk.loaded({ page });
+  await clerkSetup();
 
-    await clerk.signIn({
-      page,
-      signInParams: {
-        strategy: "password",
-        identifier: process.env.TESTING_EMAIL || "",
-        password: process.env.TESTING_PASSWORD || "",
-      },
-    });
-  }
+  await setupClerkTestingToken({ page });
+
+  await clerk.loaded({ page });
+
+  await clerk.signIn({
+    page,
+    signInParams: {
+      strategy: "password",
+      identifier: process.env.TESTING_EMAIL || "",
+      password: process.env.TESTING_PASSWORD || "",
+    },
+  });
+};
+
+export const logout = async (page: Page) => {
+  await page.goto("/");
+
+  await clerk.signOut({ page });
 };
 
 export const screenshot = async (page: Page, browserName: string) => {
