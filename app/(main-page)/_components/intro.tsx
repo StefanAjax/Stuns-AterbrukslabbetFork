@@ -2,7 +2,7 @@ import Image from "next/image";
 
 import { cn } from "@/lib/utils";
 import { source_sans_3, prompt } from "@/app/fonts";
-import layeredWaves from "@/public/images/layered-waves/emerald-light.svg";
+import LayeredWaves from "./layered-waves";
 
 export default function Intro() {
   return (
@@ -17,7 +17,7 @@ export default function Intro() {
           <p>Företag kan donera, lärare kan efterfråga. Välkommen till Återbrukslabbet!</p>
         </div>
       </div>
-      <Image src={layeredWaves} alt="" draggable="false" className="max-h-[30rem] min-h-56" />
+      <LayeredWaves variant="emeraldLight" className="max-h-[30rem] min-h-56 w-full" />
     </>
   );
 }
