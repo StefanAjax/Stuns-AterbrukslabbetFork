@@ -4,6 +4,7 @@ import type { Post } from "@prisma/client";
 import ReportedPostEmail from "@/emails/reported-post-email";
 import sendMail from "@/utils/send-mail";
 import { createClerkClient } from "@clerk/nextjs/server";
+import { db } from "@/lib/db";
 
 export default async ({ postData, reportReason, userId }: { postData: Post; reportReason: string; userId: string }) => {
   // Get all admins and moderators from clerk
@@ -51,6 +52,21 @@ export default async ({ postData, reportReason, userId }: { postData: Post; repo
       });
     }),
   );
+
+  await db.post.update({
+    where: {
+      id: postData.id,
+    },
+    data: {
+      reports: {
+        create: {
+          postLink: `${process.env.NEXT_PUBLIC_SITE_URL}/post/${postData.id}`,
+          reason: reportReason,
+          reporterLink: `${process.env.NEXT_PUBLIC_SITE_URL}/profile/${userId}`,
+        },
+      },
+    },
+  });
 
   return {
     data: "Annonsen har blivit rapporterad",

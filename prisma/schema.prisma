@@ -22,6 +22,7 @@ model Post {
   expiresAt               DateTime            @default(dbgenerated("(now() + '6 mons'::interval)"))
   hasCustomExpirationDate Boolean             @default(false)
   soonExpiringPosts       SoonExpiringPosts[]
+  reports                 ReportedPosts[]
 }
 
 model SoonExpiringPosts {
@@ -42,4 +43,14 @@ model ArchivedPosts {
   hasCustomExpirationDate Boolean
   archivedAt              DateTime @default(now())
   deletionReason          String
+}
+
+model ReportedPosts {
+  id           Int      @id @default(autoincrement())
+  postId       Int
+  postLink     String
+  reason       String
+  reporterLink String
+  createdAt    DateTime @default(now())
+  post         Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
 }
