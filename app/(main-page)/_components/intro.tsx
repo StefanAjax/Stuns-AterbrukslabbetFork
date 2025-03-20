@@ -2,8 +2,8 @@ import Image from "next/image";
 
 import { cn } from "@/lib/utils";
 import { source_sans_3, prompt } from "@/app/fonts";
-import LayeredWaves from "./layered-waves";
-import ThemedLogo from "./logo";
+import LayeredWaves from "../../../components/layered-waves";
+import ThemedLogo from "../../../components/logo";
 
 export default function Intro() {
   return (
