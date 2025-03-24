@@ -14,7 +14,7 @@ export default async function Navbar() {
     <header className="top-0 flex h-20 w-full bg-white">
       <div className="mx-auto flex h-full w-full max-w-[1920px] items-center justify-between px-4">
         <Logo variant="emerald" layout="row" href="/" />
-        <section className="flex h-full w-auto items-center space-x-3 md:space-x-4">
+        <nav className="flex h-full w-auto items-center space-x-3 md:space-x-4">
           <SignedOut>
             <Link className={cn("text-xl font-semibold", source_sans_3.className)} href={"/sign-in"}>
               Logga in
@@ -24,16 +24,16 @@ export default async function Navbar() {
             {((await checkRole("admin")) || (await checkRole("moderator"))) && (
               <Link href="/admin">
                 <LockKeyhole strokeWidth={1} width={30} height={30} className="block md:hidden" />
-                <p className={cn("hidden text-xl font-medium hover:opacity-80 md:block", source_sans_3.className)}>Adminpanel</p>
+                <span className={cn("hidden text-xl font-medium hover:opacity-80 md:block", source_sans_3.className)}>Adminpanel</span>
               </Link>
             )}
             <Link href={`/profile/${userId}`}>
               <BookUser strokeWidth={1} width={30} height={30} className="block md:hidden" />
-              <p className={cn("hidden text-xl font-medium hover:opacity-80 md:block", source_sans_3.className)}>Mina annonser</p>
+              <span className={cn("hidden text-xl font-medium hover:opacity-80 md:block", source_sans_3.className)}>Mina annonser</span>
             </Link>
             <Link href="/create-post">
               <PlusSquare strokeWidth={1} width={30} height={30} className="block md:hidden" />
-              <p className={cn("hidden rounded-md bg-sky-600 px-4 py-[6px] text-xl font-medium text-white hover:opacity-85 md:block", source_sans_3.className)}>Skapa annons</p>
+              <span className={cn("hidden rounded-md bg-sky-600 px-4 py-[6px] text-xl font-medium text-white hover:opacity-85 md:block", source_sans_3.className)}>Skapa annons</span>
             </Link>
             <div className="hidden md:block">
               <UserButton
@@ -60,7 +60,7 @@ export default async function Navbar() {
               />
             </div>
           </SignedIn>
-        </section>
+        </nav>
       </div>
     </header>
   );
