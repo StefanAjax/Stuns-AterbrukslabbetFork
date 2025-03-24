@@ -35,7 +35,6 @@ export default async function Navbar() {
               <PlusSquare strokeWidth={1} width={30} height={30} className="block md:hidden" />
               <p className={cn("hidden rounded-md bg-sky-600 px-4 py-[6px] text-xl font-medium text-white hover:opacity-85 md:block", source_sans_3.className)}>Skapa annons</p>
             </Link>
-            <div className="hidden h-2/5 w-[1px] bg-black bg-opacity-70 md:block md:h-1/2" />
             <div className="hidden md:block">
               <UserButton
                 appearance={{
