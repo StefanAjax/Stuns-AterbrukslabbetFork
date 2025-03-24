@@ -4,7 +4,7 @@ import Link from "next/link";
 import { checkRole } from "@/utils/check-role";
 import { cn } from "@/lib/utils";
 import { getUserId } from "@/utils/get-user-id";
-import Logo from "@/components/logo";
+import Logo from "../../../components/logo";
 import { SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 import { source_sans_3 } from "@/app/fonts";
 
@@ -13,7 +13,7 @@ export default async function Navbar() {
   return (
     <header className="top-0 flex h-20 w-full bg-white">
       <div className="mx-auto flex h-full w-full max-w-[1920px] items-center justify-between px-4">
-        <Logo />
+        <Logo variant="emerald" layout="row" href="/" />
         <section className="flex h-full w-auto items-center space-x-3 md:space-x-4">
           <SignedOut>
             <Link className={cn("text-xl font-semibold", source_sans_3.className)} href={"/sign-in"}>

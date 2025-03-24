@@ -1,37 +1,69 @@
 import React from "react";
+import Link from "next/link";
+import { cn } from "@/lib/utils";
+import Logomark from "./logomark";
+import Logotype from "./logotype";
+import Slogan from "./slogan";
 
-interface ThemedLogoProps {
+interface LogoProps {
+  layout?: "column" | "row";
+  showSlogan?: boolean;
+
   className?: string;
   variant?: "default" | "light" | "dark" | "emerald" | "azure" | "salmon" | "custom";
   customColor?: string;
-  width?: number;
-  height?: number;
+
+  logomarkProps?: Omit<React.ComponentProps<typeof Logomark>, "variant" | "customColor" | "className">;
+  logotypeProps?: Omit<React.ComponentProps<typeof Logotype>, "variant" | "customColor" | "className">;
+  sloganProps?: Omit<React.ComponentProps<typeof Slogan>, "variant" | "customColor" | "className">;
+
+  gap?: string | number;
+
+  href?: string;
+  linkProps?: Omit<React.ComponentProps<typeof Link>, "href" | "className">;
 }
-const ThemedLogo: React.FC<ThemedLogoProps> = ({ className = "", variant = "default", customColor, width = 50, height = 50 }) => {
-  const colorSchemes = {
-    default: "hsl(var(--emerald-500))",
-    light: "#ffffff",
-    dark: "#000000",
-    emerald: "hsl(var(--emerald-500))",
-    azure: "hsl(var(--azure-500))",
-    salmon: "hsl(var(--salmon-500))",
-    custom: customColor || "hsl(var(--emerald-500))",
-  };
 
-  const color = colorSchemes[variant];
+const Logo: React.FC<LogoProps> = ({
+  layout = "column",
+  showSlogan = false,
+  className = "",
+  variant = "default",
+  customColor,
+  logomarkProps = {},
+  logotypeProps = {},
+  sloganProps = {},
+  gap,
+  href,
+  linkProps = {},
+}) => {
+  const defaultLogomarkSize = layout === "column" ? 75 : 50;
+  const defaultLogotypeSize = layout === "column" ? "2rem" : "1.75rem";
+  const defaultSloganSize = layout === "column" ? "0.85rem" : "0.775rem";
 
-  return (
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 734.89 800" className={className} width={width} height={height} aria-label="Logo">
-      <path
-        fill={color}
-        d="M331.26,498.79l34.76-57.57-23.03-38.38c-3.18-5.26-7.68-7.79-13.49-7.79s-10.42,2.63-13.49,7.79l-38.38,63.82,53.62,32.13ZM482.58,605.26l-34.76-58,54.39-31.36,25,41.89c2.85,4.39,4.39,9.43,4.71,14.91.22,5.48-.88,10.53-3.51,15.24-2.63,5.26-6.47,9.43-11.51,12.5-5.04,3.18-10.64,4.71-16.67,4.71h-17.65v.11ZM437.62,714.91l-62.61-62.61,62.61-62.61v31.36h74.34l-22.7,45.39c-2.85,5.26-6.8,9.43-11.73,12.5-4.93,3.07-10.42,4.71-16.45,4.71h-23.46v31.25ZM286.3,683.55c-5.26,0-9.98-1.32-14.25-4.17-4.28-2.74-7.46-6.36-9.54-10.75-2.08-4.17-3.07-8.55-2.96-13.16.11-4.61,1.32-8.77,3.73-12.72l13.27-21.93h67.21v62.61h-57.46v.11ZM247.6,638.93l-25.44-50.88c-2.3-4.71-3.4-9.76-3.29-15.13.11-5.37,1.64-10.42,4.5-15.13l6.25-10.53-26.64-16.01,85.64-21.49,21.49,86.18-26.97-16.45-35.53,59.43ZM458.78,505.04l-85.64-21.49,26.97-16.01-48.9-81.58h55.15c5.48,0,10.64,1.32,15.46,4.17s8.66,6.47,11.51,11.18l20.29,34.1,26.64-16.45-21.49,86.07Z"
-      />
-      <path
-        fill={color}
-        d="M620.84,459.1l-68.31-105.15c-26.29-40.45-47.69-73.38-66.67-99.44V53.73h37.28c12.06,0,21.93-9.87,21.93-21.93v-9.87c0-12.06-9.87-21.93-21.93-21.93H210.65c-12.06,0-21.93,9.87-21.93,21.93v9.87c0,12.06,9.87,21.93,21.93,21.93h37.28v202.25c-18.7,25.82-39.78,58.28-65.57,97.97l-68.31,105.15C31.26,586.51-10.08,650.22,2.09,702.52c5.15,22.15,16.23,42.43,31.91,58.77,37.28,38.71,113.16,38.71,265.13,38.71h136.62c151.97,0,227.96,0,265.13-38.71,15.68-16.34,26.75-36.62,31.91-58.77,12.17-52.3-29.17-116.01-111.95-243.42ZM659,706.03c-21.82,40.13-84.1,40.13-208.77,40.13h-166.78c-124.67,0-186.95,0-208.77-40.13-21.82-40.13,12.17-92.43,79.93-196.93l83.55-128.62c11.02-16.99,20.98-32.36,30.19-46.12l38.78-59.73V53.73h120.61v222.59l37.82,58.26c9.18,13.71,19.09,29,30.06,45.91l83.44,128.62c67.87,104.61,101.75,156.8,79.93,196.93Z"
-      />
-    </svg>
+  const defaultGap = layout === "column" ? "0.5rem" : "1rem";
+  const gapStyle = { gap: gap || defaultGap };
+
+  const logoContent = (
+    <div className={cn("flex items-center", layout === "column" ? "flex-col" : "flex-row", className)} style={gapStyle}>
+      <Logomark variant={variant} customColor={customColor} width={logomarkProps.width || defaultLogomarkSize} height={logomarkProps.height || defaultLogomarkSize} {...logomarkProps} />
+
+      <div className={cn("flex flex-col", layout === "column" ? "items-center" : "items-start")}>
+        <Logotype variant={variant} customColor={customColor} fontSize={logotypeProps.fontSize || defaultLogotypeSize} {...logotypeProps} />
+
+        {showSlogan && <Slogan variant={variant} customColor={customColor} fontSize={sloganProps.fontSize || defaultSloganSize} {...sloganProps} />}
+      </div>
+    </div>
   );
+
+  if (href) {
+    return (
+      <Link href={href} {...linkProps} className={cn("no-underline", linkProps)}>
+        {logoContent}
+      </Link>
+    );
+  }
+
+  return logoContent;
 };
 
-export default ThemedLogo;
+export default Logo;
