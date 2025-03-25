@@ -16,15 +16,6 @@ export default function Intro() {
         </div>
       </div>
       <LayeredWaves variant="emeraldLight" className="max-h-[30rem] min-h-56 w-full" />
-      <div>
-        <Logo variant="azure" />
-
-        <Logo layout="row" showSlogan variant="dark" />
-
-        <Logo showSlogan />
-
-        <Logo showSlogan layout="row" variant="salmon" />
-      </div>
     </>
   );
 }
