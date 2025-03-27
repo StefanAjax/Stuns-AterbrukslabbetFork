@@ -49,8 +49,10 @@ model ReportedPosts {
   id           Int      @id @default(autoincrement())
   postId       Int
   postLink     String
-  reason       String
+  reason       String?
+  reporterId   String  
   reporterLink String
+  resolved     Boolean  @default(false)
   createdAt    DateTime @default(now())
   post         Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
 }

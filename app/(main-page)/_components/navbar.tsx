@@ -1,4 +1,4 @@
-import { BookUser, LockKeyhole, PlusSquare } from "lucide-react";
+import { BookUser, LockKeyhole, PlusSquare, Flag } from "lucide-react";
 import Link from "next/link";
 
 import { checkRole } from "@/utils/check-role";
@@ -22,10 +22,16 @@ export default async function Navbar() {
           </SignedOut>
           <SignedIn>
             {((await checkRole("admin")) || (await checkRole("moderator"))) && (
-              <Link href="/admin">
-                <LockKeyhole strokeWidth={1} width={30} height={30} className="block md:hidden" />
-                <p className={cn("hidden text-xl font-medium hover:opacity-80 md:block", source_sans_3.className)}>Adminpanel</p>
-              </Link>
+              <>
+                <Link href="/admin/reports">
+                  <Flag strokeWidth={1} width={30} height={30} className="block md:hidden" />
+                  <p className={cn("hidden text-xl font-medium hover:opacity-80 md:block", source_sans_3.className)}>Rapporter</p>
+                </Link>
+                <Link href="/admin">
+                  <LockKeyhole strokeWidth={1} width={30} height={30} className="block md:hidden" />
+                  <p className={cn("hidden text-xl font-medium hover:opacity-80 md:block", source_sans_3.className)}>Adminpanel</p>
+                </Link>
+              </>
             )}
             <Link href={`/profile/${userId}`}>
               <BookUser strokeWidth={1} width={30} height={30} className="block md:hidden" />

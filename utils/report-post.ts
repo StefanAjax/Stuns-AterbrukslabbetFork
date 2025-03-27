@@ -6,7 +6,7 @@ import sendMail from "@/utils/send-mail";
 import { createClerkClient } from "@clerk/nextjs/server";
 import { db } from "@/lib/db";
 
-export default async ({ postData, reportReason, userId }: { postData: Post; reportReason: string; userId: string }) => {
+export default async ({ postData, reportReason, userId }: { postData: Post; reportReason: string | undefined; userId: string }) => {
   // Get all admins and moderators from clerk
   const secret = process.env.CLERK_SECRET_KEY;
   if (!secret) {
@@ -62,6 +62,7 @@ export default async ({ postData, reportReason, userId }: { postData: Post; repo
         create: {
           postLink: `${process.env.NEXT_PUBLIC_SITE_URL}/post/${postData.id}`,
           reason: reportReason,
+          reporterId: userId,
           reporterLink: `${process.env.NEXT_PUBLIC_SITE_URL}/profile/${userId}`,
         },
       },

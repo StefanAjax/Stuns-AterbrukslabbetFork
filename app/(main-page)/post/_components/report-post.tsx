@@ -39,7 +39,7 @@ export default function ReportPostButton({ postData }: ReportPostButtonProps) {
 
     const result = await reportPost({
       postData,
-      reportReason: data.reason,
+      reportReason: data.reason || undefined,
       userId: user.id,
     });
     router.refresh();
