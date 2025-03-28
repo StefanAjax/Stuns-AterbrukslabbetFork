@@ -2,30 +2,23 @@ export default function AboutPage() {
   return (
     <div className="mx-auto mt-12 flex w-[85ch] max-w-full flex-col bg-secondary px-6 py-8 md:mt-16 md:rounded-md">
       <h1 className="mb-4 text-lg font-semibold md:text-2xl">Om Återbrukslabbet</h1>
-      <div>
+      <p className="mb-6">
         Återbrukslabbet ger avställd labbutrustning nytt liv i skolan. Modern utrustning ökar undervisningens relevans, avlastar skolbudgetar, sparar planetens resurser och gör lärandet roligare.
         Företag har möjlighet att donera utrustning, inventarier och förbrukningsmaterial som de själva inte längre har nytta av. Lärare har möjlighet att efterfråga sådant som de behöver för att
         bedriva inspirerande och kvalitativ undervisning.
-      </div>
-      <br />
-      <div>
-        Återbrukslabbet har utvecklats i samarbete mellan STUNS (Stiftelsen för samverkan mellan universiteten i Uppsala, näringslivet och samhället) och elever som läser till gymnasieingenjör med
-        inriktning mot mjukvarudesign på NTI Gymnasiet i Uppsala. All kodning har utförts av ett team om fyra elever under 10 veckors praktik, våren 2024.
-      </div>
-      <br />
-      <div>
-        Hösten 2024 utvärderas den första versionen av Återbrukslabbet av en testgrupp baserad i Uppsala, varpå ett nytt team med elever fortsätter att utveckla verktyget under våren 2025. Hösten 2025
-        planeras verktyget vara redo att tas i bruk nationellt.
-      </div>
-      <br />
+      </p>
+      <p className="mb-6">
+        Återbrukslabbet utvecklas i samarbete mellan STUNS (Stiftelsen för samverkan mellan universiteten i Uppsala, näringslivet och samhället) och elever som läser till gymnasieingenjör med
+        inriktning mot mjukvarudesign på NTI Gymnasiet i Uppsala. All kodning utförs under 10 veckors praktikperiod varje vår.
+      </p>
+      <p className="mb-6">
+        Den första etappen genomfördes 2024. Under våren 2025 utvecklar ett nytt team nya funktioner, samt genomför underhåll av de befintliga. Samtidigt testas Återbrukslabbet av skolor och företag i
+        Uppsala med omnejd.
+      </p>
       <div className="flex flex-col gap-y-3">
         <h2 className="text-xl font-semibold">Utvecklare våren 2024:</h2>
         <div>
           <span className="font-semibold">Simon Clavensjö</span>,{" "}
-          <a className="text-blue-600 hover:underline" href="mailto:simon@clavensjo.se">
-            simon@clavensjo.se
-          </a>
-          ,{" "}
           <a className="text-blue-600 hover:underline" href="https://www.linkedin.com/in/simon-clavensj%C3%B6-a6059021b/">
             LinkedIn
           </a>
@@ -37,14 +30,9 @@ export default function AboutPage() {
           <a className="text-blue-600 hover:underline" href="https://simon.clavensjo.se/">
             portfolio
           </a>
-          <p>Planerar att plugga datavetenskap i Stockholm 2024/2027. Intresserad av backend-utveckling.</p>
         </div>
         <div>
           <span className="font-semibold">Lukas Gustafsson</span>,{" "}
-          <a className="text-blue-600 hover:underline" href="mailto:lukashansgustafsson@gmail.com">
-            lukashansgustafsson@gmail.com
-          </a>
-          ,{" "}
           <a className="text-blue-600 hover:underline" href="https://www.linkedin.com/in/lukas-gustafsson-b4296b293/">
             LinkedIn
           </a>
@@ -56,14 +44,10 @@ export default function AboutPage() {
           <a className="text-blue-600 hover:underline" href="https://lukasgurra.github.io/">
             portfolio
           </a>
-          <p>Planerar att plugga pedagogik i Uppsala 2024/2025 och sedan plugga till danslärare. Intresserad av frontend-utveckling och design.</p>
+          <p>Planerar att utbilda sig till danslärare eller teknik- och mattelärare. Intresserad av frontend-utveckling och design av spel och hemsidor.</p>
         </div>
         <div>
           <span className="font-semibold">Mohamad Hamdan</span>,{" "}
-          <a className="text-blue-600 hover:underline" href="mailto:Hamdan756@icloud.com">
-            Hamdan756@icloud.com
-          </a>
-          ,{" "}
           <a className="text-blue-600 hover:underline" href="https://www.linkedin.com/in/mohamad-hamdan-874670297/">
             LinkedIn
           </a>
@@ -71,17 +55,10 @@ export default function AboutPage() {
           <a className="text-blue-600 hover:underline" href="https://mohamadhamdan13.github.io/">
             portfolio
           </a>
-          <p>
-            Mönstrat och kommit in så kanske gör värnplikten, sökte frivilligt vilket betyder att jag kan välja. Jag kollar även vidareutbildningar inom mjukvaruutveckling inriktning frontend och
-            design. Funderar även på att börja jobba direkt.
-          </p>
+          <p>Jobbar på Nordic Wellness och inleder studier inom systemvetenskap hösten 2025.</p>
         </div>
         <div>
           <span className="font-semibold">Ambjörn Hogmark</span>,{" "}
-          <a className="text-blue-600 hover:underline" href="mailto:ambehog04@gmail.com">
-            ambehog04@gmail.com
-          </a>
-          ,{" "}
           <a className="text-blue-600 hover:underline" href="https://www.linkedin.com/in/ambj%C3%B6rn-hogmark-a86801293/">
             LinkedIn
           </a>
@@ -89,19 +66,15 @@ export default function AboutPage() {
           <a className="text-blue-600 hover:underline" href="https://ambjorn-hogmark.github.io/">
             portfolio
           </a>
-          <p>
-            Under kommande år fram till 2029 hittar du mig mest troligt i Stockholm där jag kommer att studera teknisk fysik. Inom mjukvarudesign föredrar jag att arbeta med backend-utveckling men
-            behärskar även frontend.
-          </p>
+          <p>Studerar till civilingenjör på KTH.</p>
         </div>
       </div>
-      <br />
-      <div>
+      <p className="mt-6">
         Om du har frågor, eller vill ge feedback på verktyget, vänligen skriv en rad till{" "}
         <a className="text-blue-600 hover:underline" href="mailto:erik.allard@stuns.se">
           erik.allard@stuns.se
         </a>
-      </div>
+      </p>
     </div>
   );
 }

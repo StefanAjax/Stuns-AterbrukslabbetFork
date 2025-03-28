@@ -38,3 +38,17 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# next-sitemap
+public/robots.txt
+public/**.xml
+
+# Playwright
+node_modules/
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
+
+# Custom
+**/logs/*
