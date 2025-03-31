@@ -1,8 +1,7 @@
-name: Code Verification on Push
+name: Code Verification
 
 on:
-  push:
-    branches: "**"
+  workflow_call:
 
 jobs:
   check_linting:
