@@ -2,18 +2,15 @@ import { test } from "@playwright/test";
 import type { Page } from "@playwright/test";
 import { db } from "@/lib/db";
 import { clerk, clerkSetup, setupClerkTestingToken } from "@clerk/testing/playwright";
-import dotenv from "dotenv";
 
-dotenv.config();
 
 export const setup = async (page: Page) => {
   await db.post.deleteMany({});
 
   await page.goto("/");
-
 };
 
-export const login = async (page: Page) => {
+export const login = async (page: Page, identifier: string, password: string) => {
   await page.goto("/");
 
   await clerkSetup();
@@ -26,8 +23,8 @@ export const login = async (page: Page) => {
     page,
     signInParams: {
       strategy: "password",
-      identifier: process.env.TESTING_EMAIL || "",
-      password: process.env.TESTING_PASSWORD || "",
+      identifier: identifier,
+      password: password,
     },
   });
 };
