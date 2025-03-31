@@ -40,6 +40,8 @@ jobs:
       NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL: /
       TEST_ADMIN_EMAIL: ${{ secrets.TEST_ADMIN_EMAIL }}
       TEST_ADMIN_PASSWORD: ${{ secrets.TEST_ADMIN_PASSWORD }}
+      TEST_REPORT_EMAIL: ${{ secrets.TEST_USER_EMAIL }}
+      TEST_REPORT_PASSWORD: ${{ secrets.TEST_REPORT_PASSWORD }}
       CI: true
 
     services:
