@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
@@ -22,12 +23,13 @@ type Inputs = {
 };
 
 export default function ReportPostButton({ postData }: ReportPostButtonProps) {
+  const [open, setOpen] = useState(false);
   const {
     control,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm<Inputs>();
-  const router = useRouter();
   const { user } = useUser();
 
   const onReport = async (data: Inputs) => {
@@ -37,12 +39,14 @@ export default function ReportPostButton({ postData }: ReportPostButtonProps) {
       };
     }
 
+    setOpen(false);
+
     const result = await reportPost({
       postData,
       reportReason: data.reason || undefined,
       userId: user.id,
     });
-    router.refresh();
+
     if (result && result.error) {
       toast.error(result.error);
     } else if (result && result.data) {
@@ -50,10 +54,12 @@ export default function ReportPostButton({ postData }: ReportPostButtonProps) {
     } else {
       toast.error("Något gick fel");
     }
+
+    reset();
   };
 
   return (
-    <AlertDialog>
+    <AlertDialog open={open} onOpenChange={setOpen}>
       <AlertDialogTrigger className="text-sm font-semibold text-destructive hover:opacity-80 md:text-base">Rapportera annons</AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
