@@ -61,12 +61,12 @@ export default function ReportPostButton({ postData }: ReportPostButtonProps) {
   return (
     <AlertDialog open={open} onOpenChange={setOpen}>
       <AlertDialogTrigger asChild>
-        <Button variant="destructive">Rapportera annons</Button>
+        <Button variant="destructive">Anmäl annons</Button>
       </AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
           <AlertDialogTitle>Är du säker?</AlertDialogTitle>
-          <AlertDialogDescription>Ditt konto kommer att bli avstängt om du rapporterar en annons utan anledning.</AlertDialogDescription>
+          <AlertDialogDescription>Hjälp oss att hålla plattformen säker genom att rapportera olämpliga annonser. Vi uppskattar din assistans att identifiera annonser som bryter mot våra riktlinjer. Grundlösa anmälningar och missbruk av rapporteringsfunktionen kan leda till åtgärder för ditt konto.</AlertDialogDescription>
         </AlertDialogHeader>
         <form onSubmit={handleSubmit(onReport)}>
           <div className="flex flex-col items-center md:items-start">
