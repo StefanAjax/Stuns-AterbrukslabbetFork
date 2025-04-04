@@ -60,7 +60,9 @@ export default function ReportPostButton({ postData }: ReportPostButtonProps) {
 
   return (
     <AlertDialog open={open} onOpenChange={setOpen}>
-      <AlertDialogTrigger className="text-sm font-semibold text-destructive hover:opacity-80 md:text-base">Rapportera annons</AlertDialogTrigger>
+      <AlertDialogTrigger asChild>
+        <Button variant="destructive">Rapportera annons</Button>
+      </AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
           <AlertDialogTitle>Är du säker?</AlertDialogTitle>
