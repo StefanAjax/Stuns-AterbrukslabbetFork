@@ -50,7 +50,7 @@ model ReportedPosts {
   postId       Int
   postLink     String
   reason       String?
-  reporterId   String  
+  reporterId   String
   reporterLink String
   resolved     Boolean  @default(false)
   createdAt    DateTime @default(now())
