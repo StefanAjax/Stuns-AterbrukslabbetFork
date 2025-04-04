@@ -9,7 +9,6 @@ import { cn } from "@/lib/utils";
 import type { Post } from "@prisma/client";
 
 import ContactMeDialog from "./contact-me-dialog";
-import ReportPostButton from "./report-post";
 import creationDateToString from "../../utils/creation-date-to-string";
 import getPostTypeSpecificData from "../../utils/get-post-type-specific-data";
 
@@ -88,7 +87,7 @@ export default function PostComponent({ postData, email, fullName, isPreview, us
         </Link>
         <div className="flex items-center justify-between">
           <ContactMeDialog fullName={fullName} email={email} disabled={isPreview} />
-          <ReportPostButton postData={postData} />
+          {userPostActionButton && <>{userPostActionButton}</>}
         </div>
       </div>
     </article>

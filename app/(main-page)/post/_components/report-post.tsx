@@ -66,11 +66,14 @@ export default function ReportPostButton({ postData }: ReportPostButtonProps) {
       <AlertDialogContent>
         <AlertDialogHeader>
           <AlertDialogTitle>Är du säker?</AlertDialogTitle>
-          <AlertDialogDescription>Hjälp oss att hålla plattformen säker genom att rapportera olämpliga annonser. Vi uppskattar din assistans att identifiera annonser som bryter mot våra riktlinjer. Grundlösa anmälningar och missbruk av rapporteringsfunktionen kan leda till åtgärder för ditt konto.</AlertDialogDescription>
+          <AlertDialogDescription>
+            Hjälp oss att hålla plattformen säker genom att rapportera olämpliga annonser. Vi uppskattar din assistans att identifiera annonser som bryter mot våra riktlinjer. Grundlösa anmälningar
+            och missbruk av rapporteringsfunktionen kan leda till åtgärder för ditt konto.
+          </AlertDialogDescription>
         </AlertDialogHeader>
         <form onSubmit={handleSubmit(onReport)}>
           <div className="flex flex-col items-center md:items-start">
-            <h2 className="text-base font-semibold my-3">Anledning till rapporteringen</h2>
+            <h2 className="my-3 text-base font-semibold">Anledning till rapporteringen</h2>
             <Controller name="reason" control={control} render={({ field: { onChange, value } }) => <Textarea className="w-full" value={value} onChange={onChange} placeholder="Anledning" />} />
             {errors.reason?.message && <FormErrorParagraph content={errors.reason.message} />}
           </div>

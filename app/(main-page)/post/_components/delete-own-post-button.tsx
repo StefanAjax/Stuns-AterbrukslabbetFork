@@ -47,7 +47,9 @@ export default function DeleteOwnPostButton({ postData, redirectPath }: DeleteOw
 
   return (
     <AlertDialog>
-      <AlertDialogTrigger className="text-sm font-semibold text-destructive hover:opacity-80 md:text-base">Ta bort annons</AlertDialogTrigger>
+      <AlertDialogTrigger asChild>
+        <Button variant="destructive">Ta bort annons</Button>
+      </AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
           <AlertDialogTitle>Är du säker?</AlertDialogTitle>
@@ -58,7 +60,7 @@ export default function DeleteOwnPostButton({ postData, redirectPath }: DeleteOw
         </AlertDialogHeader>
         <form onSubmit={handleSubmit(onDelete)}>
           <div className="flex flex-col items-center md:items-start">
-            <h2 className="text-base font-semibold">Resulterade annonsen i en donation?</h2>
+            <h2 className="my-3 text-base font-semibold">Resulterade annonsen i en donation?</h2>
             <Controller
               name="reason"
               control={control}
