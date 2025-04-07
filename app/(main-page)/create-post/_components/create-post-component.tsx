@@ -19,12 +19,22 @@ import MunicipalityPicker from "./municipality-picker";
 import PostComponent from "../../post/_components/post-component";
 import PostPreviewForMobile from "./post-preview-for-mobile";
 import PostTypePicker from "./post-type-picker";
+import updatePost from "../utils/update-post";
 
 interface CreatePostComponentProps {
   firstName: string;
   lastName: string;
   email: string;
   userId: string;
+  title?: string;
+  description?: string;
+  postType?: string;
+  category?: string;
+  municipality?: string;
+  date?: Date;
+  customExpirationDate?: boolean;
+  update: boolean;
+  postId?: string;
 }
 
 interface FormInputs {
@@ -39,30 +49,57 @@ interface FormInputs {
   datePicker: any;
 }
 
-export default function CreatePostComponent({ firstName, lastName, email, userId }: CreatePostComponentProps) {
+export default function CreatePostComponent({
+  firstName,
+  lastName,
+  email,
+  userId,
+  title,
+  description,
+  postType,
+  category,
+  municipality,
+  date,
+  customExpirationDate,
+  update,
+  postId,
+}: CreatePostComponentProps) {
   const {
     control,
     register,
     formState: { errors },
     handleSubmit,
-  } = useForm<FormInputs>();
+  } = useForm<FormInputs>({
+    defaultValues: {
+      postTypePicker: postType || "Erbjuds",
+      firstName: firstName,
+      lastName: lastName,
+      email: email,
+      title: title || "",
+      description: description || "",
+      categoryPicker: category || "",
+      municipalityPicker: municipality || "",
+      datePicker: date || undefined,
+    },
+  });
 
   // Watches the form inputs so that they can be used on the post preview
   const formData = useWatch({ control });
 
   const postData = {
     id: 0,
+    postId: postId || undefined,
     userId: userId,
-    title: formData.title || "Titel",
-    description: formData.description || "Beskrivning",
-    postType: formData.postTypePicker || "Erbjuds",
-    category: formData.categoryPicker || "",
-    location: formData.municipalityPicker || "",
+    title: formData.title || title || "Titel",
+    description: formData.description || description || "Beskrivning",
+    postType: formData.postTypePicker || postType || "Erbjuds",
+    category: formData.categoryPicker || category || "",
+    location: formData.municipalityPicker || municipality || "",
     imageThumbUrl: null,
     imageFullUrl: null,
     createdAt: new Date(),
-    expiresAt: formData.datePicker || new Date(),
-    hasCustomExpirationDate: formData.datePicker != undefined,
+    expiresAt: formData.datePicker || date || new Date(),
+    hasCustomExpirationDate: customExpirationDate || formData.datePicker != undefined,
   };
 
   const router = useRouter();
@@ -83,7 +120,12 @@ export default function CreatePostComponent({ firstName, lastName, email, userId
       data.datePicker = data.datePicker.toISOString();
     }
     setIsSubmitting(true);
-    const result = await createPost({ data });
+    let result;
+    if (update) {
+      result = await updatePost({ data });
+    } else {
+      result = await createPost({ data });
+    }
     if (result && result.error) {
       toast.error(result.error);
     } else if (result && result.data) {
@@ -100,12 +142,12 @@ export default function CreatePostComponent({ firstName, lastName, email, userId
     <div className="mx-auto mt-10 flex max-w-screen-xl flex-wrap justify-center gap-x-20 gap-y-3 md:gap-y-6">
       <div className="h-fit w-[360px] rounded-2xl bg-secondary p-3 md:w-[600px] md:p-6">
         <form id="create-post-form" className="flex flex-col gap-y-5" onSubmit={handleSubmit(onSubmit)}>
-          <h1 className="text-center text-xl md:text-3xl">Skapa en annons</h1>
+          <h1 className="text-center text-xl md:text-3xl">{update ? "Uppdatera annons" : "Skapa ny annons"}</h1>
           <Controller
             name="postTypePicker"
             control={control}
             rules={{ required: true }}
-            defaultValue="Erbjuds"
+            defaultValue={postType || "Erbjuds"}
             render={({ field: { onChange, value } }) => <PostTypePicker currentPostType={value} setPostType={onChange} />}
           />
           <div className="flex justify-between gap-x-4 md:gap-x-8">
@@ -151,6 +193,7 @@ export default function CreatePostComponent({ firstName, lastName, email, userId
               id="title"
               {...register("title", {
                 required: "Titel saknas",
+                value: title,
                 maxLength: { value: 40, message: "Max 40 tecken" },
                 validate: {
                   emailValidation: (value) => value.match(/[\w-\.]+@([\w-]+\.)+[\w-]{2,4}/g) == null || "Du får inte ha en mejladress i titeln",
@@ -172,6 +215,7 @@ export default function CreatePostComponent({ firstName, lastName, email, userId
               id="description"
               {...register("description", {
                 required: "Beskrivning saknas",
+                value: description,
                 maxLength: { value: 1500, message: "Max 1500 tecken" },
                 validate: {
                   emailValidation: (value) => value.match(/[\w-\.]+@([\w-]+\.)+[\w-]{2,4}/g) == null || "Du får inte ha en mejladress i beskrivningen",
@@ -191,6 +235,7 @@ export default function CreatePostComponent({ firstName, lastName, email, userId
             <Controller
               name="categoryPicker"
               control={control}
+              defaultValue={category}
               rules={{ required: "Kategori ej vald" }}
               render={({ field: { onChange, value } }) => <CategoryPicker currentCategory={value} setCurrentCategory={onChange} Itemslist={categoryList} />}
             />
@@ -205,6 +250,7 @@ export default function CreatePostComponent({ firstName, lastName, email, userId
               <Controller
                 name="municipalityPicker"
                 control={control}
+                defaultValue={municipality}
                 rules={{ required: "Kommun ej vald" }}
                 render={({ field: { onChange, value } }) => <MunicipalityPicker currentMunicipality={value} setCurrentMunicipality={onChange} itemsList={municipalities} />}
               />
@@ -222,7 +268,7 @@ export default function CreatePostComponent({ firstName, lastName, email, userId
             <PostPreviewForMobile postData={postData} email={email} fullName={fullName} />
             <div className="flex w-full justify-end gap-x-2 md:gap-x-5">
               <CancelFormAlertDialog />
-              <CreatePostAlertDialog isSubmitting={isSubmitting} />
+              <CreatePostAlertDialog isSubmitting={isSubmitting} update={update} />
             </div>
           </div>
         </form>

@@ -15,7 +15,7 @@ export default async function createPostPage() {
 
     return (
       <div>
-        <CreatePostComponent firstName={firstName} lastName={lastName} email={email} userId={userId} />
+        <CreatePostComponent firstName={firstName} lastName={lastName} email={email} userId={userId} update={false} />
       </div>
     );
   } else {

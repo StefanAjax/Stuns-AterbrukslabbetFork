@@ -9,6 +9,7 @@ import getPostData from "../../utils/get-post-data";
 import getUserRoleFromUserId from "../../utils/get-user-role-from-user-id";
 import PostComponent from "../_components/post-component";
 import PostModerationActions from "../_components/post-moderation-actions";
+import EditPostButton from "../_components/edit-post-button";
 
 interface PostIdPageProps {
   params: Promise<{
@@ -33,7 +34,10 @@ export default async function PostIdPage({ params }: PostIdPageProps) {
 
     const deleteButton =
       userId === postData.userId ? (
-        <DeleteOwnPostButton postData={postData} redirectPath="/" />
+        <>
+          <DeleteOwnPostButton postData={postData} redirectPath="/" />
+          <EditPostButton postData={postData} />
+        </>
       ) : (await checkRole("admin")) || (await checkRole("moderator")) ? (
         <PostModerationActions postData={postData} postUserRole={postUserRole} />
       ) : undefined;
@@ -51,7 +55,7 @@ export default async function PostIdPage({ params }: PostIdPageProps) {
           <p className="text-pretty">
             Denna annons verkar inte finnas. Om du tror att annonsen bör finnas kontrollera då URL:en. Om du precis skapat annonsen kan det ta en liten stund för den att dyka upp.
           </p>
-          <Link className="text-blue-600 pt-1 text-lg hover:underline" href="/">
+          <Link className="pt-1 text-lg text-blue-600 hover:underline" href="/">
             Till startsidan
           </Link>
         </div>
