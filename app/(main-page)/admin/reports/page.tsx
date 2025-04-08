@@ -4,7 +4,7 @@ import { redirect } from "next/navigation";
 
 import { checkRole } from "@/utils/check-role";
 import { db } from "@/lib/db";
-import PostReportCard from "./_components/post-report-card";
+import ReportsTable from "./_components/reports-table";
 import Pagination from "@/components/pagination";
 
 interface ReportProps {
@@ -19,6 +19,7 @@ export default async function AdminReportsPage({ searchParams }: ReportProps) {
   const { page } = await searchParams;
 
   const reportsPerPage = 10;
+  const currentPage = parseInt(page || "1");
 
   const reportCount = await db.reportedPosts.count({
     where: {
@@ -33,18 +34,30 @@ export default async function AdminReportsPage({ searchParams }: ReportProps) {
     where: {
       resolved: false,
     },
+    orderBy: {
+      createdAt: "desc",
+    },
     take: reportsPerPage,
-    skip: (parseInt(page || "1") - 1) * reportsPerPage,
+    skip: (currentPage - 1) * reportsPerPage,
   });
 
   return (
-    <div className="mx-auto max-w-screen-md p-3 pt-10">
-      <div className="mx-auto flex flex-col items-center gap-y-3 pt-6">
-        {reports.map((report) => (
-          <PostReportCard key={report.id} report={report} />
-        ))}
-      </div>
-      <Pagination itemCount={reportCount} itemsPerPage={reportsPerPage} />
+    <div className="mx-auto max-w-screen-lg p-4 mt-10">
+      <h1 className="mb-6 text-2xl font-semibold">Rapporterade Annonser ({reportCount})</h1>
+
+      {reports.length > 0 ? (
+        <ReportsTable reports={reports} />
+      ) : (
+        <div className="bg-secondary p-8 text-center">
+          <p className="text-lg">Inga obehandlade rapporter just nu.</p>
+        </div>
+      )}
+
+      {reportCount > 0 && (
+        <div className="mt-6">
+          <Pagination itemCount={reportCount} itemsPerPage={reportsPerPage} />
+        </div>
+      )}
     </div>
   );
 }
