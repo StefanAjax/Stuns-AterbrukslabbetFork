@@ -122,7 +122,7 @@ export default function CreatePostComponent({
     setIsSubmitting(true);
     let result;
     if (update) {
-      result = await updatePost({ data });
+      result = await updatePost({ data, postId });
     } else {
       result = await createPost({ data });
     }

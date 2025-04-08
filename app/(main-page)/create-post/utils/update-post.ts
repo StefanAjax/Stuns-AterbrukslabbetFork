@@ -5,37 +5,45 @@ import { getUserId } from "@/utils/get-user-id";
 
 interface EditPostProps {
   data: any;
+  postId?: string;
 }
 
-export default async function createPost({ data }: EditPostProps) {
-  const userId = await getUserId();
-
-  if (!userId) {
-    return { error: "Kunde inte hämta användarinformation" };
-  }
-
-  // Get userId from the post
-  const postUser = await db.post.findUnique({
-    where: {
-      id: parseInt(data.postId),
-    },
-    select: {
-      userId: true,
-    },
-  });
-
-  if (!postUser) {
-    return { error: "Kunde inte hämta användarinformation" };
-  }
-
-  if (postUser.userId !== userId) {
-    return { error: "Du har inte behörighet att redigera denna annons" };
-  }
-
+export default async function createPost({ data, postId }: EditPostProps) {
   try {
+    if (!postId) {
+      return { error: "Ingen annons vald" };
+    }
+
+    const userId = await getUserId();
+
+    if (!userId) {
+      return { error: "Kunde inte hämta användarinformation" };
+    }
+
+    console.log(postId);
+    console.log(typeof postId);
+
+    // Get userId from the post
+    const postUser = await db.post.findUnique({
+      where: {
+        id: parseInt(postId),
+      },
+      select: {
+        userId: true,
+      },
+    });
+
+    if (!postUser) {
+      return { error: "Kunde inte hämta användarinformation" };
+    }
+
+    if (postUser.userId !== userId) {
+      return { error: "Du har inte behörighet att redigera denna annons" };
+    }
+
     await db.post.update({
       where: {
-        id: parseInt(data.postId),
+        id: parseInt(postId),
       },
       data: {
         title: data.title,

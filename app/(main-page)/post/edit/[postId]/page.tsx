@@ -97,6 +97,7 @@ export default async function createPostPage({ params }: PostIdPageProps) {
         municipality={postData.location}
         date={postData.expiresAt}
         customExpirationDate={postData.hasCustomExpirationDate}
+        postId={postId}
         update={true}
       />
     </div>
