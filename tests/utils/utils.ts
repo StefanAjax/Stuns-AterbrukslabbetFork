@@ -3,7 +3,6 @@ import type { Page } from "@playwright/test";
 import { db } from "@/lib/db";
 import { clerk, clerkSetup, setupClerkTestingToken } from "@clerk/testing/playwright";
 
-
 export const setup = async (page: Page) => {
   await db.post.deleteMany({});
 
