@@ -1,11 +1,15 @@
 import { test, expect } from "@playwright/test";
 
-import { setup, screenshot } from "./utils/utils";
+import { setup, screenshot, login } from "./utils/utils";
+
+import dotenv from "dotenv";
+
+dotenv.config();
 
 test("Create, View, and Delete Post", async ({ page, browserName }) => {
-  await setup(page, {
-    login: true,
-  });
+  await setup(page);
+
+  await login(page, process.env.TEST_ADMIN_EMAIL || "", process.env.TEST_ADMIN_PASSWORD || "");
 
   await page.getByText("Skapa annons").first().click();
 

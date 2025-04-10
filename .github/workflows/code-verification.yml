@@ -1,8 +1,7 @@
-name: Code Verification on Push
+name: Code Verification
 
 on:
-  push:
-    branches: "**"
+  workflow_call:
 
 jobs:
   check_linting:
@@ -31,25 +30,27 @@ jobs:
   testing:
     runs-on: ubuntu-latest
     env:
-      DATABASE_URL: postgres://${{ secrets.DB_USER }}:${{ secrets.DB_PASSWORD }}@${{ secrets.DB_HOST }}:${{ secrets.DB_PORT }}/${{ secrets.DB_NAME }}?pgbouncer=true&connection_limit=1
-      DIRECT_URL: postgres://${{ secrets.DB_USER }}:${{ secrets.DB_PASSWORD }}@${{ secrets.DB_HOST }}:${{ secrets.DB_PORT }}/${{ secrets.DB_NAME }}
+      DATABASE_URL: postgres://postgres:${{ secrets.DB_PASSWORD }}@localhost:5432/test_db?pgbouncer=true&connection_limit=1
+      DIRECT_URL: postgres://postgres:${{ secrets.DB_PASSWORD }}@localhost:5432/test_db
       NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY: ${{ secrets.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY }}
       CLERK_SECRET_KEY: ${{ secrets.CLERK_SECRET_KEY }}
-      TESTING_EMAIL: ${{ secrets.TESTING_EMAIL }}
-      TESTING_PASSWORD: ${{ secrets.TESTING_PASSWORD }}
       NEXT_PUBLIC_CLERK_SIGN_IN_URL: /sign-in
       NEXT_PUBLIC_CLERK_SIGN_UP_URL: /sign-up
       NEXT_PUBLIC_CLERK_AFTER_SIGN_IN_URL: /
       NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL: /
+      TEST_ADMIN_EMAIL: ${{ secrets.TEST_ADMIN_EMAIL }}
+      TEST_ADMIN_PASSWORD: ${{ secrets.TEST_ADMIN_PASSWORD }}
+      TEST_REPORT_EMAIL: ${{ secrets.TEST_USER_EMAIL }}
+      TEST_REPORT_PASSWORD: ${{ secrets.TEST_REPORT_PASSWORD }}
       CI: true
 
     services:
       postgres:
         image: postgres:latest
         env:
-          POSTGRES_USER: ${{ secrets.DB_USER }}
+          POSTGRES_USER: postgres
           POSTGRES_PASSWORD: ${{ secrets.DB_PASSWORD }}
-          POSTGRES_DB: ${{ secrets.DB_NAME }}
+          POSTGRES_DB: test_db
         ports:
           - 5432:5432
         options: >-
