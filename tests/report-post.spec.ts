@@ -45,7 +45,7 @@ test("Report Post", async ({ page, browserName }) => {
 
   await screenshot(page, browserName);
 
-  await page.getByText("Rapportera annons").filter({ visible: true }).first().click();
+  await page.getByText("Anmäl annons").filter({ visible: true }).first().click();
 
   await screenshot(page, browserName);
 
