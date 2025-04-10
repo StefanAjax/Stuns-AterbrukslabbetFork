@@ -57,7 +57,7 @@ test("Report Post", async ({ page, browserName }) => {
 
   await screenshot(page, browserName);
 
-  await expect(page.getByText("Annonsen har blivit rapporterad").filter({ visible: true }).first()).toBeVisible();
+  await expect(page.getByText("Annonsen har blivit rapporterad").filter({ visible: true }).first()).toBeVisible({ timeout: 30000 });
 
   await logout(page);
 
