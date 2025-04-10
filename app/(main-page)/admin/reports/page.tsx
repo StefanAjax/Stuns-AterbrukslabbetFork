@@ -42,7 +42,7 @@ export default async function AdminReportsPage({ searchParams }: ReportProps) {
   });
 
   return (
-    <div className="mx-auto max-w-screen-lg p-4 mt-10">
+    <div className="mx-auto mt-10 max-w-screen-lg p-4">
       <h1 className="mb-6 text-2xl font-semibold">Rapporterade Annonser ({reportCount})</h1>
 
       {reports.length > 0 ? (

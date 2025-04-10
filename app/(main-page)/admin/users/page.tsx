@@ -4,15 +4,14 @@ import { checkRole } from "@/utils/check-role";
 import Pagination from "@/components/pagination";
 import SearchBar from "@/components/search-bar";
 
-import ExportArchivesButton from "./_components/export-archives-button";
-import getUserData from "./utils/get-user-data";
+import getUserData from "./_utils/get-user-data";
 import UserCard from "./_components/user-card";
 
-interface AdminDashboardProps {
+interface UsersDashboardProps {
   searchParams: Promise<{ search?: string; page?: string }>;
 }
 
-export default async function AdminDashboard({ searchParams }: AdminDashboardProps) {
+export default async function UsersDashboard({ searchParams }: UsersDashboardProps) {
   if (!(await checkRole("admin")) && !(await checkRole("moderator"))) {
     redirect("/");
   }
@@ -32,13 +31,10 @@ export default async function AdminDashboard({ searchParams }: AdminDashboardPro
   const labelText = `Sök bland ${totalUserCount} användare`;
 
   return (
-    <div className="mx-auto max-w-screen-md p-3 pt-10">
-      <div className="mb-10 flex w-full flex-col items-center rounded-md bg-white p-3 text-center">
-        <h2 className="pb-3 text-xl">Exportera arkiverade annonser</h2>
-        <ExportArchivesButton />
-      </div>
+    <div className="mx-auto mt-10 max-w-screen-md p-4">
+      <h1 className="mb-6 text-2xl font-semibold">Användare</h1>
       <SearchBar labelText={labelText} itemsFoundCount={queriedUserCount} />
-      <div className="mx-auto flex flex-col items-center gap-y-3 pt-6">
+      <div className="mx-auto flex flex-col items-center gap-y-3 mt-6">
         {usersList.data.map((user) => {
           return <UserCard key={user.id} user={user} />;
         })}
