@@ -57,11 +57,15 @@ test("Report Post", async ({ page, browserName }) => {
 
   await screenshot(page, browserName);
 
-  await expect(page.getByText("Annonsen är rapporterad").filter({ visible: true }).first()).toBeVisible();
+  await expect(page.getByText("Annonsen har blivit rapporterad").filter({ visible: true }).first()).toBeVisible();
 
   await logout(page);
 
   await login(page, process.env.TEST_ADMIN_EMAIL || "", process.env.TEST_ADMIN_PASSWORD || "");
+
+  await page.getByText("Adminpanel").first().click();
+
+  await screenshot(page, browserName);
 
   await page.getByText("Rapporter").first().click();
 
