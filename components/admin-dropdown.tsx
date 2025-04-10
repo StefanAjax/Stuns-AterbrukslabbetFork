@@ -47,12 +47,7 @@ export default function AdminDropdown({ className }: AdminDropdownProps) {
       {isOpen && (
         <div className="absolute z-10 mt-2 w-full rounded-md bg-popover ring-1 ring-ring/50">
           {adminMenuItems.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              className="block px-3 py-2 text-sm text-popover-foreground hover:text-accent"
-              onClick={() => setIsOpen(false)}
-            >
+            <Link key={item.href} href={item.href} className="block px-3 py-2 text-sm text-popover-foreground hover:text-accent" onClick={() => setIsOpen(false)}>
               {item.label}
             </Link>
           ))}

@@ -34,7 +34,7 @@ export default async function UsersDashboard({ searchParams }: UsersDashboardPro
     <div className="mx-auto mt-10 max-w-screen-md p-4">
       <h1 className="mb-6 text-2xl font-semibold">Användare</h1>
       <SearchBar labelText={labelText} itemsFoundCount={queriedUserCount} />
-      <div className="mx-auto flex flex-col items-center gap-y-3 mt-6">
+      <div className="mx-auto mt-6 flex flex-col items-center gap-y-3">
         {usersList.data.map((user) => {
           return <UserCard key={user.id} user={user} />;
         })}
