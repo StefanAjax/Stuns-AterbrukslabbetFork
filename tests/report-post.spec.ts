@@ -49,7 +49,7 @@ test("Report Post", async ({ page, browserName }) => {
 
   await screenshot(page, browserName);
 
-  await page.getByText("Anledning").filter({ visible: true }).first().fill("This is a test reason for a report");
+  await page.locator("textarea").filter({ hasText: "Anledning" }).first().fill("This is a test reason for a report");
 
   await screenshot(page, browserName);
 
