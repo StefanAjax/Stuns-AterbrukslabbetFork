@@ -53,7 +53,20 @@ test("Report Post", async ({ page, browserName }) => {
 
   await screenshot(page, browserName);
 
-  await page.getByText("Rapportera").filter({ visible: true }).first().click();
+  await Promise.all([
+    page.getByText("Rapportera").filter({ visible: true }).first().click(),
+    page.waitForResponse(
+      async (resp) => {
+        try {
+          const response = await resp.json();
+          return response.data === "Annonsen har blivit rapporterad";
+        } catch (error) {
+          return false;
+        }
+      },
+      { timeout: 20000 },
+    ),
+  ]);
 
   await screenshot(page, browserName);
 
@@ -67,9 +80,9 @@ test("Report Post", async ({ page, browserName }) => {
 
   await page.getByText("Rapporter").first().click();
 
-  await expect(page.getByText("Report Post Test").filter({ visible: true }).first()).toBeVisible({ timeout: 30000 });
+  await screenshot(page, browserName);
+
+  await expect(page.getByText("Report Post Test").filter({ visible: true }).first()).toBeVisible();
 
   await expect(page.getByText("This is a test reason for a report").filter({ visible: true }).first()).toBeVisible();
-
-  await screenshot(page, browserName);
 });
