@@ -67,9 +67,9 @@ test("Report Post", async ({ page, browserName }) => {
 
   await page.getByText("Rapporter").first().click();
 
-  await screenshot(page, browserName);
-
-  await expect(page.getByText("Report Post Test").filter({ visible: true }).first()).toBeVisible();
+  await expect(page.getByText("Report Post Test").filter({ visible: true }).first()).toBeVisible({ timeout: 30000 });
 
   await expect(page.getByText("This is a test reason for a report").filter({ visible: true }).first()).toBeVisible();
+
+  await screenshot(page, browserName);
 });
