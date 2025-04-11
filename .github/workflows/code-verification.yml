@@ -2,6 +2,8 @@ name: Code Verification
 
 on:
   workflow_call:
+  push:
+    branches: "**"
 
 jobs:
   check_linting:
