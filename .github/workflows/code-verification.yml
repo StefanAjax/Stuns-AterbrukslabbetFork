@@ -43,86 +43,15 @@ jobs:
       - name: Lint code
         run: pnpm format:check
 
-  testing:
+  call-testing-container:
+    strategy:
+      matrix:
+        shard_instance: [1, 2, 3, 4]
     runs-on: ubuntu-latest
-    env:
-      DATABASE_URL: postgres://postgres:${{ secrets.DB_PASSWORD }}@localhost:5432/test_db?pgbouncer=true&connection_limit=1
-      DIRECT_URL: postgres://postgres:${{ secrets.DB_PASSWORD }}@localhost:5432/test_db
-      NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY: ${{ secrets.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY }}
-      CLERK_SECRET_KEY: ${{ secrets.CLERK_SECRET_KEY }}
-      NEXT_PUBLIC_CLERK_SIGN_IN_URL: /sign-in
-      NEXT_PUBLIC_CLERK_SIGN_UP_URL: /sign-up
-      NEXT_PUBLIC_CLERK_AFTER_SIGN_IN_URL: /
-      NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL: /
-      TEST_ADMIN_EMAIL: ${{ secrets.TEST_ADMIN_EMAIL }}
-      TEST_ADMIN_PASSWORD: ${{ secrets.TEST_ADMIN_PASSWORD }}
-      TEST_REPORT_EMAIL: ${{ secrets.TEST_REPORT_EMAIL }}
-      TEST_REPORT_PASSWORD: ${{ secrets.TEST_REPORT_PASSWORD }}
-      CI: true
-
-    services:
-      postgres:
-        image: postgres:latest
-        env:
-          POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: ${{ secrets.DB_PASSWORD }}
-          POSTGRES_DB: test_db
-        ports:
-          - 5432:5432
-        options: >-
-          --health-cmd pg_isready
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4.2.2
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4.2.0
+      - name: Call Testing Workflow
+        uses: ./.github/workflows/testing-container.yml
         with:
-          node-version: "latest"
-
-      - name: Install pnpm
-        uses: pnpm/action-setup@v4.1.0
-
-      - name: Cache pnpm store
-        uses: actions/cache@v4
-        with:
-          path: |
-            ~/.pnpm-store
-            node_modules
-          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
-          restore-keys: |
-            ${{ runner.os }}-pnpm-store-
-
-      - name: Cache Playwright browsers
-        uses: actions/cache@v4
-        with:
-          path: ~/.cache/ms-playwright
-          key: ${{ runner.os }}-playwright-${{ hashFiles('**/pnpm-lock.yaml') }}
-          restore-keys: |
-            ${{ runner.os }}-playwright-
-
-      - name: Install dependencies
-        run: pnpm i --frozen-lockfile
-
-      - name: Wait for PostgreSQL to be ready
-        run: |
-          until pg_isready -h localhost -p 5432; do
-            sleep 1
-          done
-
-      - name: Run migrations
-        run: pnpm db:migrate:dev
-
-      - name: Run tests
-        run: pnpm test
-
-      - name: Upload Playwright Logs
-        uses: actions/upload-artifact@v4.6.1
-        if: failure()
-        with:
-          name: playwright-logs
-          path: ./tests/logs
+          shard_instance: ${{ matrix.shard_instance }}
+          max_shards: 4
