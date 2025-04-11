@@ -49,14 +49,8 @@ jobs:
     strategy:
       matrix:
         shard_instance: [1, 2, 3, 4]
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v4.2.2
-
-      - name: Call Testing Workflow
-        uses: ./.github/workflows/testing-container.yml
-        with:
-          shard_instance: ${{ matrix.shard_instance }}
-          max_shards: 4
+    uses: ./.github/workflows/testing-container.yml
+    secrets: inherit
+    with:
+      shard_instance: ${{ matrix.shard_instance }}
+      max_shards: 4
