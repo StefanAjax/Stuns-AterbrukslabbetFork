@@ -7,10 +7,12 @@ on:
         description: "The shard instance for this workflow"
         required: true
         default: 1
+        type: number
       max_shards:
         description: "THe max number of shards"
         required: true
         default: 1
+        type: number
 
 jobs:
   testing:
