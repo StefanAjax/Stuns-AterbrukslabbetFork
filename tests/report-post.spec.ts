@@ -55,7 +55,7 @@ test("Report Post", async ({ page, browserName }) => {
 
   await screenshot(page, browserName);
 
-  page.getByText("Rapportera").filter({ visible: true }).first().click();
+  await page.getByRole("button").filter({ hasText: "Rapportera" }).first().click();
 
   await screenshot(page, browserName);
 
