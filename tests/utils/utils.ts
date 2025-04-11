@@ -10,7 +10,7 @@ export const setup = async (page: Page) => {
 };
 
 export const login = async (page: Page, identifier: string, password: string) => {
-  await page.goto("/", { waitUntil: "networkidle" });
+  await page.goto("/", { waitUntil: "domcontentloaded" });
 
   await clerkSetup();
 
@@ -29,7 +29,7 @@ export const login = async (page: Page, identifier: string, password: string) =>
 };
 
 export const logout = async (page: Page) => {
-  await page.goto("/", { waitUntil: "networkidle" });
+  await page.goto("/", { waitUntil: "domcontentloaded" });
 
   await clerk.signOut({ page });
 };
