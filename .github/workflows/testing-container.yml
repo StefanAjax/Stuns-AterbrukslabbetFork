@@ -90,7 +90,7 @@ jobs:
         run: pnpm db:migrate:dev
 
       - name: Run tests
-        run: pnpm test -- --shard=${{ inputs.shard_instance }}/${{ inputs.max_shards }}
+        run: pnpm test -- "--shard=${{ inputs.shard_instance }}/${{ inputs.max_shards }}"
 
       - name: Upload Playwright Logs
         uses: actions/upload-artifact@v4.6.1
