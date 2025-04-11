@@ -96,5 +96,5 @@ jobs:
         uses: actions/upload-artifact@v4.6.1
         if: failure()
         with:
-          name: playwright-logs
+          name: playwright-logs-${{ inputs.shard_instance }}
           path: ./tests/logs
