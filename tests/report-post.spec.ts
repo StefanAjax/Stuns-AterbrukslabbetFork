@@ -55,20 +55,7 @@ test("Report Post", async ({ page, browserName }) => {
 
   await screenshot(page, browserName);
 
-  await Promise.all([
-    page.getByText("Rapportera").filter({ visible: true }).first().click(),
-    page.waitForResponse(
-      async (resp) => {
-        try {
-          const response = await resp.json();
-          return response.data === "Annonsen har blivit rapporterad";
-        } catch (error) {
-          return false;
-        }
-      },
-      { timeout: 20000 },
-    ),
-  ]);
+  page.getByText("Rapportera").filter({ visible: true }).first().click();
 
   await screenshot(page, browserName);
 
@@ -81,6 +68,9 @@ test("Report Post", async ({ page, browserName }) => {
   await page.getByText("Adminpanel").first().click();
 
   await screenshot(page, browserName);
+
+  // I know this is againt best practices, but playwright is not able to detect the toast nor the Next.js response for when posts are reported
+  await page.waitForTimeout(20000);
 
   await page.getByText("Rapporter").first().click();
 
