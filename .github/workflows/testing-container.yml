@@ -1,4 +1,4 @@
-name: Testing Container ${{ inputs.shard_instance }} of ${{ inputs.max_shards }}
+name: Testing Container
 
 on:
   workflow_call:
