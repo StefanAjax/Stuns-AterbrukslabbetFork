@@ -72,7 +72,7 @@ export default function PostComponent({ postData, email, fullName, isPreview, de
             {postData.postType}
           </section>
           {postData.hasCustomExpirationDate && (
-            <section className="text-red-500 text-end">
+            <section className="text-end text-red-500">
               <p>{expirationDateText}</p>
               <p>{expirationDateString}</p>
             </section>
