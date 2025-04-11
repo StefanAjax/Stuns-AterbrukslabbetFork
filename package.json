@@ -12,7 +12,7 @@
     "format:write": "prettier --write . && next lint --fix && prisma format",
     "format:check": "prettier --check . && next lint && prisma format --check",
     "db:migrate:dev": "prisma migrate dev",
-    "test": "rimraf ./tests/logs && playwright test --",
+    "test": "rimraf ./tests/logs && playwright test",
     "test:debug": "rimraf ./tests/logs && playwright test --headed",
     "postinstall": "prisma generate && pnpm exec playwright install --with-deps"
   },
