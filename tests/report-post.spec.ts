@@ -59,7 +59,8 @@ test("Report Post", async ({ page, browserName }) => {
 
   await screenshot(page, browserName);
 
-  await expect(page.locator("text=Annonsen har blivit rapporterad").filter({ visible: true }).first()).toBeVisible({ timeout: 30000 });
+  const toastLocator = page.locator("text=Annonsen har blivit rapporterad");
+  await expect(toastLocator).toBeVisible({ timeout: 30000 });
 
   await logout(page);
 
