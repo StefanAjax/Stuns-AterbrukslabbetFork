@@ -47,6 +47,7 @@ jobs:
 
   call-testing-container:
     strategy:
+      fail-fast: false
       matrix:
         shard_instance: [1, 2, 3, 4]
     uses: ./.github/workflows/testing-container.yml
