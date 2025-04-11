@@ -59,8 +59,9 @@ test("Report Post", async ({ page, browserName }) => {
 
   await screenshot(page, browserName);
 
-  // I know this is againt best practices, but playwright is not able to detect the toast nor the Next.js response for when posts are reported
-  await page.waitForTimeout(20000);
+  await expect(page.getByText("Annonsen har blivit rapporterad").filter({ visible: true }).first()).toBeVisible({
+    timeout: 30000,
+  });
 
   await logout(page);
 
