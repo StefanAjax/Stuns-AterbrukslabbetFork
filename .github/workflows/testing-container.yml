@@ -32,6 +32,7 @@ jobs:
       TEST_REPORT_PASSWORD: ${{ secrets.TEST_REPORT_PASSWORD }}
       RESEND_API_KEY: $({ secrets.RESEND_API_KEY })
       RESEND_SENDING_MAIL: ${{ secrets.RESEND_SENDING_MAIL }}
+      NEXT_PUBLIC_SITE_URL: http://localhost:3000
       CI: true
 
     services:
