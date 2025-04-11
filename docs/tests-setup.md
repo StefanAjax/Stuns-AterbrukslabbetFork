@@ -56,7 +56,13 @@ The following steps are required to configure repository secrets for testing:
    - The key `TEST_REPORT_PASSWORD` with the value of the password for the account you created.
 
 1. Enter the following secret into the repository:
+
    - The key `DB_PASSWORD` with an arbitrarily decided value.
+
+1. Follow the [Resend Setup Documentation](./resend-setup.md) and enter the following two secrets into the repository:
+
+   - The key `RESEND_API_KEY` with the value of the API-key you got from the setup.
+   - The key `RESEND_SENDING_MAIL` with the value of the E-mail address you chose during the setup.
 
 ## Automatic Development deployment
 

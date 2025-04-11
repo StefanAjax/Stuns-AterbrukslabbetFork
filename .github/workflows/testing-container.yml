@@ -30,6 +30,8 @@ jobs:
       TEST_ADMIN_PASSWORD: ${{ secrets.TEST_ADMIN_PASSWORD }}
       TEST_REPORT_EMAIL: ${{ secrets.TEST_REPORT_EMAIL }}
       TEST_REPORT_PASSWORD: ${{ secrets.TEST_REPORT_PASSWORD }}
+      RESEND_API_KEY: $({ secrets.RESEND_API_KEY })
+      RESEND_SENDING_MAIL: ${{ secrets.RESEND_SENDING_MAIL }}
       CI: true
 
     services:
