@@ -44,8 +44,8 @@ export default defineConfig({
       size: { width: 2560, height: 1440 },
     },
     launchOptions: {
-      /* Add a delay of 1 second between each action. */
-      slowMo: 1000,
+      /* Add a delay of 0 second between each action. */
+      slowMo: 0,
     },
   },
 
