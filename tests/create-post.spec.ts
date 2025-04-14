@@ -6,7 +6,7 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
-test("Create, View, and Delete Post", async ({ page, browserName }) => {
+test("Create, View, Edit and Delete Post", async ({ page, browserName }) => {
   await setup(page);
 
   await login(page, process.env.TEST_ADMIN_EMAIL || "", process.env.TEST_ADMIN_PASSWORD || "");
