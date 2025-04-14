@@ -33,10 +33,3 @@ export const logout = async (page: Page) => {
 
   await clerk.signOut({ page });
 };
-
-export const screenshot = async (page: Page, browserName: string) => {
-  await page.screenshot({
-    path: `./tests/logs/screenshot-${test.info().title}-${browserName}-${Date.now()}.png`,
-    fullPage: true,
-  });
-};
