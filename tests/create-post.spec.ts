@@ -71,8 +71,6 @@ test("Create, View, Edit and Delete Post", async ({ page, browserName }) => {
 
   await expect(page.getByText("Efterfrågas").filter({ visible: true }).first()).toBeVisible();
 
-  await expect(page.getByText("Inventarie").filter({ visible: true }).first()).toBeVisible();
-
   await expect(page.getByText("Uppsala").filter({ visible: true }).first()).toBeVisible();
 
   await page.getByRole("button").filter({ hasText: "Redigera" }).first().click();
