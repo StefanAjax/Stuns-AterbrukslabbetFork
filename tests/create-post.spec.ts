@@ -91,11 +91,11 @@ test("Create, View, Edit and Delete Post", async ({ page, browserName }) => {
 
   await page.getByText("Erbjuds").first().click();
 
-  await page.getByRole("textbox").filter({ hasText: "Create Post Test" }).first().fill("Edit Post Test");
+  await page.locator("input#title").first().fill("Edit Post Test");
 
   await screenshot(page, browserName);
 
-  await page.getByRole("textbox").filter({ hasText: "This is a test post" }).first().fill("This is an edited test post");
+  await page.locator("textarea#description").first().fill("This is an edited test post");
 
   await screenshot(page, browserName);
 
