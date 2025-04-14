@@ -77,7 +77,7 @@ test("Create, View, Edit and Delete Post", async ({ page, browserName }) => {
 
   await screenshot(page, browserName);
 
-  await expect(page.getByText("Redigera annons").filter({ visible: true }).first()).toBeVisible();
+  await expect(page.getByText("Uppdatera annons").filter({ visible: true }).first()).toBeVisible();
 
   await expect(page.getByText("Create Post Test").filter({ visible: true }).first()).toBeVisible();
 
