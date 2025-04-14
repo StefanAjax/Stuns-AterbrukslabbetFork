@@ -44,7 +44,8 @@ NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL=/
 - [Clerk](./clerk-setup.md)
 - [PostgreSQL](./postgresql-setup.md)
 - [Resend](./resend-setup.md)
-- [Other](./other-setup.md)
+- [Next.js](./next-setup.md)
+- [Testing & GitHub Actions](./tests-setup.md)
 
 ## Other Configurations
 
