@@ -40,18 +40,20 @@ export default function PostComponent({ postData, email, fullName, isPreview, us
     <article className="mx-auto max-w-[360px] rounded-2xl bg-secondary px-6 pb-4 pt-3 md:max-w-screen-md md:px-16 md:pb-6 md:pt-10">
       <Image
         src={
-          postData.category === "inventarie"
-            ? "/images/inventory.webp"
-            : postData.category === "förbrukningsvara"
-              ? "/images/consumables.webp"
-              : postData.category === "instrument/maskin"
-                ? "/images/instrument.webp"
-                : "/images/image-missing.webp"
+          postData.imageThumbUrl
+            ? postData.imageThumbUrl
+            : postData.category === "inventarie"
+              ? "/images/inventory.webp"
+              : postData.category === "förbrukningsvara"
+                ? "/images/consumables.webp"
+                : postData.category === "instrument/maskin"
+                  ? "/images/instrument.webp"
+                  : "/images/image-missing.webp"
         }
         alt="annonsens bild"
         width={600}
         height={450}
-        className="aspect-[4/3] w-full rounded-md"
+        className="aspect-[4/3] w-full rounded-md object-cover object-center"
       />
       <div className="flex w-full flex-col gap-y-1">
         <div className="flex justify-between pt-2 text-xs md:text-base">

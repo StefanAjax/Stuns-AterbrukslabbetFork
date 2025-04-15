@@ -3,7 +3,8 @@
 import { Controller, useForm, useWatch } from "react-hook-form";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useState, useEffect, useCallback, DragEvent } from "react"; // Import useEffect, useCallback, DragEvent
+import React from "react";
 
 import municipalities from "@/data/municipalities.json";
 
@@ -47,6 +48,7 @@ interface FormInputs {
   categoryPicker: string;
   municipalityPicker: string;
   datePicker: any;
+  image?: FileList;
 }
 
 export default function CreatePostComponent({
@@ -69,6 +71,9 @@ export default function CreatePostComponent({
     register,
     formState: { errors },
     handleSubmit,
+    setValue,
+    watch,
+    trigger, // Import trigger for validation
   } = useForm<FormInputs>({
     defaultValues: {
       postTypePicker: postType || "Erbjuds",
@@ -80,11 +85,19 @@ export default function CreatePostComponent({
       categoryPicker: category || "",
       municipalityPicker: municipality || "",
       datePicker: date || undefined,
+      image: undefined,
     },
   });
 
   // Watches the form inputs so that they can be used on the post preview
   const formData = useWatch({ control });
+
+  // Image preview state
+  const [imagePreview, setImagePreview] = useState<string | null>(null);
+
+  const [imageName, setImageName] = useState<string | null>(null); // State to track the image name
+  // State to track drag-over events on the window
+  const [isDraggingOver, setIsDraggingOver] = useState(false); // New state for drag overlay
 
   const postData = {
     id: 0,
@@ -95,8 +108,8 @@ export default function CreatePostComponent({
     postType: formData.postTypePicker || postType || "Erbjuds",
     category: formData.categoryPicker || category || "",
     location: formData.municipalityPicker || municipality || "",
-    imageThumbUrl: null,
-    imageFullUrl: null,
+    imageThumbUrl: imagePreview,
+    imageFullUrl: imagePreview,
     createdAt: new Date(),
     expiresAt: formData.datePicker || date || new Date(),
     hasCustomExpirationDate: customExpirationDate || formData.datePicker != undefined,
@@ -111,6 +124,122 @@ export default function CreatePostComponent({
   // UseState to prevent multiple successful submissions of the form
   const [isSubmitting, setIsSubmitting] = useState(false);
 
+  // Watch for file changes and set preview
+  const imageFiles = watch("image");
+  // Show image preview when file is selected
+  // Only the first image is handled in this example
+  React.useEffect(() => {
+    if (imageFiles && imageFiles.length > 0) {
+      const file = imageFiles[0];
+
+      // Set the image name for display or further processing
+      setImageName(file.name);
+
+      // Validation moved to drop handler and input validation, but keep preview logic
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setImagePreview(reader.result as string);
+      };
+      reader.readAsDataURL(file);
+    } else {
+      setImagePreview(null);
+    }
+  }, [imageFiles]);
+
+  // --- Drag and Drop Handlers ---
+  const handleDragOver = useCallback((event: globalThis.DragEvent) => {
+    event.preventDefault(); // Necessary to allow dropping
+    setIsDraggingOver(true);
+  }, []);
+
+  const handleDragEnter = useCallback((event: globalThis.DragEvent) => {
+    event.preventDefault();
+    setIsDraggingOver(true);
+  }, []);
+
+  const handleDragLeave = useCallback((event: globalThis.DragEvent) => {
+    event.preventDefault();
+    // Check if the leave event is truly leaving the window, not just moving over child elements
+    if (event.relatedTarget === null || (event.relatedTarget instanceof Node && !document.documentElement.contains(event.relatedTarget))) {
+      setIsDraggingOver(false);
+    }
+  }, []);
+
+  const imageUpload = useCallback(
+    async (event: React.ChangeEvent<HTMLInputElement>) => {
+      const files = event.target.files;
+      if (files && files.length > 0) {
+        // Validate the first selected file
+        const file = files[0];
+        const allowedTypes = ["image/jpeg", "image/png"];
+        const maxSize = 5 * 1024 * 1024; // 5MB
+
+        if (!allowedTypes.includes(file.type)) {
+          toast.error("Endast jpg eller png accepteras");
+          return;
+        }
+        if (file.size > maxSize) {
+          toast.error("Max filstorlek 5MB");
+          return;
+        }
+
+        // Use setValue to update the form state with the selected file(s)
+        setValue("image", files);
+        // Manually trigger validation for the image field after selection
+        await trigger("image");
+      }
+    },
+    [setValue, trigger], // Add dependencies
+  );
+
+  const handleDrop = useCallback(
+    async (event: globalThis.DragEvent) => {
+      event.preventDefault();
+      setIsDraggingOver(false);
+
+      if (event.dataTransfer && event.dataTransfer.files && event.dataTransfer.files.length > 0) {
+        const files = event.dataTransfer.files;
+        // Validate the first dropped file
+        const file = files[0];
+        const allowedTypes = ["image/jpeg", "image/png"];
+        const maxSize = 5 * 1024 * 1024; // 5MB
+
+        if (!allowedTypes.includes(file.type)) {
+          toast.error("Endast jpg eller png accepteras");
+          return;
+        }
+        if (file.size > maxSize) {
+          toast.error("Max filstorlek 5MB");
+          return;
+        }
+
+        // Use setValue to update the form state with the dropped file(s)
+        setValue("image", files);
+        // Manually trigger validation for the image field after dropping
+        await trigger("image");
+        // Clean up the data transfer object
+        event.dataTransfer.clearData();
+      }
+    },
+    [setValue, trigger], // Add dependencies
+  );
+
+  // --- Add and Remove Global Event Listeners ---
+  useEffect(() => {
+    window.addEventListener("dragenter", handleDragEnter);
+    window.addEventListener("dragover", handleDragOver);
+    window.addEventListener("dragleave", handleDragLeave);
+    window.addEventListener("drop", handleDrop);
+
+    // Cleanup function to remove listeners when the component unmounts
+    return () => {
+      window.removeEventListener("dragenter", handleDragEnter);
+      window.removeEventListener("dragover", handleDragOver);
+      window.removeEventListener("dragleave", handleDragLeave);
+      window.removeEventListener("drop", handleDrop);
+    };
+  }, [handleDragEnter, handleDragOver, handleDragLeave, handleDrop]); // Add handlers as dependencies
+
   const onSubmit = async (data: FormInputs) => {
     // Adjust the date created by the datePicker component to 10:00 UTC
     if (data.datePicker) {
@@ -120,26 +249,71 @@ export default function CreatePostComponent({
       data.datePicker = data.datePicker.toISOString();
     }
     setIsSubmitting(true);
+
+    // Handle image upload: You'd need to replace below with your backend/image upload logic
+    let imageUrl = null;
+    if (data.image && data.image.length > 0) {
+      // Example: upload image to server and get URL
+      // const uploadResult = await uploadImage(data.image[0]);
+      // imageUrl = uploadResult.url;
+      // For now, just using the preview as a placeholder
+      // Ensure imagePreview state is up-to-date before submitting if relying on it
+      // It might be safer to generate a temporary URL or handle upload directly here
+      if (imagePreview) {
+        // Use the state which should be updated by the useEffect
+        imageUrl = imagePreview;
+      } else {
+        // Fallback or error handling if preview didn't load in time
+        console.warn("Image preview was not ready for submission.");
+        // Potentially read the file again if needed, or rely on backend upload
+      }
+    }
+
+    // Pass the image URL to your post creation logic if needed
     let result;
     if (update) {
-      result = await updatePost({ data, postId });
+      result = await updatePost({ data: { ...data, imageUrl }, postId });
     } else {
-      result = await createPost({ data });
+      result = await createPost({ data: { ...data, imageUrl } });
     }
     if (result && result.error) {
       toast.error(result.error);
+      setIsSubmitting(false); // Ensure submitting state is reset on error
     } else if (result && result.data) {
       router.push("/");
       router.refresh();
       toast.success(result.data);
+      // No need to reset isSubmitting here as we are navigating away
     } else {
       toast.error("Något gick fel");
+      setIsSubmitting(false); // Ensure submitting state is reset on unknown error
     }
-    setIsSubmitting(false);
+    // Removed setIsSubmitting(false) from here as it's handled in error/success paths
+  };
+
+  // --- Validation function for react-hook-form ---
+  const validateImage = (files: FileList | undefined | null) => {
+    if (!files || files.length === 0) return true; // No file is valid (optional)
+    const file = files[0];
+    const allowedTypes = ["image/jpeg", "image/png"];
+    const maxSize = 5 * 1024 * 1024; // 5MB
+
+    if (!allowedTypes.includes(file.type)) return "Endast jpg eller png accepteras";
+    if (file.size > maxSize) return "Max filstorlek 5MB";
+    return true;
   };
 
   return (
-    <div className="mx-auto mt-10 flex max-w-screen-xl flex-wrap justify-center gap-x-20 gap-y-3 md:gap-y-6">
+    // Add relative positioning to the main container if the overlay uses absolute positioning
+    <div className="relative mx-auto mt-10 flex max-w-screen-xl flex-wrap justify-center gap-x-20 gap-y-3 md:gap-y-6">
+      {/* --- Drag and Drop Overlay --- */}
+      {isDraggingOver && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-sm">
+          <p className="text-2xl font-bold text-white">Släpp bilden här för att ladda upp</p>
+        </div>
+      )}
+      {/* --- End Drag and Drop Overlay --- */}
+
       <div className="h-fit w-[360px] rounded-2xl bg-secondary p-3 md:w-[600px] md:p-6">
         <form id="create-post-form" className="flex flex-col gap-y-5" onSubmit={handleSubmit(onSubmit)}>
           <h1 className="text-center text-xl md:text-3xl">{update ? "Uppdatera annons" : "Skapa ny annons"}</h1>
@@ -193,7 +367,7 @@ export default function CreatePostComponent({
               id="title"
               {...register("title", {
                 required: "Titel saknas",
-                value: title,
+                // Removed default value here, handled by useForm defaultValues
                 maxLength: { value: 40, message: "Max 40 tecken" },
                 validate: {
                   emailValidation: (value) => value.match(/[\w-\.]+@([\w-]+\.)+[\w-]{2,4}/g) == null || "Du får inte ha en mejladress i titeln",
@@ -215,7 +389,7 @@ export default function CreatePostComponent({
               id="description"
               {...register("description", {
                 required: "Beskrivning saknas",
-                value: description,
+                // Removed default value here, handled by useForm defaultValues
                 maxLength: { value: 1500, message: "Max 1500 tecken" },
                 validate: {
                   emailValidation: (value) => value.match(/[\w-\.]+@([\w-]+\.)+[\w-]{2,4}/g) == null || "Du får inte ha en mejladress i beskrivningen",
@@ -227,6 +401,39 @@ export default function CreatePostComponent({
             ></textarea>
             {errors.description?.message && <FormErrorParagraph content={errors.description.message} />}
           </div>
+
+          {/* --- Image upload section (Below description) --- */}
+          <div className="flex w-full flex-col">
+            <div className="flex items-center justify-between">
+              <FormLabel htmlFor="image" labelText="Bild (frivilligt)" />
+              <FormHint content="Ladda upp en bild på produkten (jpg, png, max 5MB)" />
+            </div>
+            {/* Hidden file input */}
+            <input
+              type="file"
+              id="image"
+              {...register("image", {
+                validate: validateImage, // Use the validation function
+              })}
+              accept="image/png, image/jpeg"
+              className="hidden" // Keep it hidden
+              onChange={imageUpload}
+            />
+            {/* Clickable area for file selection / Drop Zone feedback */}
+            {/* You might want to style this button differently when an image is previewed */}
+            <button
+              type="button"
+              className={`mt-2 flex h-32 w-full items-center justify-center rounded-sm border-2 border-dashed bg-primary bg-opacity-40 px-2 py-1 text-center text-sm text-gray-400 md:text-base ${
+                imagePreview ? "border-transparent" : "border-gray-500" // Style change if preview exists
+              }`}
+              onClick={() => document.getElementById("image")?.click()}
+            >
+              {imagePreview ? <span className="truncate p-2 text-gray-700 dark:text-gray-300">{imageName}</span> : "Klicka här eller dra och släpp en bild för att ladda upp"}
+            </button>
+            {errors.image?.message && <FormErrorParagraph content={typeof errors.image.message === "string" ? errors.image.message : "Ogiltig fil"} />} {/* Display validation errors */}
+          </div>
+          {/* --- END Image upload section --- */}
+
           <div className="flex w-full flex-col">
             <div className="flex justify-between">
               <h2 className="text-sm font-medium md:text-base">Kategori</h2>
