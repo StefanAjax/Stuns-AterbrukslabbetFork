@@ -16,7 +16,7 @@ import {
 } from "@/components/ui/alert-dialog";
 import type { Roles } from "@/types/globals";
 
-import changeRole from "../utils/change-role";
+import changeRole from "../_utils/change-role";
 
 interface ChangeRoleButtonProps {
   id: string;

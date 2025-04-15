@@ -1,85 +1,86 @@
 "use client";
 
+import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 
 import { AlertDialog, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
-import deleteOwnPost from "@/utils/delete-own-post";
+import { Textarea } from "@/components/ui/textarea";
 import type { Post } from "@prisma/client";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { useUser } from "@clerk/nextjs";
 
 import FormErrorParagraph from "../../create-post/_components/form-error-paragraph";
+import reportPost from "@/utils/report-post";
 
-interface DeleteOwnPostButtonProps {
+interface ReportPostButtonProps {
   postData: Post;
-  redirectPath?: string;
 }
 
 type Inputs = {
   reason: string;
 };
 
-export default function DeleteOwnPostButton({ postData, redirectPath }: DeleteOwnPostButtonProps) {
+export default function ReportPostButton({ postData }: ReportPostButtonProps) {
+  const [open, setOpen] = useState(false);
   const {
     control,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm<Inputs>();
-  const router = useRouter();
+  const { user } = useUser();
 
-  const onDelete = async (data: Inputs) => {
-    const result = await deleteOwnPost({
+  const onReport = async (data: Inputs) => {
+    if (!user) {
+      return {
+        error: "Något gick fel",
+      };
+    }
+
+    setOpen(false);
+
+    const result = await reportPost({
       postData,
-      deletionReason: data.reason,
+      reportReason: data.reason || undefined,
+      userId: user.id,
     });
+
     if (result && result.error) {
       toast.error(result.error);
     } else if (result && result.data) {
-      redirectPath && router.push(redirectPath);
-      router.refresh();
-      toast.success(postData.title + " " + result.data);
+      toast.success(result.data);
     } else {
       toast.error("Något gick fel");
     }
+
+    reset();
   };
 
   return (
-    <AlertDialog>
+    <AlertDialog open={open} onOpenChange={setOpen}>
       <AlertDialogTrigger asChild>
-        <Button variant="destructive">Ta bort annons</Button>
+        <Button variant="destructive">Anmäl annons</Button>
       </AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
           <AlertDialogTitle>Är du säker?</AlertDialogTitle>
           <AlertDialogDescription>
-            Detta kommer
-            <span className="font-bold"> permanent</span> ta bort annonsen.
+            Hjälp oss att hålla plattformen säker genom att rapportera olämpliga annonser. Vi uppskattar din assistans att identifiera annonser som bryter mot våra riktlinjer. Grundlösa anmälningar
+            och missbruk av rapporteringsfunktionen kan leda till åtgärder för ditt konto.
           </AlertDialogDescription>
         </AlertDialogHeader>
-        <form onSubmit={handleSubmit(onDelete)}>
+        <form onSubmit={handleSubmit(onReport)}>
           <div className="flex flex-col items-center md:items-start">
-            <h2 className="my-3 text-base font-semibold">Resulterade annonsen i en donation?</h2>
-            <Controller
-              name="reason"
-              control={control}
-              rules={{ required: "Välj ett alternativ" }}
-              render={({ field: { onChange, value } }) => (
-                <RadioGroup className="flex items-center" value={value} onValueChange={(value) => onChange(value)}>
-                  <h3>Ja</h3>
-                  <RadioGroupItem value="Lyckad" />
-                  <h3>Nej</h3>
-                  <RadioGroupItem value="Olyckad" />
-                </RadioGroup>
-              )}
-            />
+            <h2 className="my-3 text-base font-semibold">Anledning till rapporteringen</h2>
+            <Controller name="reason" control={control} render={({ field: { onChange, value } }) => <Textarea className="w-full" value={value} onChange={onChange} placeholder="Anledning" />} />
             {errors.reason?.message && <FormErrorParagraph content={errors.reason.message} />}
           </div>
           <AlertDialogFooter className="pt-8">
             <AlertDialogCancel>Avbryt</AlertDialogCancel>
             <Button variant="destructive" type="submit">
-              Ta bort
+              Rapportera
             </Button>
           </AlertDialogFooter>
         </form>

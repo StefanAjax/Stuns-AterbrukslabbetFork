@@ -4,15 +4,16 @@ import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, 
 
 interface CreatePostAlertDialogProps {
   isSubmitting?: boolean;
+  update: boolean;
 }
 
-export default function CreatePostAlertDialog({ isSubmitting }: CreatePostAlertDialogProps) {
+export default function CreatePostAlertDialog({ isSubmitting, update }: CreatePostAlertDialogProps) {
   return (
     <AlertDialog>
-      <AlertDialogTrigger className="rounded-sm bg-primary px-3 py-1 text-sm md:px-4 md:text-base">Skapa</AlertDialogTrigger>
+      <AlertDialogTrigger className="rounded-sm bg-primary px-3 py-1 text-sm md:px-4 md:text-base">{update ? "Uppdatera" : "Skapa"}</AlertDialogTrigger>
       <AlertDialogContent className="max-w-2xl">
         <AlertDialogHeader>
-          <AlertDialogTitle className="flex justify-center">Skapa annons?</AlertDialogTitle>
+          <AlertDialogTitle className="flex justify-center">{update ? "Uppdatera annons?" : "Skapa annons?"}</AlertDialogTitle>
           <h1 className="text-pretty text-center text-sm md:text-base">När du skänker eller tar emot begagnad utrustning, tänk på följande</h1>
           <div className="flex list-disc flex-col items-center gap-y-2 text-pretty text-center text-xs md:px-5 md:text-sm">
             <hr />
@@ -34,7 +35,7 @@ export default function CreatePostAlertDialog({ isSubmitting }: CreatePostAlertD
         <AlertDialogFooter>
           <AlertDialogCancel>Fortsätt redigera</AlertDialogCancel>
           <AlertDialogAction disabled={isSubmitting} form="create-post-form" type="submit">
-            Skapa annons
+            {update ? "Uppdatera annons" : "Skapa annons"}
           </AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>
