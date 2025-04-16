@@ -2,19 +2,60 @@
 
 import { db } from "@/lib/db";
 import { getUserId } from "@/utils/get-user-id";
+import fs from "node:fs";
+import path from "node:path";
 
 interface CreatePostProps {
   data: any;
 }
 
 export default async function createPost({ data }: CreatePostProps) {
-  const userId = await getUserId();
-
-  if (!userId) {
-    return { error: "Kunde inte hämta användarinformation" };
-  }
-
   try {
+    const userId = await getUserId();
+
+    if (!userId) {
+      return { error: "Kunde inte hämta användarinformation" };
+    }
+
+    const image = data.image;
+
+    let fullURL: string | null = null;
+    let thumbURL: string | null = null;
+
+    if (image instanceof File) {
+      const uniqueFilename = `${Date.now()}-${image.name}`;
+
+      // Return an error if the file name already exists
+      const existingFile = fs.existsSync(path.join(process.cwd(), "public", "uploads", uniqueFilename));
+      if (existingFile) {
+        return {
+          error: "Kunde inte skapa annonsen",
+        };
+      }
+
+      // Define the path to the uploads directory
+
+      const uploadsDir = path.join(process.cwd(), "public", "uploads");
+
+      // Create the uploads directory if it doesn't exist
+      if (!fs.existsSync(uploadsDir)) {
+        fs.mkdirSync(uploadsDir, { recursive: true });
+      }
+      // Define the path to the file
+
+      const filePath = path.join(uploadsDir, uniqueFilename);
+
+      // Read the file data
+      const fileData = new Uint8Array(await image.arrayBuffer());
+      // Write the file to the uploads directory
+      fs.writeFileSync(filePath, fileData);
+      // Construct the URL to access the file
+
+      thumbURL = `/uploads/${uniqueFilename}`;
+
+      fullURL = `${process.env.NEXT_PUBLIC_SITE_URL}${thumbURL}`;
+    }
+
     await db.post.create({
       data: {
         userId: userId,
@@ -23,12 +64,15 @@ export default async function createPost({ data }: CreatePostProps) {
         postType: data.postTypePicker,
         category: data.categoryPicker,
         location: data.municipalityPicker,
-        expiresAt: data.datePicker !== undefined ? new Date(data.datePicker) : undefined,
-        hasCustomExpirationDate: data.datePicker !== undefined,
+        imageFullUrl: fullURL,
+        imageThumbUrl: thumbURL,
+        expiresAt: data.datePicker !== null ? new Date(data.datePicker) : undefined,
+        hasCustomExpirationDate: data.datePicker !== null,
       },
     });
     return { data: "Annons " + data.title + " skapat" };
-  } catch {
+  } catch (error) {
+    console.error("Error creating post:", error);
     return { error: "Kunde inte skapa annonsen" };
   }
 }
