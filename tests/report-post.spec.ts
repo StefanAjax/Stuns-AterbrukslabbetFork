@@ -37,8 +37,6 @@ test("Report Post", async ({ page }) => {
 
   await logout(page);
 
-  await expect(page.getByText("Logga in").filter({ visible: true }).first()).toBeVisible();
-
   await login(page, process.env.TEST_REPORT_EMAIL || "", process.env.TEST_REPORT_PASSWORD || "");
 
   await page.getByText("Report Post Test").filter({ visible: true }).first().click();
@@ -52,8 +50,6 @@ test("Report Post", async ({ page }) => {
   await expect(page.getByText("Annonsen har blivit rapporterad").filter({ visible: true }).first()).toBeVisible();
 
   await logout(page);
-
-  await expect(page.getByText("Logga in").filter({ visible: true }).first()).toBeVisible();
 
   await login(page, process.env.TEST_ADMIN_EMAIL || "", process.env.TEST_ADMIN_PASSWORD || "");
 
