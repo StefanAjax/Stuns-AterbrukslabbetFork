@@ -14,7 +14,7 @@
     "db:migrate:dev": "prisma migrate dev",
     "test": "rimraf ./tests/logs && playwright test",
     "test:debug": "rimraf ./tests/logs && playwright test --headed",
-    "postinstall": "prisma generate && pnpm exec playwright install --with-deps"
+    "postinstall": "prisma generate"
   },
   "dependencies": {
     "@clerk/localizations": "^3.10.8",
@@ -93,5 +93,6 @@
       "prisma",
       "sharp"
     ]
-  }
+  },
+  "packageManager": "pnpm@10.7.0"
 }

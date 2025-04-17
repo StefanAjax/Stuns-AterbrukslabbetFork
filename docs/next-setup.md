@@ -1,6 +1,4 @@
-# Other Setup
-
-## Next.js
+# Next.js Setup
 
 1. In your `.env` file add a new environment variable with your URL as the value. E.g. `https://aterbrukslabbet.nu`.
 

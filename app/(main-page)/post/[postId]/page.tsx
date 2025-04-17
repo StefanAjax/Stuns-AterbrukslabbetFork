@@ -9,6 +9,8 @@ import getPostData from "../../utils/get-post-data";
 import getUserRoleFromUserId from "../../utils/get-user-role-from-user-id";
 import PostComponent from "../_components/post-component";
 import PostModerationActions from "../_components/post-moderation-actions";
+import EditPostButton from "../_components/edit-post-button";
+import ReportPostButton from "../_components/report-post";
 
 interface PostIdPageProps {
   params: Promise<{
@@ -31,16 +33,21 @@ export default async function PostIdPage({ params }: PostIdPageProps) {
     });
     const fullName = firstName + " " + lastName;
 
-    const deleteButton =
+    const userPostActionButton =
       userId === postData.userId ? (
-        <DeleteOwnPostButton postData={postData} redirectPath="/" />
+        <>
+          <DeleteOwnPostButton postData={postData} redirectPath="/" />
+          <EditPostButton postData={postData} />
+        </>
       ) : (await checkRole("admin")) || (await checkRole("moderator")) ? (
         <PostModerationActions postData={postData} postUserRole={postUserRole} />
+      ) : (await checkRole("medlem")) ? (
+        <ReportPostButton postData={postData} />
       ) : undefined;
 
     return (
       <div className="mx-auto mt-5 max-w-[360px] md:max-w-screen-md">
-        <PostComponent postData={postData} email={email} fullName={fullName} deleteButton={deleteButton} />
+        <PostComponent postData={postData} email={email} fullName={fullName} userPostActionButton={userPostActionButton} />
       </div>
     );
   } else {
@@ -51,7 +58,7 @@ export default async function PostIdPage({ params }: PostIdPageProps) {
           <p className="text-pretty">
             Denna annons verkar inte finnas. Om du tror att annonsen bör finnas kontrollera då URL:en. Om du precis skapat annonsen kan det ta en liten stund för den att dyka upp.
           </p>
-          <Link className="text-blue-600 pt-1 text-lg hover:underline" href="/">
+          <Link className="pt-1 text-lg text-blue-600 hover:underline" href="/">
             Till startsidan
           </Link>
         </div>

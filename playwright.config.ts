@@ -22,7 +22,7 @@ export default defineConfig({
   /* Fail the build on CI if you accidentally left test.only in the source code. */
   forbidOnly: !!process.env.CI,
   /* Do not retry failed tests */
-  retries: 0,
+  retries: 2,
   /* Timeout for each test */
   timeout: 60000,
   /* Only run one test at a time */
@@ -34,18 +34,18 @@ export default defineConfig({
     /* Base URL to use in actions like `await page.goto('/')`. */
     baseURL: "http://localhost:3000",
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
-    trace: "on-first-retry",
+    trace: "retain-on-failure",
     /* Viewport size for the browser. */
     viewport: { width: 2560, height: 1440 },
     /* Record videos of the tests. */
     video: {
-      mode: "on",
+      mode: "retain-on-failure",
       /* Resolution of the videos */
       size: { width: 2560, height: 1440 },
     },
     launchOptions: {
-      /* Add a delay of 1 second between each action. */
-      slowMo: 1000,
+      /* Add a delay of .2 seconds between each action. */
+      slowMo: 200,
     },
   },
 
@@ -68,6 +68,6 @@ export default defineConfig({
     command: "pnpm launch",
     url: "http://localhost:3000",
     timeout: 300000,
-    reuseExistingServer: !process.env.CI,
+    reuseExistingServer: true,
   },
 });

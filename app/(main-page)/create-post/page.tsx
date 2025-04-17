@@ -15,7 +15,7 @@ export default async function createPostPage() {
 
     return (
       <div>
-        <CreatePostComponent firstName={firstName} lastName={lastName} email={email} userId={userId} />
+        <CreatePostComponent firstName={firstName} lastName={lastName} email={email} userId={userId} update={false} />
       </div>
     );
   } else {
@@ -26,7 +26,7 @@ export default async function createPostPage() {
           Ojdå, något gick fel och din användarinformation hittades inte. <br />
           Var god och kontakta oss om problemet kvarstår.
         </p>
-        <Link className="text-blue-600 pt-1 text-lg hover:underline" href="/">
+        <Link className="pt-1 text-lg text-blue-600 hover:underline" href="/">
           Till startsidan
         </Link>
       </div>
