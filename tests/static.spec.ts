@@ -2,7 +2,7 @@ import { test, expect } from "@playwright/test";
 
 import { setup } from "./utils/utils";
 
-test("FAQ", async ({ page, browserName }) => {
+test("FAQ", async ({ page }) => {
   await setup(page);
 
   await page.getByText("Vanliga frågor").first().click();
@@ -24,7 +24,7 @@ test("FAQ", async ({ page, browserName }) => {
   await expect(page.getByText("När jag tar bort min annons blir jag frågad om annonsen resulterade i en donation?").filter({ visible: true }).first()).toBeVisible();
 });
 
-test("About us", async ({ page, browserName }) => {
+test("About us", async ({ page }) => {
   await setup(page);
 
   await page.getByText("Om oss").first().click();
@@ -42,7 +42,7 @@ test("About us", async ({ page, browserName }) => {
   await expect(page.getByText("Ambjörn Hogmark").filter({ visible: true }).first()).toBeVisible();
 });
 
-test("TOS", async ({ page, browserName }) => {
+test("TOS", async ({ page }) => {
   await setup(page);
 
   await page.getByText("Användarvillkor").first().click();
