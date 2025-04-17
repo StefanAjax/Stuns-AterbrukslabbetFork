@@ -6,7 +6,7 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
-test("Report Post", async ({ page, browserName }) => {
+test("Report Post", async ({ page }) => {
   await setup(page);
 
   await login(page, process.env.TEST_ADMIN_EMAIL || "", process.env.TEST_ADMIN_PASSWORD || "");
