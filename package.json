@@ -14,7 +14,8 @@
     "db:migrate:dev": "prisma migrate dev",
     "test": "rimraf ./tests/logs && playwright test",
     "test:debug": "rimraf ./tests/logs && playwright test --headed",
-    "postinstall": "prisma generate && pnpm exec playwright install --with-deps"
+    "postinstall": "prisma generate && pnpm exec playwright install --with-deps",
+    "prepare": "husky"
   },
   "dependencies": {
     "@clerk/localizations": "^3.10.8",
@@ -58,8 +59,8 @@
   "devDependencies": {
     "@clerk/testing": "^1.4.27",
     "@eslint/compat": "^1.2.7",
-    "@playwright/test": "^1.51.0",
     "@next/eslint-plugin-next": "^15.2.3",
+    "@playwright/test": "^1.51.0",
     "@types/file-saver": "^2.0.7",
     "@types/node": "^22.13.5",
     "@types/react": "19.0.10",
@@ -69,6 +70,7 @@
     "eslint-config-next": "^15.2.3",
     "eslint-config-prettier": "^10.0.2",
     "eslint-plugin-react-hooks": "^5.2.0",
+    "husky": "^9.1.7",
     "postcss": "^8.5.3",
     "prettier": "^3.5.2",
     "prettier-plugin-tailwindcss": "^0.6.11",
