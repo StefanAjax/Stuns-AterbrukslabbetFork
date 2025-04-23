@@ -1,13 +1,11 @@
 import { test, expect } from "@playwright/test";
 
-import { setup, screenshot } from "./utils/utils";
+import { setup } from "./utils/utils";
 
 test("FAQ", async ({ page, browserName }) => {
   await setup(page);
 
   await page.getByText("Vanliga frågor").first().click();
-
-  await screenshot(page, browserName);
 
   await expect(page.getByText("Vanliga frågor och svar").filter({ visible: true }).first()).toBeVisible();
 
@@ -31,8 +29,6 @@ test("About us", async ({ page, browserName }) => {
 
   await page.getByText("Om oss").first().click();
 
-  await screenshot(page, browserName);
-
   await expect(page.getByText("Om Återbrukslabbet").filter({ visible: true }).first()).toBeVisible();
 
   await expect(page.getByText("Utvecklare våren 2024:").filter({ visible: true }).first()).toBeVisible();
@@ -50,8 +46,6 @@ test("TOS", async ({ page, browserName }) => {
   await setup(page);
 
   await page.getByText("Användarvillkor").first().click();
-
-  await screenshot(page, browserName);
 
   await expect(page.getByText("Användarvillkor och integritetspolicy").filter({ visible: true }).first()).toBeVisible();
 

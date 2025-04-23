@@ -44,8 +44,8 @@ export default defineConfig({
       size: { width: 2560, height: 1440 },
     },
     launchOptions: {
-      /* Add a delay of 1 second between each action. */
-      slowMo: 1000,
+      /* Add a delay of .2 seconds between each action. */
+      slowMo: 200,
     },
   },
 
@@ -68,6 +68,6 @@ export default defineConfig({
     command: "pnpm launch",
     url: "http://localhost:3000",
     timeout: 300000,
-    reuseExistingServer: !process.env.CI,
+    reuseExistingServer: true,
   },
 });

@@ -1,6 +1,6 @@
 import { test, expect } from "@playwright/test";
 
-import { setup, screenshot, login, logout } from "./utils/utils";
+import { setup, login, logout } from "./utils/utils";
 
 import dotenv from "dotenv";
 
@@ -33,8 +33,6 @@ test("Report Post", async ({ page, browserName }) => {
 
   await page.getByRole("button").filter({ hasText: "Skapa annons" }).first().click();
 
-  await screenshot(page, browserName);
-
   await expect(page.getByText("Report Post Test").filter({ visible: true }).first()).toBeVisible();
 
   await logout(page);
@@ -45,19 +43,11 @@ test("Report Post", async ({ page, browserName }) => {
 
   await page.getByText("Report Post Test").filter({ visible: true }).first().click();
 
-  await screenshot(page, browserName);
-
   await page.getByText("Anmäl annons").filter({ visible: true }).first().click();
-
-  await screenshot(page, browserName);
 
   await page.getByPlaceholder("Anledning").filter({ visible: true }).first().fill("This is a test reason for a report");
 
-  await screenshot(page, browserName);
-
   await page.getByRole("button").filter({ hasText: "Rapportera" }).first().click();
-
-  await screenshot(page, browserName);
 
   await expect(page.getByText("Annonsen har blivit rapporterad").filter({ visible: true }).first()).toBeVisible();
 
@@ -69,11 +59,7 @@ test("Report Post", async ({ page, browserName }) => {
 
   await page.getByText("Adminpanel").first().click();
 
-  await screenshot(page, browserName);
-
   await page.getByText("Rapporter").first().click();
-
-  await screenshot(page, browserName);
 
   await expect(page.getByText("Report Post Test").filter({ visible: true }).first()).toBeVisible();
 

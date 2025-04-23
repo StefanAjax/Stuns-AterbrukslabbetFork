@@ -9,6 +9,7 @@ import getPostData from "../../utils/get-post-data";
 import getUserRoleFromUserId from "../../utils/get-user-role-from-user-id";
 import PostComponent from "../_components/post-component";
 import PostModerationActions from "../_components/post-moderation-actions";
+import EditPostButton from "../_components/edit-post-button";
 import ReportPostButton from "../_components/report-post";
 
 interface PostIdPageProps {
@@ -34,7 +35,10 @@ export default async function PostIdPage({ params }: PostIdPageProps) {
 
     const userPostActionButton =
       userId === postData.userId ? (
-        <DeleteOwnPostButton postData={postData} redirectPath="/" />
+        <>
+          <DeleteOwnPostButton postData={postData} redirectPath="/" />
+          <EditPostButton postData={postData} />
+        </>
       ) : (await checkRole("admin")) || (await checkRole("moderator")) ? (
         <PostModerationActions postData={postData} postUserRole={postUserRole} />
       ) : (await checkRole("medlem")) ? (
