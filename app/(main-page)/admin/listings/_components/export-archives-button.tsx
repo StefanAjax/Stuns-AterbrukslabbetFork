@@ -6,7 +6,7 @@ import { toast } from "sonner";
 
 import { Button } from "@/components/ui/button";
 
-import getArchivedPosts from "../utils/get-archived-posts";
+import getArchivedPosts from "../_utils/get-archived-posts";
 
 const onExport = async () => {
   const archivedPosts = await getArchivedPosts();
@@ -53,7 +53,7 @@ const onExport = async () => {
 
 export default function ExportArchivesButton() {
   return (
-    <Button className="w-fit" onClick={onExport}>
+    <Button variant="default" onClick={onExport}>
       Exportera
     </Button>
   );
