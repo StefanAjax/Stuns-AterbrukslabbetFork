@@ -10,9 +10,6 @@ import { source_sans_3 } from "@/app/fonts";
 import AdminDropdown from "@/components/admin-dropdown";
 
 export default async function Navbar() {
-  const userId = await getUserId();
-  const isAdminOrModerator = (await checkRole("admin")) || (await checkRole("moderator"));
-
   return (
     <header className="top-0 flex h-20 w-full bg-white">
       <div className="mx-auto flex h-full w-full max-w-[1920px] items-center justify-between px-4">
@@ -24,7 +21,7 @@ export default async function Navbar() {
             </Link>
           </SignedOut>
           <SignedIn>
-            {isAdminOrModerator && (
+            {((await checkRole("admin")) || (await checkRole("moderator"))) && (
               <>
                 <Link href="/admin/dashboard" className="block md:hidden">
                   <LockKeyhole strokeWidth={1} width={30} height={30} />
@@ -34,7 +31,7 @@ export default async function Navbar() {
                 </div>
               </>
             )}
-            <Link href={`/profile/${userId}`}>
+            <Link href={`/profile/${await getUserId()}`}>
               <BookUser strokeWidth={1} width={30} height={30} className="block md:hidden" />
               <p className={cn("hidden text-xl font-medium hover:opacity-80 md:block", source_sans_3.className)}>Mina annonser</p>
             </Link>
