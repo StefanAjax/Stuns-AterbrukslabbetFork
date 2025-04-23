@@ -1,8 +1,9 @@
 "use client";
 
 import { ChevronFirst, ChevronLast, ChevronLeft, ChevronRight } from "lucide-react";
-import { ReactElement } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
+
+import { Pagination as ShadcnPagination, PaginationContent, PaginationItem, PaginationLink } from "@/components/ui/pagination";
 
 interface PaginationProps {
   itemCount?: number;
@@ -11,7 +12,7 @@ interface PaginationProps {
 }
 
 export default function Pagination({ itemCount, itemsPerPage, hashLinkId }: PaginationProps) {
-  const searchParams = new URLSearchParams(useSearchParams().toString());
+  const searchParams = useSearchParams();
   const pathname = usePathname();
   const { replace } = useRouter();
 
@@ -19,7 +20,7 @@ export default function Pagination({ itemCount, itemsPerPage, hashLinkId }: Pagi
   const currentPage = Number(searchParams.get("page")) || 1;
 
   function handlePageChange(pageIndex: number) {
-    const params = new URLSearchParams(searchParams);
+    const params = new URLSearchParams(searchParams.toString());
     if (pageIndex > pages) {
       params.set("page", pages.toString());
     } else if (pageIndex > 1) {
@@ -30,67 +31,53 @@ export default function Pagination({ itemCount, itemsPerPage, hashLinkId }: Pagi
     hashLinkId ? replace(`${pathname}?${params.toString()}#${hashLinkId}`) : replace(`${pathname}?${params.toString()}`);
   }
 
-  const pageButtons: Array<ReactElement> = [];
+  if (pages <= 1) return null;
 
-  function generatePageButtons(startPage: number, endPage: number) {
-    for (let pageIndex = startPage; pageIndex <= endPage; pageIndex++) {
-      if (pageIndex === currentPage) {
-        pageButtons.push(
-          <button key={pageIndex} className="p-2 font-semibold underline md:p-4" onClick={() => handlePageChange(pageIndex)}>
-            {pageIndex}
-          </button>,
-        );
-      } else {
-        pageButtons.push(
-          <button className="p-2 md:p-4" key={pageIndex} onClick={() => handlePageChange(pageIndex)}>
-            {pageIndex}
-          </button>,
-        );
-      }
-    }
+  const pageNumbers = [];
+
+  const numPagesAround = 2;
+  const startPage = Math.max(1, currentPage - numPagesAround);
+  const endPage = Math.min(pages, currentPage + numPagesAround);
+
+  for (let i = startPage; i <= endPage; i++) {
+    pageNumbers.push(i);
   }
 
-  if (pages > 5) {
-    if (currentPage > 2 && currentPage < pages - 2) {
-      generatePageButtons(currentPage - 2, currentPage + 2);
-    } else if (currentPage <= 2) {
-      generatePageButtons(1, 5);
-    } else if (currentPage >= pages - 2) {
-      generatePageButtons(pages - 4, pages);
-    } else {
-      return "Error generating page buttons.";
-    }
-  } else {
-    generatePageButtons(1, pages);
-  }
+  return (
+    <ShadcnPagination className="mt-10">
+      <PaginationContent>
+        <PaginationItem>
+          <PaginationLink onClick={() => handlePageChange(1)} className={currentPage === 1 ? "pointer-events-none opacity-50" : "cursor-pointer"}>
+            <ChevronFirst />
+          </PaginationLink>
+        </PaginationItem>
 
-  if (pages <= 1) {
-    return;
-  } else {
-    return (
-      <div className="mt-4 flex items-center justify-center gap-x-2">
-        <div className="flex items-center gap-x-2 p-2">
-          {pages > 5 && (
-            <button onClick={() => handlePageChange(1)}>
-              <ChevronFirst className="h-4 w-4 md:h-6 md:w-6" />
-            </button>
-          )}
-          <button onClick={() => handlePageChange(currentPage - 1)}>
-            <ChevronLeft className="h-4 w-4 md:h-6 md:w-6" />
-          </button>
-        </div>
-        <div className="flex justify-center gap-x-2 text-base md:text-xl">{pageButtons}</div>
-        <div className="flex items-center gap-x-2 p-2">
-          <button onClick={() => handlePageChange(currentPage + 1)}>
-            <ChevronRight className="h-4 w-4 md:h-6 md:w-6" />
-          </button>
-          {pages > 5 && (
-            <button onClick={() => handlePageChange(pages)}>
-              <ChevronLast className="h-4 w-4 md:h-6 md:w-6" />
-            </button>
-          )}
-        </div>
-      </div>
-    );
-  }
+        <PaginationItem>
+          <PaginationLink onClick={() => handlePageChange(currentPage - 1)} className={currentPage === 1 ? "pointer-events-none opacity-50" : "cursor-pointer"}>
+            <ChevronLeft />
+          </PaginationLink>
+        </PaginationItem>
+
+        {pageNumbers.map((pageNumber) => (
+          <PaginationItem key={pageNumber}>
+            <PaginationLink isActive={pageNumber === currentPage} onClick={() => handlePageChange(pageNumber)} className="cursor-pointer">
+              {pageNumber}
+            </PaginationLink>
+          </PaginationItem>
+        ))}
+
+        <PaginationItem>
+          <PaginationLink onClick={() => handlePageChange(currentPage + 1)} className={currentPage === pages ? "pointer-events-none opacity-50" : "cursor-pointer"}>
+            <ChevronRight />
+          </PaginationLink>
+        </PaginationItem>
+
+        <PaginationItem>
+          <PaginationLink onClick={() => handlePageChange(pages)} className={currentPage === pages ? "pointer-events-none opacity-50" : "cursor-pointer"}>
+            <ChevronLast />
+          </PaginationLink>
+        </PaginationItem>
+      </PaginationContent>
+    </ShadcnPagination>
+  );
 }
