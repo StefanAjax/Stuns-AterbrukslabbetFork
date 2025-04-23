@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { toast } from "sonner";
-import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 import { AlertDialog, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
@@ -67,8 +67,11 @@ export default function ReportPostButton({ postData }: ReportPostButtonProps) {
         <AlertDialogHeader>
           <AlertDialogTitle>Är du säker?</AlertDialogTitle>
           <AlertDialogDescription>
-            Hjälp oss att hålla plattformen säker genom att rapportera olämpliga annonser. Vi uppskattar din assistans att identifiera annonser som bryter mot våra riktlinjer. Grundlösa anmälningar
-            och missbruk av rapporteringsfunktionen kan leda till åtgärder för ditt konto.
+            Din hjälp att identifiera annonser som bryter mot Återbrukslabbets{" "}
+            <Link href="/terms-of-service" className="text-blue-500 underline" target="blank">
+              riktlinjer
+            </Link>{" "}
+            bidrar till en säker och ändamålsenlig plattform. Tack för ditt engagemang!
           </AlertDialogDescription>
         </AlertDialogHeader>
         <form onSubmit={handleSubmit(onReport)}>
