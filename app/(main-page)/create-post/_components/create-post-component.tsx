@@ -4,6 +4,7 @@ import { Controller, useForm, useWatch } from "react-hook-form";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { useState, useEffect, useCallback } from "react";
+import Image from "next/image";
 
 import municipalities from "@/data/municipalities.json";
 
@@ -304,7 +305,6 @@ export default function CreatePostComponent({
     console.log("Initial data:", data);
     console.log("Existing imageUrl:", `${process.env.NEXT_PUBLIC_SITE_URL}${imageUrl}`);
 
-
     // If updating, no new image selected, BUT an existing image URL exists...
     if (update && (data.image === null || (data.image instanceof FileList && data.image.length === 0)) && imageUrl) {
       console.log("Attempting to convert URL to File...");
@@ -336,7 +336,6 @@ export default function CreatePostComponent({
       // Ensure data.image is explicitly null if it wasn't set or converted
       data.image = null;
     }
-
 
     setIsSubmitting(true);
 
@@ -516,7 +515,7 @@ export default function CreatePostComponent({
               {imagePreview ? (
                 <>
                   {/* Show image preview */}
-                  <img src={imagePreview} alt="Förhandsgranskning" className="mb-2 max-h-24 w-auto rounded object-contain" />
+                  <Image src={imagePreview} alt="Förhandsgranskning" className="mb-2 max-h-24 w-auto rounded object-contain" />
                   <span className="block max-w-full truncate p-1 text-xs text-gray-700 dark:text-gray-300">{imageName || "Bild"}</span>
                   {/* Add a button to remove the image */}
                   <button
