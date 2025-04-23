@@ -68,7 +68,7 @@ export default function PostCard({ postData, timezone }: PostCardProps) {
             <div className="flex flex-col-reverse md:grow md:flex-col">
               <p className="pt-1 text-end text-[9px] md:pb-2 md:text-base">{creationDateString}</p>
               {postData.hasCustomExpirationDate && (
-                <div className="text-red-500 text-end text-[9px] md:text-base">
+                <div className="text-end text-[9px] text-red-500 md:text-base">
                   <p>{expirationDateText}</p>
                   <p>{expirationDateString}</p>
                 </div>

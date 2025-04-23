@@ -22,7 +22,7 @@ export default async function ExtendPostByMailPage({ params }: ExtendPostByMailP
         <p>
           Ojdå, något gick fel och ingen annons hittades. <br /> Säkerställ att annonsen inte redan förlängts eller tagits bort. <br /> Var god och kontakta oss om problemet kvarstår.
         </p>
-        <Link className="text-blue-600 pt-1 text-lg hover:underline" href="/">
+        <Link className="pt-1 text-lg text-blue-600 hover:underline" href="/">
           Till startsidan
         </Link>
       </div>
@@ -44,7 +44,7 @@ export default async function ExtendPostByMailPage({ params }: ExtendPostByMailP
       <p className="text-balance">
         Din annons &quot;{soonExpiringPost.title}&quot; har förlängts med sex månader. Annonsens nya utgångsdatum är {String(response.data)}.
       </p>
-      <Link className="text-blue-600 pt-1 text-lg hover:underline" href="/">
+      <Link className="pt-1 text-lg text-blue-600 hover:underline" href="/">
         Till startsidan
       </Link>
     </div>
