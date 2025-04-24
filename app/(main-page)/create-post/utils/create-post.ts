@@ -4,6 +4,7 @@ import { db } from "@/lib/db";
 import { getUserId } from "@/utils/get-user-id";
 import fs from "node:fs";
 import path from "node:path";
+import crypto from "node:crypto";
 
 interface CreatePostProps {
   data: any;
@@ -21,13 +22,22 @@ export default async function createPost({ data }: CreatePostProps) {
 
     let fullURL: string | null = null;
     let thumbURL: string | null = null;
+    let imageName: string | null = null;
 
     if (image instanceof File) {
-      const uniqueFilename = `${Date.now()}-${image.name}`;
+      // Get image as base64
+
+      imageName = image.name;
+
+      const buffer = Buffer.from(await image.arrayBuffer());
+      const base64Image = buffer.toString("base64");
+
+      // Create a unique file name by hashing the base64 string
+
+      const filename = crypto.createHash("sha256").update(base64Image).digest("hex");
 
       // Return an error if the file name already exists
-      const existingFile = fs.existsSync(path.join(process.cwd(), "public", "uploads", uniqueFilename));
-      if (existingFile) {
+      if (fs.existsSync(path.join(process.cwd(), "public", "uploads", filename))) {
         return {
           error: "Kunde inte skapa annonsen",
         };
@@ -43,7 +53,7 @@ export default async function createPost({ data }: CreatePostProps) {
       }
       // Define the path to the file
 
-      const filePath = path.join(uploadsDir, uniqueFilename);
+      const filePath = path.join(uploadsDir, filename);
 
       // Read the file data
       const fileData = new Uint8Array(await image.arrayBuffer());
@@ -51,7 +61,7 @@ export default async function createPost({ data }: CreatePostProps) {
       fs.writeFileSync(filePath, fileData);
       // Construct the URL to access the file
 
-      thumbURL = `/uploads/${uniqueFilename}`;
+      thumbURL = `/uploads/${filename}`;
 
       fullURL = `${process.env.NEXT_PUBLIC_SITE_URL}${thumbURL}`;
     }
@@ -66,6 +76,7 @@ export default async function createPost({ data }: CreatePostProps) {
         location: data.municipalityPicker,
         imageFullUrl: fullURL,
         imageThumbUrl: thumbURL,
+        imageName: imageName,
         expiresAt: data.datePicker !== null ? new Date(data.datePicker) : undefined,
         hasCustomExpirationDate: data.datePicker !== null,
       },
