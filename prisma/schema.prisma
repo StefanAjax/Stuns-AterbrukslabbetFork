@@ -18,6 +18,7 @@ model Post {
   location                String
   imageThumbUrl           String?
   imageFullUrl            String?
+  imageName               String?
   createdAt               DateTime            @default(now())
   expiresAt               DateTime            @default(dbgenerated("(now() + '6 mons'::interval)"))
   hasCustomExpirationDate Boolean             @default(false)
