@@ -22,22 +22,6 @@ import PostPreviewForMobile from "./post-preview-for-mobile";
 import PostTypePicker from "./post-type-picker";
 import updatePost from "../utils/update-post";
 
-// Helper function to extract filename from URL (optional, for display)
-const getFileNameFromUrl = (url: string | null | undefined): string | null => {
-  if (!url) return null;
-  try {
-    // Basic extraction, might need refinement based on actual URL structure
-    const decodedUrl = decodeURIComponent(url);
-    const urlParts = new URL(decodedUrl).pathname.split("/");
-    const potentialFilename = urlParts[urlParts.length - 1];
-    // Basic check if it looks like a filename
-    return potentialFilename && potentialFilename.includes(".") ? potentialFilename : "Bild";
-  } catch (e) {
-    console.warn("Could not parse filename from URL:", url, e);
-    return "Bild"; // Default name if parsing fails
-  }
-};
-
 interface CreatePostComponentProps {
   firstName: string;
   lastName: string;
@@ -53,6 +37,7 @@ interface CreatePostComponentProps {
   update: boolean;
   postId?: string;
   imageUrl?: string; // Changed from image: File to imageUrl: string
+  imageNameParameter?: string;
 }
 
 interface FormInputs {
@@ -83,6 +68,7 @@ export default function CreatePostComponent({
   update,
   postId,
   imageUrl, // Use the updated prop name
+  imageNameParameter,
 }: CreatePostComponentProps) {
   const {
     control,
@@ -114,7 +100,8 @@ export default function CreatePostComponent({
   // Initialize preview state with the imageUrl prop if it exists
   const [imagePreview, setImagePreview] = useState<string | null>(imageUrl || null);
   // Initialize name state based on the imageUrl prop
-  const [imageName, setImageName] = useState<string | null>(getFileNameFromUrl(imageUrl));
+
+  const [imageName, setImageName] = useState<string | undefined>(imageNameParameter);
 
   const [isDraggingOver, setIsDraggingOver] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -169,7 +156,7 @@ export default function CreatePostComponent({
         // Optionally reset to initial URL if reading fails? Or just show error?
         // Resetting might be confusing. Let's clear preview on error.
         setImagePreview(null);
-        setImageName(null);
+        setImageName(undefined);
         setValue("image", null); // Clear invalid file from form state
         toast.error("Kunde inte läsa bildfilen.");
       };
@@ -181,12 +168,12 @@ export default function CreatePostComponent({
       // We might need a dedicated "remove image" button for better UX
       // For now, if imageFile becomes null/undefined, and there's no initial URL, clear preview.
       setImagePreview(null);
-      setImageName(null);
+      setImageName(undefined);
     } else if (imageFile === null || imageFile === undefined) {
       // If imageFile was explicitly cleared (e.g., by a future "remove" button using setValue('image', null))
       // And there *was* an initial image, revert preview back to the initial image.
       setImagePreview(imageUrl);
-      setImageName(getFileNameFromUrl(imageUrl));
+      setImageName(imageNameParameter);
     }
   }, [imageFile, imageUrl, setValue]); // Add imageUrl and setValue as dependencies
 
@@ -316,7 +303,7 @@ export default function CreatePostComponent({
         }
         const blob = await response.blob();
         // Try to get a filename, fallback to a generic name based on type
-        let filename = getFileNameFromUrl(imageUrl);
+        let filename = imageName;
         if (!filename || filename === "Bild") {
           // If extraction failed or gave default
           const extension = blob.type.split("/")[1] || "jpg"; // Default to jpg if type is weird
@@ -516,7 +503,7 @@ export default function CreatePostComponent({
               {imagePreview ? (
                 <>
                   {/* Show image preview */}
-                  <Image src={imagePreview} alt="Förhandsgranskning" className="mb-2 max-h-24 w-auto rounded object-contain" />
+                  <Image src={imagePreview} alt="Förhandsgranskning" className="mb-2 max-h-24 w-auto rounded object-contain" width={200} height={150} />
                   <span className="block max-w-full truncate p-1 text-xs text-gray-700 dark:text-gray-300">{imageName || "Bild"}</span>
                   {/* Add a button to remove the image */}
                   <button

@@ -4,7 +4,7 @@ import { db } from "@/lib/db";
 import { getUserId } from "@/utils/get-user-id";
 import fs from "node:fs";
 import path from "node:path";
-import crypto from "node:crypto";
+import makeRandomId from "@/utils/make-random-id";
 
 interface CreatePostProps {
   data: any;
@@ -29,15 +29,10 @@ export default async function createPost({ data }: CreatePostProps) {
 
       imageName = image.name;
 
-      const buffer = Buffer.from(await image.arrayBuffer());
-      const base64Image = buffer.toString("base64");
-
-      // Create a unique file name by hashing the base64 string
-
-      const filename = crypto.createHash("sha256").update(base64Image).digest("hex");
+      const fileName = makeRandomId({ length: 15 });
 
       // Return an error if the file name already exists
-      if (fs.existsSync(path.join(process.cwd(), "public", "uploads", filename))) {
+      if (fs.existsSync(path.join(process.cwd(), "public", "uploads", fileName))) {
         return {
           error: "Kunde inte skapa annonsen",
         };
@@ -53,7 +48,7 @@ export default async function createPost({ data }: CreatePostProps) {
       }
       // Define the path to the file
 
-      const filePath = path.join(uploadsDir, filename);
+      const filePath = path.join(uploadsDir, fileName);
 
       // Read the file data
       const fileData = new Uint8Array(await image.arrayBuffer());
@@ -61,7 +56,7 @@ export default async function createPost({ data }: CreatePostProps) {
       fs.writeFileSync(filePath, fileData);
       // Construct the URL to access the file
 
-      thumbURL = `/uploads/${filename}`;
+      thumbURL = `/uploads/${fileName}`;
 
       fullURL = `${process.env.NEXT_PUBLIC_SITE_URL}${thumbURL}`;
     }

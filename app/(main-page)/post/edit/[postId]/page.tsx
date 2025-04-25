@@ -102,6 +102,7 @@ export default async function createPostPage({ params }: PostIdPageProps) {
         customExpirationDate={postData.hasCustomExpirationDate}
         postId={postId}
         imageUrl={imageUrl || undefined}
+        imageNameParameter={postData.imageName || undefined}
         update={true}
       />
     </div>
