@@ -134,6 +134,7 @@ export default function CreatePostComponent({
     createdAt: new Date(), // Should likely be set on the server or use existing if updating
     expiresAt: formData.datePicker || date || new Date(), // Use the date from the form or fallback to prop
     hasCustomExpirationDate: !!formData.datePicker || customExpirationDate || false, // Simplified logic
+    imageName: imageName || null, // Use the name from the URL or default
   };
 
   const router = useRouter();
