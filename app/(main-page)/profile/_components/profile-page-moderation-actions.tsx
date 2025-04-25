@@ -19,7 +19,7 @@ export default async function ProfilePageModerationActions({ pageUserId, pageUse
     } else {
       const roleText = pageUserRole !== "medlem" ? `Okänd roll: ${pageUserRole.charAt(0).toUpperCase() + pageUserRole.slice(1)}` : `${pageUserRole.charAt(0).toUpperCase() + pageUserRole.slice(1)}`;
       return (
-        <div className="flex gap-x-3 pt-1 text-sm md:text-base">
+        <div className="flex items-center gap-x-4 pt-1 text-sm md:text-base">
           <p className="font-semibold">{roleText}</p>
           <DeleteUserButton id={pageUserId} email={email} redirectPath="/" />
         </div>
