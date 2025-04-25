@@ -85,9 +85,11 @@ export default function PostComponent({ postData, email, fullName, isPreview, us
           <User className="block shrink-0 md:hidden" size={12} />
           <p className="line-clamp-1 break-all pl-1 text-sm md:text-xl">{fullName}</p>
         </Link>
-        <div className="flex items-center justify-between">
-          <ContactMeDialog fullName={fullName} email={email} disabled={isPreview} />
-          {userPostActionButton && <>{userPostActionButton}</>}
+        <div className="flex w-full items-center justify-between">
+          <div>
+            <ContactMeDialog fullName={fullName} email={email} disabled={isPreview} />
+          </div>
+          {userPostActionButton && <div className="flex gap-x-2">{userPostActionButton}</div>}
         </div>
       </div>
     </article>

@@ -36,8 +36,8 @@ export default async function PostIdPage({ params }: PostIdPageProps) {
     const userPostActionButton =
       userId === postData.userId ? (
         <>
-          <DeleteOwnPostButton postData={postData} redirectPath="/" />
           <EditPostButton postData={postData} />
+          <DeleteOwnPostButton postData={postData} redirectPath="/" />
         </>
       ) : (await checkRole("admin")) || (await checkRole("moderator")) ? (
         <PostModerationActions postData={postData} postUserRole={postUserRole} />
