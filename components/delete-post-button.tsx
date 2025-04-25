@@ -43,9 +43,7 @@ export default function DeletePostButton({ postData, redirectPath }: DeletePostB
   return (
     <AlertDialog open={open} onOpenChange={setOpen}>
       <AlertDialogTrigger asChild>
-        <Button variant="destructive">
-          Ta bort annons
-        </Button>
+        <Button variant="destructive">Ta bort annons</Button>
       </AlertDialogTrigger>
 
       <AlertDialogContent>
