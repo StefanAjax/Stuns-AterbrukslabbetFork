@@ -52,15 +52,15 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4.2.2
+        uses: actions/checkout@v4
 
       - name: Setup Node.js
-        uses: actions/setup-node@v4.2.0
+        uses: actions/setup-node@v4
         with:
           node-version: "latest"
 
       - name: Install pnpm
-        uses: pnpm/action-setup@v4.1.0
+        uses: pnpm/action-setup@v4
 
       - name: Cache pnpm store
         uses: actions/cache@v4
@@ -109,7 +109,7 @@ jobs:
         run: pnpm test --shard=${{ inputs.shard_instance }}/${{ inputs.max_shards }}
 
       - name: Upload Playwright Logs
-        uses: actions/upload-artifact@v4.6.1
+        uses: actions/upload-artifact@v4
         if: failure()
         with:
           name: playwright-logs-${{ inputs.shard_instance }}
