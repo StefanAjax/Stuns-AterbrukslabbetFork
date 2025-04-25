@@ -1,5 +1,7 @@
 import { checkRole } from "@/utils/check-role";
 import DeleteUserButton from "@/components/delete-user-button";
+import ChangeRoleButton from "../../admin/users/_components/change-role-button";
+import type { Roles } from "@/types/globals";
 
 interface ProfilePageModerationActionsProps {
   pageUserId: string;
@@ -8,19 +10,29 @@ interface ProfilePageModerationActionsProps {
 }
 
 export default async function ProfilePageModerationActions({ pageUserId, pageUserRole, email }: ProfilePageModerationActionsProps) {
-  if ((await checkRole("admin")) || (await checkRole("moderator"))) {
+  const isAdmin = await checkRole("admin");
+  const isModerator = await checkRole("moderator");
+
+  if (isAdmin || isModerator) {
     if (pageUserRole === "admin" || pageUserRole === "moderator") {
       return (
-        <div className="flex gap-x-3 pt-1 text-sm md:text-base">
-          <p className="font-semibold capitalize">{pageUserRole}</p>
-          {(await checkRole("admin")) && pageUserRole !== "admin" && <DeleteUserButton id={pageUserId} email={email} redirectPath="/" />}
+        <div className="flex items-center gap-x-1 text-sm md:text-base">
+          <p className="mr-4 font-semibold capitalize">{pageUserRole}</p>
+          {isAdmin && pageUserRole === "moderator" && (
+            <>
+              <ChangeRoleButton id={pageUserId} email={email} newRole="medlem" currentRole={pageUserRole} />
+              <DeleteUserButton id={pageUserId} email={email} redirectPath="/" />
+            </>
+          )}
         </div>
       );
     } else {
       const roleText = pageUserRole !== "medlem" ? `Okänd roll: ${pageUserRole.charAt(0).toUpperCase() + pageUserRole.slice(1)}` : `${pageUserRole.charAt(0).toUpperCase() + pageUserRole.slice(1)}`;
+
       return (
-        <div className="flex items-center gap-x-4 pt-1 text-sm md:text-base">
-          <p className="font-semibold">{roleText}</p>
+        <div className="flex items-center gap-x-1 text-sm md:text-base">
+          <p className="mr-4 font-semibold capitalize">{roleText}</p>
+          {isAdmin && <ChangeRoleButton id={pageUserId} email={email} newRole="moderator" currentRole={pageUserRole} />}
           <DeleteUserButton id={pageUserId} email={email} redirectPath="/" />
         </div>
       );
