@@ -1,6 +1,7 @@
 "use client";
 
 import { Dialog, DialogContent, DialogHeader, DialogTrigger } from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
 
 interface ContactMeDialogProps {
   fullName: string;
@@ -11,8 +12,8 @@ interface ContactMeDialogProps {
 export default function ContactMeDialog({ fullName, email, disabled }: ContactMeDialogProps) {
   return (
     <Dialog>
-      <DialogTrigger disabled={disabled}>
-        <div className="flex h-8 w-32 items-center justify-center rounded-lg bg-primary text-base md:h-10 md:w-40 md:text-xl">Kontakta mig</div>
+      <DialogTrigger asChild disabled={disabled}>
+        <Button variant="default">Kontakta mig</Button>
       </DialogTrigger>
       <DialogContent className="max-w-2xl">
         <DialogHeader>

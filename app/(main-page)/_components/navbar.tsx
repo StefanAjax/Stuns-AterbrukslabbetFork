@@ -1,4 +1,4 @@
-import { BookUser, LockKeyhole, PlusSquare } from "lucide-react";
+import { BookUser, LockKeyhole, PlusSquare, Flag } from "lucide-react";
 import Link from "next/link";
 
 import { checkRole } from "@/utils/check-role";
@@ -7,9 +7,12 @@ import { getUserId } from "@/utils/get-user-id";
 import Logo from "../../../components/logo";
 import { SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 import { source_sans_3 } from "@/app/fonts";
+import AdminDropdown from "@/components/admin-dropdown";
 
 export default async function Navbar() {
   const userId = await getUserId();
+  const isAdminOrModerator = (await checkRole("admin")) || (await checkRole("moderator"));
+
   return (
     <header className="top-0 flex h-20 w-full bg-white">
       <div className="mx-auto flex h-full w-full max-w-[1920px] items-center justify-between px-4">
@@ -21,11 +24,15 @@ export default async function Navbar() {
             </Link>
           </SignedOut>
           <SignedIn>
-            {((await checkRole("admin")) || (await checkRole("moderator"))) && (
-              <Link href="/admin">
-                <LockKeyhole strokeWidth={1} width={30} height={30} className="block md:hidden" />
-                <span className={cn("hidden text-xl font-medium hover:opacity-80 md:block", source_sans_3.className)}>Adminpanel</span>
-              </Link>
+            {isAdminOrModerator && (
+              <>
+                <Link href="/admin/dashboard" className="block md:hidden">
+                  <LockKeyhole strokeWidth={1} width={30} height={30} />
+                </Link>
+                <div className="hidden md:block">
+                  <AdminDropdown className={cn("text-xl font-medium", source_sans_3.className)} />
+                </div>
+              </>
             )}
             <Link href={`/profile/${userId}`}>
               <BookUser strokeWidth={1} width={30} height={30} className="block md:hidden" />

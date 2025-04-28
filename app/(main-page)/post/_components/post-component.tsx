@@ -17,10 +17,10 @@ interface PostComponentProps {
   email: string;
   fullName: string;
   isPreview?: boolean;
-  deleteButton?: JSX.Element;
+  userPostActionButton?: JSX.Element;
 }
 
-export default function PostComponent({ postData, email, fullName, isPreview, deleteButton }: PostComponentProps) {
+export default function PostComponent({ postData, email, fullName, isPreview, userPostActionButton }: PostComponentProps) {
   const [creationDateString, setCreationDateString] = useState("laddar...");
   const [expirationDateString, setExpirationDateString] = useState("laddar...");
 
@@ -85,11 +85,13 @@ export default function PostComponent({ postData, email, fullName, isPreview, de
           <User className="block shrink-0 md:hidden" size={12} />
           <p className="line-clamp-1 break-all pl-1 text-sm md:text-xl">{fullName}</p>
         </Link>
-        <div className="flex items-center justify-between">
-          <ContactMeDialog fullName={fullName} email={email} disabled={isPreview} />
+        <div className="flex w-full items-center justify-between">
+          <div>
+            <ContactMeDialog fullName={fullName} email={email} disabled={isPreview} />
+          </div>
+          {userPostActionButton && <div className="flex gap-x-2">{userPostActionButton}</div>}
         </div>
       </div>
-      {deleteButton && <div className="flex w-full justify-end">{deleteButton}</div>}
     </article>
   );
 }
