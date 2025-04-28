@@ -45,7 +45,7 @@ test("Create post with image", async ({ page }) => {
 
   await expect(page.getByText("Uppsala").filter({ visible: true }).first()).toBeVisible();
 
-  await expect(page.getByAltText("Create Post Test with image").filter({ visible: true }).first()).toBeVisible();
+  await expect(page.getByAltText("Annonsens bild").filter({ visible: true }).first()).toBeVisible();
 });
 
 test("Add image to post", async ({ page }) => {
@@ -107,7 +107,7 @@ test("Add image to post", async ({ page }) => {
 
   await expect(page.getByText("Uppsala").filter({ visible: true }).first()).toBeVisible();
 
-  await expect(page.getByAltText("Add image to post").filter({ visible: true }).first()).toBeVisible();
+  await expect(page.getByAltText("Annonsens bild").filter({ visible: true }).first()).toBeVisible();
 });
 
 test("Remove image from post", async ({ page }) => {
@@ -149,7 +149,7 @@ test("Remove image from post", async ({ page }) => {
 
   await expect(page.getByText("Uppsala").filter({ visible: true }).first()).toBeVisible();
 
-  await expect(page.getByAltText("Remove image from post").filter({ visible: true }).first()).toBeVisible();
+  await expect(page.getByAltText("Annonsens bild").filter({ visible: true }).first()).toBeVisible();
 
   await page.getByText("Remove image from post").first().click();
 
@@ -173,7 +173,7 @@ test("Remove image from post", async ({ page }) => {
 
   await expect(page.getByText("Uppsala").filter({ visible: true }).first()).toBeVisible();
 
-  await expect(page.getByAltText("Remove image from post").filter({ visible: true }).first()).not.toBeVisible();
+  await expect(page.getByAltText("Annonsens bild").filter({ visible: true }).first()).not.toBeVisible();
 });
 
 test("Change image in post", async ({ page }) => {
@@ -215,7 +215,7 @@ test("Change image in post", async ({ page }) => {
 
   await expect(page.getByText("Uppsala").filter({ visible: true }).first()).toBeVisible();
 
-  await expect(page.getByAltText("Change image in post").filter({ visible: true }).first()).toBeVisible();
+  await expect(page.getByAltText("Annonsens bild").filter({ visible: true }).first()).toBeVisible();
 
   await page.getByText("Change image in post").first().click();
 
@@ -239,5 +239,5 @@ test("Change image in post", async ({ page }) => {
 
   await expect(page.getByText("Uppsala").filter({ visible: true }).first()).toBeVisible();
 
-  await expect(page.getByAltText("Change image in post").filter({ visible: true }).first()).toBeVisible();
+  await expect(page.getByAltText("Annonsens bild").filter({ visible: true }).first()).toBeVisible();
 });
