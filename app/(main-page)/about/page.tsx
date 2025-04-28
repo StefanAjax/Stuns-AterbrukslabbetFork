@@ -69,6 +69,19 @@ export default function AboutPage() {
           <p>Studerar till civilingenjör på KTH.</p>
         </div>
       </div>
+      <div className="flex flex-col gap-y-3">
+        <h2 className="text-xl font-semibold">Utvecklare våren 2025:</h2>
+        <div>
+          <span className="font-semibold">David Cavalli-Björkman</span>,{" "}
+          <a className="text-blue-600 hover:underline" href="https://www.linkedin.com/in/david-cavalli-bj%C3%B6rkman/">
+            LinkedIn
+          </a>
+          ,{" "}
+          <a className="text-blue-600 hover:underline" href="https://davidcavallib.github.io/">
+            portfolio
+          </a>
+        </div>
+      </div>
       <p className="mt-6">
         Om du har frågor, eller vill ge feedback på verktyget, vänligen skriv en rad till{" "}
         <a className="text-blue-600 hover:underline" href="mailto:erik.allard@stuns.se">
