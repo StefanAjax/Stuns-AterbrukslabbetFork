@@ -1,4 +1,6 @@
 import { db } from "@/lib/db";
+import path from "node:path";
+import fs from "node:fs";
 
 import archivePost from "./archive-post";
 
@@ -8,25 +10,36 @@ interface DeletePostsByIdProps {
 }
 
 export default async function deletePostsByIds({ postsIds, deletionReason }: DeletePostsByIdProps) {
-  const [posts] = await db.$transaction([
-    db.post.findMany({
-      where: {
-        id: {
-          in: postsIds,
-        },
-      },
-    }),
-
-    db.post.deleteMany({
-      where: {
-        id: {
-          in: postsIds,
-        },
-      },
-    }),
-  ]);
-
   try {
+    const [posts] = await db.$transaction([
+      db.post.findMany({
+        where: {
+          id: {
+            in: postsIds,
+          },
+        },
+      }),
+
+      db.post.deleteMany({
+        where: {
+          id: {
+            in: postsIds,
+          },
+        },
+      }),
+    ]);
+
+    posts
+      .filter((post) => post.imageThumbUrl)
+      .map((post) => post.imageThumbUrl)
+      .forEach((imageUrl) => {
+        if (!imageUrl) return;
+        const imagePath = path.join(process.cwd(), "public", imageUrl);
+        if (fs.existsSync(imagePath)) {
+          fs.unlinkSync(imagePath);
+        }
+      });
+
     posts.forEach(async (post) => {
       await archivePost({ postData: post, deletionReason });
     });

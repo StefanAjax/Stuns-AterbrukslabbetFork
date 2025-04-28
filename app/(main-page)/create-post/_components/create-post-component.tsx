@@ -36,7 +36,7 @@ interface CreatePostComponentProps {
   customExpirationDate?: boolean;
   update: boolean;
   postId?: string;
-  imageUrl?: string; // Changed from image: File to imageUrl: string
+  imageUrl?: string;
   imageNameParameter?: string;
 }
 
@@ -53,6 +53,11 @@ interface FormInputs {
   image?: File | null; // Can be File or null/undefined
 }
 
+type PostResult = {
+  data?: string;
+  error?: string;
+};
+
 export default function CreatePostComponent({
   firstName,
   lastName,
@@ -67,7 +72,7 @@ export default function CreatePostComponent({
   customExpirationDate,
   update,
   postId,
-  imageUrl, // Use the updated prop name
+  imageUrl,
   imageNameParameter,
 }: CreatePostComponentProps) {
   const {
@@ -89,21 +94,23 @@ export default function CreatePostComponent({
       categoryPicker: category || "",
       municipalityPicker: municipality || "",
       datePicker: date || undefined,
-      image: undefined, // Start with no file selected in the form state
+      image: undefined,
     },
   });
 
-  // Watches the form inputs so that they can be used on the post preview
   const formData = useWatch({ control });
 
-  // --- State Initialization ---
-  // Initialize preview state with the imageUrl prop if it exists
   const [imagePreview, setImagePreview] = useState<string | null>(imageUrl || null);
-  // Initialize name state based on the imageUrl prop
 
   const [imageName, setImageName] = useState<string | undefined>(imageNameParameter);
 
+  // Log imageName whenever it changes
+  useEffect(() => {
+    console.log("Image name changed:", imageName);
+  }, [imageName]);
+
   const [isDraggingOver, setIsDraggingOver] = useState(false);
+
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const postData = {
@@ -115,67 +122,51 @@ export default function CreatePostComponent({
     postType: formData.postTypePicker || postType || "Erbjuds",
     category: formData.categoryPicker || category || "",
     location: formData.municipalityPicker || municipality || "",
-    // Use imagePreview for the display data, it holds initial URL or new data URL
     imageThumbUrl: imagePreview,
     imageFullUrl: imagePreview,
-    createdAt: new Date(), // Should likely be set on the server or use existing if updating
-    expiresAt: formData.datePicker || date || new Date(), // Use the date from the form or fallback to prop
-    hasCustomExpirationDate: !!formData.datePicker || customExpirationDate || false, // Simplified logic
-    imageName: imageName || null, // Use the name from the URL or default
+    createdAt: new Date(),
+    expiresAt: formData.datePicker || date || new Date(),
+    hasCustomExpirationDate: !!formData.datePicker || customExpirationDate || false,
+    imageName: imageName || null,
   };
 
   const router = useRouter();
   const fullName = firstName + " " + lastName;
   const categoryList = ["förbrukningsvara", "instrument/maskin", "inventarie"];
 
-  // Watch the 'image' field in the form (for NEW uploads)
   const imageFile = watch("image");
 
-  // Effect to update preview when a NEW file is selected/dropped
   useEffect(() => {
     let fileToRead: File | null = null;
 
     if (imageFile instanceof FileList && imageFile.length > 0) {
       fileToRead = imageFile[0];
-      // Update the form state to store only the File object, not the FileList
-      // This prevents the FileList issue if watch somehow picks it up again
       setValue("image", fileToRead, { shouldDirty: true });
     } else if (imageFile instanceof File) {
       fileToRead = imageFile;
     }
 
     if (fileToRead) {
-      // A new file has been selected/dropped, update preview and name
       setImageName(fileToRead.name);
       const reader = new FileReader();
       reader.onloadend = () => {
-        setImagePreview(reader.result as string); // Overwrite preview with data URL
+        setImagePreview(reader.result as string);
       };
       reader.onerror = () => {
-        console.error("Error reading file:", reader.error);
-        // Optionally reset to initial URL if reading fails? Or just show error?
-        // Resetting might be confusing. Let's clear preview on error.
         setImagePreview(null);
         setImageName(undefined);
-        setValue("image", null); // Clear invalid file from form state
+        setValue("image", null);
         toast.error("Kunde inte läsa bildfilen.");
       };
       reader.readAsDataURL(fileToRead);
     } else if (!imageUrl) {
-      // Only clear preview if there was no initial imageUrl either
-      // Otherwise, keep showing the initial imageUrl
-      // This handles the case where the user *removes* a selected file
-      // We might need a dedicated "remove image" button for better UX
-      // For now, if imageFile becomes null/undefined, and there's no initial URL, clear preview.
       setImagePreview(null);
       setImageName(undefined);
     } else if (imageFile === null || imageFile === undefined) {
-      // If imageFile was explicitly cleared (e.g., by a future "remove" button using setValue('image', null))
-      // And there *was* an initial image, revert preview back to the initial image.
       setImagePreview(imageUrl);
       setImageName(imageNameParameter);
     }
-  }, [imageFile, imageUrl, setValue]); // Add imageUrl and setValue as dependencies
+  }, [imageFile, imageUrl, setValue]);
 
   // --- Drag and Drop Handlers (modified slightly for clarity) ---
   const handleDragOver = useCallback((event: globalThis.DragEvent) => {
@@ -190,7 +181,6 @@ export default function CreatePostComponent({
 
   const handleDragLeave = useCallback((event: globalThis.DragEvent) => {
     event.preventDefault();
-    // Check if the leave event is truly leaving the window
     const target = event.relatedTarget;
     if (target === null || (target instanceof Node && !document.documentElement.contains(target))) {
       setIsDraggingOver(false);
@@ -200,32 +190,39 @@ export default function CreatePostComponent({
   const validateAndSetFile = useCallback(
     async (file: File | null) => {
       if (!file) {
-        setValue("image", null); // Clear the file
-        // The useEffect will handle resetting the preview based on imageUrl
-        await trigger("image"); // Re-validate (might not be necessary for null)
+        setValue("image", null);
+        await trigger("image");
+        setImagePreview(null);
+        setImageName(undefined);
+        postData.imageName = null;
+        postData.imageThumbUrl = null;
+        postData.imageFullUrl = null;
         return;
       }
 
       const allowedTypes = ["image/jpeg", "image/png"];
-      const maxSize = 5 * 1024 * 1024; // 5MB
+      const maxSize = 5 * 1024 * 1024;
 
       if (!allowedTypes.includes(file.type)) {
         toast.error("Endast jpg eller png accepteras");
-        setValue("image", null); // Clear invalid file
+        setValue("image", null);
         return;
       }
       if (file.size > maxSize) {
         toast.error("Max filstorlek 5MB");
-        setValue("image", null); // Clear invalid file
+        setValue("image", null);
         return;
       }
 
-      // File is valid, update the form state
-      setValue("image", file, { shouldValidate: true, shouldDirty: true }); // Set and trigger validation
-      // No need to call trigger separately if using shouldValidate: true
+      setValue("image", file, { shouldValidate: true, shouldDirty: true });
+      setImagePreview(URL.createObjectURL(file));
+      setImageName(file.name);
+      postData.imageName = file.name;
+      postData.imageThumbUrl = URL.createObjectURL(file);
+      postData.imageFullUrl = URL.createObjectURL(file);
     },
     [setValue, trigger],
-  ); // Removed 'trigger' from deps as it's stable
+  );
 
   const imageUpload = useCallback(
     async (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -233,13 +230,11 @@ export default function CreatePostComponent({
       if (files && files.length === 1) {
         await validateAndSetFile(files[0]);
       } else if (files && files.length > 1) {
-        toast.error("Endast en bild kan väljas åt gången");
-        await validateAndSetFile(null); // Clear selection
+        toast.error("Endast en bild kan väljas");
+        await validateAndSetFile(null);
       } else {
-        // No file selected, maybe user cancelled - ensure state is cleared
         await validateAndSetFile(null);
       }
-      // Clear the input value so the same file can be selected again if removed
       event.target.value = "";
     },
     [validateAndSetFile],
@@ -255,14 +250,13 @@ export default function CreatePostComponent({
         await validateAndSetFile(files[0]);
       } else if (files && files.length > 1) {
         toast.error("Endast en bild kan väljas");
-        await validateAndSetFile(null); // Clear selection
+        await validateAndSetFile(null);
       } else {
-        // No valid file dropped
         await validateAndSetFile(null);
       }
       event.dataTransfer?.clearData();
     },
-    [validateAndSetFile, setIsDraggingOver], // Added setIsDraggingOver
+    [validateAndSetFile, setIsDraggingOver],
   );
 
   // --- Add and Remove Global Event Listeners ---
@@ -281,90 +275,51 @@ export default function CreatePostComponent({
   }, [handleDragEnter, handleDragOver, handleDragLeave, handleDrop]);
 
   const onSubmit = async (data: FormInputs) => {
-    // Adjust date (logic seems okay, but ensure timezone handling is correct for your needs)
     if (data.datePicker instanceof Date) {
-      // Example: Convert to UTC midnight for consistency if needed, or keep local time with ISO string
-      // Adjusting to 10:00 UTC like before:
       data.datePicker = new Date(data.datePicker.getTime() - data.datePicker.getTimezoneOffset() * 60 * 1000 + 10 * 60 * 60 * 1000).toISOString();
     } else {
-      data.datePicker = null; // Ensure null if no date is picked
+      data.datePicker = null;
     }
-
-    console.log("Initial data:", data);
-    console.log("Existing imageUrl:", `${process.env.NEXT_PUBLIC_SITE_URL}${imageUrl}`);
-
-    // If updating, no new image selected, BUT an existing image URL exists...
-    if (update && (data.image === null || (data.image instanceof FileList && data.image.length === 0)) && imageUrl) {
-      console.log("Attempting to convert URL to File...");
-      try {
-        const response = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL}${imageUrl}`);
-        if (!response.ok) {
-          throw new Error(`Failed to fetch image: ${response.statusText}`);
-        }
-        const blob = await response.blob();
-        // Try to get a filename, fallback to a generic name based on type
-        let filename = imageName;
-        if (!filename || filename === "Bild") {
-          // If extraction failed or gave default
-          const extension = blob.type.split("/")[1] || "jpg"; // Default to jpg if type is weird
-          filename = `existing-image.${extension}`;
-        }
-
-        // Create the File object
-        data.image = new File([blob], filename, { type: blob.type });
-        console.log("Successfully converted URL to File:", data.image);
-      } catch (error) {
-        console.error("Error converting image URL to File:", error);
-        toast.error("Kunde inte ladda om den befintliga bilden. Försök igen.");
-        setIsSubmitting(false); // Stop submission if conversion fails
-        return; // Exit onSubmit
-      }
-    } else if (data.image === null || data.image === undefined) {
-      console.log("No image selected or provided for update/create.");
-      // Ensure data.image is explicitly null if it wasn't set or converted
-      data.image = null;
-    }
-
-    setIsSubmitting(true);
-
-    console.log(data);
 
     try {
-      let result;
+      setIsSubmitting(true);
+
+      let result: PostResult;
+
       if (update && postId) {
-        // Ensure postId exists for update
-        result = await updatePost({ data: data, postId }); // Pass the File object within data
+        const updatePostPromise = updatePost({ data, postId });
+        toast.promise(updatePostPromise, {
+          loading: "Uppdaterar annons…",
+          success: (res) => (res as PostResult).data || "Annons uppdaterad",
+          error: (err) => (typeof err.error === "string" ? err.error : err.error || "Något gick fel"),
+        });
+        result = await updatePostPromise;
       } else {
-        result = await createPost({ data: data }); // Pass the File object within data
+        const createPostPromise = createPost({ data });
+        toast.promise(createPostPromise, {
+          loading: "Skapar annons…",
+          success: (res) => (res as PostResult).data || "Annons skapad",
+          error: (err) => (typeof err.error === "string" ? err.error : err.error || "Något gick fel"),
+        });
+        result = await createPostPromise;
       }
 
-      if (result && result.error) {
-        toast.error(result.error);
-        setIsSubmitting(false);
-      } else if (result && result.data) {
-        toast.success(result.data);
+      if (result?.data) {
         router.push("/");
         router.refresh();
-        // Navigation happens, no need to setIsSubmitting(false)
-      } else {
-        // Handle cases where result is undefined or lacks data/error
-        toast.error("Något gick fel (okänt svar)");
-        setIsSubmitting(false);
       }
-    } catch (error) {
-      console.error("Submission error:", error);
+    } catch {
       toast.error("Ett oväntat fel inträffade.");
+    } finally {
       setIsSubmitting(false);
     }
   };
 
-  // Validation function remains the same
   const validateImage = (file: File | FileList | undefined | null): boolean | string => {
-    if (!file) return true; // No file selected, valid case
+    if (!file) return true;
     if (file instanceof FileList) {
-      if (file.length === 0)
-        return true; // No file selected, valid case
-      else return false; // FileList with files is invalid
+      if (file.length === 0) return true;
+      else return false;
     }
 
     const allowedTypes = ["image/jpeg", "image/png"];
@@ -389,8 +344,9 @@ export default function CreatePostComponent({
       <div className="h-fit w-[360px] rounded-2xl bg-secondary p-3 md:w-[600px] md:p-6">
         {/* Add novalidate to prevent default browser validation, rely on RHF */}
         <form id="create-post-form" className="flex flex-col gap-y-5" onSubmit={handleSubmit(onSubmit)} noValidate>
-          {/* ... (rest of the form fields - no changes needed here) ... */}
           <h1 className="text-center text-xl md:text-3xl">{update ? "Uppdatera annons" : "Skapa ny annons"}</h1>
+
+          {/* Erbjuds / Efterfrågas */}
           <Controller
             name="postTypePicker"
             control={control}
@@ -398,6 +354,7 @@ export default function CreatePostComponent({
             // defaultValue is handled by useForm
             render={({ field: { onChange, value } }) => <PostTypePicker currentPostType={value} setPostType={onChange} />}
           />
+
           {/* First Name / Last Name */}
           <div className="flex justify-between gap-x-4 md:gap-x-8">
             <div className="flex w-full flex-col">
@@ -418,6 +375,7 @@ export default function CreatePostComponent({
               {errors.lastName?.message && <FormErrorParagraph content={errors.lastName.message} />}
             </div>
           </div>
+
           {/* Email */}
           <div className="flex w-full flex-col">
             <FormLabel htmlFor="email" labelText="Mejladress" />
@@ -433,6 +391,7 @@ export default function CreatePostComponent({
             </fieldset>
             {errors.email?.message && <FormErrorParagraph content={errors.email.message} />}
           </div>
+
           {/* Title */}
           <div className="flex w-full flex-col">
             <div className="flex justify-between">
@@ -454,6 +413,7 @@ export default function CreatePostComponent({
             />
             {errors.title?.message && <FormErrorParagraph content={errors.title.message} />}
           </div>
+
           {/* Description */}
           <div className="flex w-full flex-col">
             <div className="flex justify-between">
@@ -480,7 +440,7 @@ export default function CreatePostComponent({
           <div className="flex w-full flex-col">
             <div className="flex items-center justify-between">
               <FormLabel htmlFor="image-upload-button" labelText="Bild (frivilligt)" /> {/* Changed htmlFor */}
-              <FormHint content="Ladda upp en bild på produkten (jpg, png, max 5MB)" />
+              <FormHint content="Ladda upp en bild på produkten (jpg, png, max 5MB). Vänligen säkerställ att ingen känslig information kan hittas i bilden." />
             </div>
             {/* Hidden file input - register connects it to form state */}
             <input
@@ -524,7 +484,6 @@ export default function CreatePostComponent({
             {/* Display validation errors */}
             {errors.image?.message && <FormErrorParagraph content={typeof errors.image.message === "string" ? errors.image.message : "Ogiltig fil"} />}
           </div>
-          {/* --- END Image upload section --- */}
 
           {/* Category */}
           <div className="flex w-full flex-col">
@@ -541,6 +500,7 @@ export default function CreatePostComponent({
             />
             {errors.categoryPicker?.message && <FormErrorParagraph content={errors.categoryPicker.message} />}
           </div>
+
           {/* Municipality / Date */}
           <div className="flex flex-wrap justify-between gap-y-4">
             {" "}
@@ -574,6 +534,7 @@ export default function CreatePostComponent({
               {/* No error display needed for optional date? */}
             </div>
           </div>
+
           {/* Buttons */}
           <div className="mt-5 flex flex-col items-center gap-y-4 md:flex-row md:justify-between">
             <div className="md:hidden">
@@ -588,6 +549,7 @@ export default function CreatePostComponent({
           </div>
         </form>
       </div>
+
       {/* Preview Area (Desktop) */}
       <div className="hidden w-[600px] md:block">
         <PostComponent postData={postData} email={email} fullName={fullName} isPreview={true} />

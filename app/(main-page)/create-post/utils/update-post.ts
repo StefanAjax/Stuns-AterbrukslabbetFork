@@ -4,6 +4,7 @@ import { db } from "@/lib/db";
 import { getUserId } from "@/utils/get-user-id";
 import fs from "node:fs";
 import path from "node:path";
+import makeRandomId from "@/utils/make-random-id";
 
 interface EditPostProps {
   data: any;
@@ -11,6 +12,12 @@ interface EditPostProps {
 }
 
 export default async function createPost({ data, postId }: EditPostProps) {
+
+  console.log(data);
+
+  console.log(postId);
+
+
   try {
     if (!postId) {
       return { error: "Ingen annons vald" };
@@ -46,13 +53,17 @@ export default async function createPost({ data, postId }: EditPostProps) {
 
     let fullURL: string | null = null;
     let thumbURL: string | null = null;
+    let imageName: string | null = null;
 
     if (image instanceof File) {
-      const uniqueFilename = `${Date.now()}-${image.name}`;
+// Get image as base64
+
+      imageName = image.name;
+
+      const fileName = makeRandomId({ length: 15 });
 
       // Return an error if the file name already exists
-      const existingFile = fs.existsSync(path.join(process.cwd(), "public", "uploads", uniqueFilename));
-      if (existingFile) {
+      if (fs.existsSync(path.join(process.cwd(), "public", "uploads", fileName))) {
         return {
           error: "Kunde inte skapa annonsen",
         };
@@ -68,7 +79,7 @@ export default async function createPost({ data, postId }: EditPostProps) {
       }
       // Define the path to the file
 
-      const filePath = path.join(uploadsDir, uniqueFilename);
+      const filePath = path.join(uploadsDir, fileName);
 
       // Read the file data
       const fileData = new Uint8Array(await image.arrayBuffer());
@@ -76,9 +87,26 @@ export default async function createPost({ data, postId }: EditPostProps) {
       fs.writeFileSync(filePath, fileData);
       // Construct the URL to access the file
 
-      thumbURL = `/uploads/${uniqueFilename}`;
+      thumbURL = `/uploads/${fileName}`;
 
       fullURL = `${process.env.NEXT_PUBLIC_SITE_URL}${thumbURL}`;
+    }
+
+    // Get the thumbURL from the database and delete the file
+    const post = await db.post.findUnique({
+      where: {
+        id: parseInt(postId),
+      },
+      select: {
+        imageThumbUrl: true,
+      },
+    });
+
+    if (post && post.imageThumbUrl) {
+      const oldFilePath = path.join(process.cwd(), "public", post.imageThumbUrl);
+      if (fs.existsSync(oldFilePath)) {
+        fs.unlinkSync(oldFilePath);
+      }
     }
 
     await db.post.update({
@@ -93,10 +121,12 @@ export default async function createPost({ data, postId }: EditPostProps) {
         location: data.municipalityPicker,
         imageThumbUrl: thumbURL,
         imageFullUrl: fullURL,
+        imageName: imageName,
         expiresAt: data.datePicker !== null ? new Date(data.datePicker) : undefined,
         hasCustomExpirationDate: data.datePicker !== null,
       },
     });
+
     return { data: "Annons " + data.title + " uppdaterad" };
   } catch {
     return { error: "Kunde inte uppdatera annonsen" };
