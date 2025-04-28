@@ -4,7 +4,7 @@ export default function FAQPage() {
   return (
     <div className="mx-auto mt-12 flex w-[85ch] max-w-full flex-col bg-secondary px-6 py-8 md:mt-16 md:rounded-md">
       <h1 className="mb-4 text-lg font-semibold md:text-2xl">Vanliga frågor och svar</h1>
-      <Accordion type="multiple">
+      <Accordion type="single">
         <AccordionItem value="item-1">
           <AccordionTrigger className="text-start">Vad är Återbrukslabbet?</AccordionTrigger>
           <AccordionContent className="text-base">
