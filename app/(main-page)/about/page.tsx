@@ -96,6 +96,20 @@ export default function AboutPage() {
             portfolio
           </a>
         </div>
+        <div>
+          <span className="font-semibold">Axel Thornberg</span>,{" "}
+          <a className="text-blue-600 hover:underline" href="https://www.linkedin.com/in/axel-thornberg-618a41332/">
+            LinkedIn
+          </a>
+          ,{" "}
+          <a className="text-blue-600 hover:underline" href="https://github.com/axelNTI">
+            GitHub
+          </a>
+          ,{" "}
+          <a className="text-blue-600 hover:underline" href="https://axel.thornberg.se/">
+            portfolio
+          </a>
+        </div>
       </div>
       <p className="mt-6">
         Om du har frågor, eller vill ge feedback på verktyget, vänligen skriv en rad till{" "}
