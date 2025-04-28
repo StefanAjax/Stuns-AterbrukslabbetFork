@@ -70,7 +70,7 @@ export default function AboutPage() {
         </div>
       </div>
 
-      <div className="flex flex-col gap-y-3 mt-8">
+      <div className="mt-8 flex flex-col gap-y-3">
         <h2 className="text-xl font-semibold">Utvecklare våren 2025:</h2>
         <div>
           <span className="font-semibold">David Cavalli-Björkman</span>,{" "}
