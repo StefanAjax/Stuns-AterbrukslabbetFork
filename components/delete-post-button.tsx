@@ -10,6 +10,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import deletePost from "@/utils/delete-post";
 import type { Post } from "@prisma/client";
+import { useDeleteHandler } from "@/hooks/useDeleteHandler";
 
 interface DeletePostButtonProps {
   postData: Post;
@@ -19,26 +20,23 @@ interface DeletePostButtonProps {
 export default function DeletePostButton({ postData, redirectPath }: DeletePostButtonProps) {
   const router = useRouter();
   const [comment, setComment] = useState("");
-  const [isDeleting, setIsDeleting] = useState(false);
   const [open, setOpen] = useState(false);
 
-  const onDelete = async () => {
-    setIsDeleting(true);
-    const result = await deletePost({ postData, comment });
-    setIsDeleting(false);
-    setOpen(false);
-    setComment("");
-
-    if (result && result.error) {
-      toast.error(result.error);
-    } else if (result && result.data) {
+  const { handleDelete, isLoading } = useDeleteHandler(
+    async () => {
+      const result = await deletePost({ postData, comment });
+      if (result?.error) throw { message: result.error };
+      return result;
+    },
+    () => {
+      setOpen(false);
+      setComment("");
       redirectPath && router.push(redirectPath);
       router.refresh();
-      toast.success(`${postData.title} ${result.data}`);
-    } else {
-      toast.error("Något gick fel");
-    }
-  };
+      toast.success(`${postData.title} borttagen`);
+    },
+    (error) => toast.error(error.message || "Något gick fel"),
+  );
 
   return (
     <AlertDialog open={open} onOpenChange={setOpen}>
@@ -60,11 +58,11 @@ export default function DeletePostButton({ postData, redirectPath }: DeletePostB
         </div>
 
         <AlertDialogFooter>
-          <Button variant="outline" onClick={() => setOpen(false)} disabled={isDeleting}>
+          <Button variant="outline" onClick={() => setOpen(false)} disabled={isLoading}>
             Avbryt
           </Button>
-          <Button variant="destructive" onClick={onDelete} disabled={isDeleting}>
-            {isDeleting ? "Tar bort..." : "Ta bort"}
+          <Button variant="destructive" onClick={handleDelete} disabled={isLoading}>
+            {isLoading ? "Tar bort..." : "Ta bort"}
           </Button>
         </AlertDialogFooter>
       </AlertDialogContent>

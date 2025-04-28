@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import deleteUser from "@/utils/delete-user";
+import { useDeleteHandler } from "@/hooks/useDeleteHandler";
 
 interface DeleteUserButtonProps {
   id: string;
@@ -19,26 +20,23 @@ interface DeleteUserButtonProps {
 export default function DeleteUserButton({ id, email, redirectPath }: DeleteUserButtonProps) {
   const router = useRouter();
   const [comment, setComment] = useState("");
-  const [isDeleting, setIsDeleting] = useState(false);
   const [open, setOpen] = useState(false);
 
-  const onDelete = async () => {
-    setIsDeleting(true);
-    const result = await deleteUser({ id, comment });
-    setIsDeleting(false);
-    setOpen(false);
-    setComment("");
-
-    if (result && result.error) {
-      toast.error(result.error);
-    } else if (result && result.data) {
+  const { handleDelete, isLoading } = useDeleteHandler(
+    async () => {
+      const result = await deleteUser({ id, comment });
+      if (result?.error) throw { message: result.error };
+      return result;
+    },
+    () => {
+      setOpen(false);
+      setComment("");
       redirectPath && router.push(redirectPath);
       router.refresh();
-      toast.success(`${result.data} borttagen`);
-    } else {
-      toast.error("Något gick fel");
-    }
-  };
+      toast.success(`Användare borttagen`);
+    },
+    (error) => toast.error(error.message || "Något gick fel"),
+  );
 
   return (
     <AlertDialog open={open} onOpenChange={setOpen}>
@@ -64,11 +62,11 @@ export default function DeleteUserButton({ id, email, redirectPath }: DeleteUser
         </div>
 
         <AlertDialogFooter>
-          <Button variant="outline" onClick={() => setOpen(false)} disabled={isDeleting}>
+          <Button variant="outline" onClick={() => setOpen(false)} disabled={isLoading}>
             Avbryt
           </Button>
-          <Button variant="destructive" onClick={onDelete} disabled={isDeleting}>
-            {isDeleting ? "Tar bort..." : "Ta bort"}
+          <Button variant="destructive" onClick={handleDelete} disabled={isLoading}>
+            {isLoading ? "Tar bort..." : "Ta bort"}
           </Button>
         </AlertDialogFooter>
       </AlertDialogContent>
