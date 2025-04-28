@@ -12,12 +12,6 @@ interface EditPostProps {
 }
 
 export default async function createPost({ data, postId }: EditPostProps) {
-
-  console.log(data);
-
-  console.log(postId);
-
-
   try {
     if (!postId) {
       return { error: "Ingen annons vald" };
@@ -47,8 +41,6 @@ export default async function createPost({ data, postId }: EditPostProps) {
       return { error: "Du har inte behörighet att redigera denna annons" };
     }
 
-    console.log(data);
-
     const image = data.image;
 
     let fullURL: string | null = null;
@@ -56,7 +48,7 @@ export default async function createPost({ data, postId }: EditPostProps) {
     let imageName: string | null = null;
 
     if (image instanceof File) {
-// Get image as base64
+      // Get image as base64
 
       imageName = image.name;
 

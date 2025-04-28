@@ -104,11 +104,6 @@ export default function CreatePostComponent({
 
   const [imageName, setImageName] = useState<string | undefined>(imageNameParameter);
 
-  // Log imageName whenever it changes
-  useEffect(() => {
-    console.log("Image name changed:", imageName);
-  }, [imageName]);
-
   const [isDraggingOver, setIsDraggingOver] = useState(false);
 
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -166,7 +161,7 @@ export default function CreatePostComponent({
       setImagePreview(imageUrl);
       setImageName(imageNameParameter);
     }
-  }, [imageFile, imageUrl, setValue]);
+  }, [imageFile, imageUrl, imageNameParameter, setValue]);
 
   // --- Drag and Drop Handlers (modified slightly for clarity) ---
   const handleDragOver = useCallback((event: globalThis.DragEvent) => {
@@ -192,11 +187,6 @@ export default function CreatePostComponent({
       if (!file) {
         setValue("image", null);
         await trigger("image");
-        setImagePreview(null);
-        setImageName(undefined);
-        postData.imageName = null;
-        postData.imageThumbUrl = null;
-        postData.imageFullUrl = null;
         return;
       }
 
@@ -215,11 +205,6 @@ export default function CreatePostComponent({
       }
 
       setValue("image", file, { shouldValidate: true, shouldDirty: true });
-      setImagePreview(URL.createObjectURL(file));
-      setImageName(file.name);
-      postData.imageName = file.name;
-      postData.imageThumbUrl = URL.createObjectURL(file);
-      postData.imageFullUrl = URL.createObjectURL(file);
     },
     [setValue, trigger],
   );
