@@ -69,7 +69,8 @@ export default function AboutPage() {
           <p>Studerar till civilingenjör på KTH.</p>
         </div>
       </div>
-      <div className="flex flex-col gap-y-3">
+
+      <div className="flex flex-col gap-y-3 mt-8">
         <h2 className="text-xl font-semibold">Utvecklare våren 2025:</h2>
         <div>
           <span className="font-semibold">David Cavalli-Björkman</span>,{" "}
