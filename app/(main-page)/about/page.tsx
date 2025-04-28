@@ -82,6 +82,20 @@ export default function AboutPage() {
             portfolio
           </a>
         </div>
+        <div>
+          <span className="font-semibold">Tim Kelso</span>,{" "}
+          <a className="text-blue-600 hover:underline" href="https://linkedin.com/in/kelsotim/">
+            LinkedIn
+          </a>
+          ,{" "}
+          <a className="text-blue-600 hover:underline" href="https://github.com/TimKelso">
+            Github
+          </a>
+          ,{" "}
+          <a className="text-blue-600 hover:underline" href="https://timkelso.github.io/">
+            portfolio
+          </a>
+        </div>
       </div>
       <p className="mt-6">
         Om du har frågor, eller vill ge feedback på verktyget, vänligen skriv en rad till{" "}
