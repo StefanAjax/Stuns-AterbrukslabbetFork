@@ -45,7 +45,7 @@ test("Create post with image", async ({ page }) => {
 
   await expect(page.getByText("Uppsala").filter({ visible: true }).first()).toBeVisible();
 
-  await expect(page.getByAltText("Annonsens bild").filter({ visible: true }).first()).toBeVisible();
+  await expect(page.getByAltText("Annonsens bild").filter({ visible: true }).first()).toHaveAttribute("src", /uploads\/.+\.(jpg|jpeg|png|gif|webp)/);
 });
 
 test("Add image to post", async ({ page }) => {
@@ -107,7 +107,7 @@ test("Add image to post", async ({ page }) => {
 
   await expect(page.getByText("Uppsala").filter({ visible: true }).first()).toBeVisible();
 
-  await expect(page.getByAltText("Annonsens bild").filter({ visible: true }).first()).toBeVisible();
+  await expect(page.getByAltText("Annonsens bild").filter({ visible: true }).first()).toHaveAttribute("src", /uploads\/.+\.(jpg|jpeg|png|gif|webp)/);
 });
 
 test("Remove image from post", async ({ page }) => {
@@ -149,7 +149,7 @@ test("Remove image from post", async ({ page }) => {
 
   await expect(page.getByText("Uppsala").filter({ visible: true }).first()).toBeVisible();
 
-  await expect(page.getByAltText("Annonsens bild").filter({ visible: true }).first()).toBeVisible();
+  await expect(page.getByAltText("Annonsens bild").filter({ visible: true }).first()).toHaveAttribute("src", /uploads\/.+\.(jpg|jpeg|png|gif|webp)/);
 
   await page.getByText("Remove image from post").first().click();
 
@@ -175,7 +175,7 @@ test("Remove image from post", async ({ page }) => {
 
   await expect(page.getByText("Uppsala").filter({ visible: true }).first()).toBeVisible();
 
-  await expect(page.getByAltText("Annonsens bild").filter({ visible: true }).first()).not.toBeVisible();
+  await expect(page.getByAltText("Annonsens bild").filter({ visible: true }).first()).toHaveAttribute("src", /images\/.+\.(jpg|jpeg|png|gif|webp)/);
 });
 
 test("Change image in post", async ({ page }) => {
@@ -217,7 +217,7 @@ test("Change image in post", async ({ page }) => {
 
   await expect(page.getByText("Uppsala").filter({ visible: true }).first()).toBeVisible();
 
-  await expect(page.getByAltText("Annonsens bild").filter({ visible: true }).first()).toBeVisible();
+  await expect(page.getByAltText("Annonsens bild").filter({ visible: true }).first()).toHaveAttribute("src", /uploads\/.+\.(jpg|jpeg|png|gif|webp)/);
 
   await page.getByText("Change image in post").first().click();
 
@@ -241,5 +241,5 @@ test("Change image in post", async ({ page }) => {
 
   await expect(page.getByText("Uppsala").filter({ visible: true }).first()).toBeVisible();
 
-  await expect(page.getByAltText("Annonsens bild").filter({ visible: true }).first()).toBeVisible();
+  await expect(page.getByAltText("Annonsens bild").filter({ visible: true }).first()).toHaveAttribute("src", /uploads\/.+\.(jpg|jpeg|png|gif|webp)/);
 });
