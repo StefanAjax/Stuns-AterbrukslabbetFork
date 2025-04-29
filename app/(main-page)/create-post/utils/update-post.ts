@@ -55,31 +55,28 @@ export default async function createPost({ data, postId }: EditPostProps) {
       const fileName = makeRandomId({ length: 15 });
 
       // Return an error if the file name already exists
-      if (fs.existsSync(path.join(process.cwd(), "public", "uploads", fileName))) {
+      if (fs.existsSync(path.join(process.cwd(), "client", "images", fileName))) {
         return {
           error: "Kunde inte skapa annonsen",
         };
       }
 
-      // Define the path to the uploads directory
 
-      const uploadsDir = path.join(process.cwd(), "public", "uploads");
+      const imagesDir = path.join(process.cwd(), "client", "images");
 
-      // Create the uploads directory if it doesn't exist
-      if (!fs.existsSync(uploadsDir)) {
-        fs.mkdirSync(uploadsDir, { recursive: true });
+      if (!fs.existsSync(imagesDir)) {
+        fs.mkdirSync(imagesDir, { recursive: true });
       }
       // Define the path to the file
 
-      const filePath = path.join(uploadsDir, fileName);
+      const filePath = path.join(imagesDir, fileName);
 
       // Read the file data
       const fileData = new Uint8Array(await image.arrayBuffer());
-      // Write the file to the uploads directory
       fs.writeFileSync(filePath, fileData);
       // Construct the URL to access the file
 
-      thumbURL = `/uploads/${fileName}`;
+      thumbURL = `/api/images?filePath=${fileName}`;
 
       fullURL = `${process.env.NEXT_PUBLIC_SITE_URL}${thumbURL}`;
     }
