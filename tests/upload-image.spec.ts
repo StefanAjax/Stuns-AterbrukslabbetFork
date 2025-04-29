@@ -45,7 +45,10 @@ test("Create post with image", async ({ page }) => {
 
   await expect(page.getByText("Uppsala").filter({ visible: true }).first()).toBeVisible();
 
-  await expect(page.getByAltText("Annonsens bild").filter({ visible: true }).first()).toHaveAttribute("src", /api\/images\/.+\.(jpg|jpeg|png|gif|webp)/);
+  await expect(page.getByAltText("Annonsens bild").filter({ visible: true }).first()).toHaveAttribute(
+    "src",
+    /(?:\/api\/images\?filePath=|%2Fapi%2Fimages%3FfilePath%3D)([^&]+\.(?:jpg|jpeg|png|gif|webp))(?=&|$)/i,
+  );
 });
 
 test("Add image to post", async ({ page }) => {
@@ -85,7 +88,7 @@ test("Add image to post", async ({ page }) => {
 
   await expect(page.getByText("Uppsala").filter({ visible: true }).first()).toBeVisible();
 
-  await expect(page.getByAltText("Annonsens bild").filter({ visible: true }).first()).toHaveAttribute("src", /images\/.+\.(jpg|jpeg|png|gif|webp)/);
+  await expect(page.getByAltText("Annonsens bild").filter({ visible: true }).first()).toHaveAttribute("src", /(?:images\/|%2Fimages%2F)([^&]+\.(?:jpg|jpeg|png|gif|webp))(?=&|$)/i);
 
   await page.getByText("Add image to post").first().click();
 
@@ -109,7 +112,10 @@ test("Add image to post", async ({ page }) => {
 
   await expect(page.getByText("Uppsala").filter({ visible: true }).first()).toBeVisible();
 
-  await expect(page.getByAltText("Annonsens bild").filter({ visible: true }).first()).toHaveAttribute("src", /api\/images\/.+\.(jpg|jpeg|png|gif|webp)/);
+  await expect(page.getByAltText("Annonsens bild").filter({ visible: true }).first()).toHaveAttribute(
+    "src",
+    /(?:\/api\/images\?filePath=|%2Fapi%2Fimages%3FfilePath%3D)([^&]+\.(?:jpg|jpeg|png|gif|webp))(?=&|$)/i,
+  );
 });
 
 test("Remove image from post", async ({ page }) => {
@@ -151,7 +157,10 @@ test("Remove image from post", async ({ page }) => {
 
   await expect(page.getByText("Uppsala").filter({ visible: true }).first()).toBeVisible();
 
-  await expect(page.getByAltText("Annonsens bild").filter({ visible: true }).first()).toHaveAttribute("src", /api\/images\/.+\.(jpg|jpeg|png|gif|webp)/);
+  await expect(page.getByAltText("Annonsens bild").filter({ visible: true }).first()).toHaveAttribute(
+    "src",
+    /(?:\/api\/images\?filePath=|%2Fapi%2Fimages%3FfilePath%3D)([^&]+\.(?:jpg|jpeg|png|gif|webp))(?=&|$)/i,
+  );
 
   await page.getByText("Remove image from post").first().click();
 
@@ -177,7 +186,7 @@ test("Remove image from post", async ({ page }) => {
 
   await expect(page.getByText("Uppsala").filter({ visible: true }).first()).toBeVisible();
 
-  await expect(page.getByAltText("Annonsens bild").filter({ visible: true }).first()).toHaveAttribute("src", /images\/.+\.(jpg|jpeg|png|gif|webp)/);
+  await expect(page.getByAltText("Annonsens bild").filter({ visible: true }).first()).toHaveAttribute("src", /(?:images\/|%2Fimages%2F)([^&]+\.(?:jpg|jpeg|png|gif|webp))(?=&|$)/i);
 });
 
 test("Change image in post", async ({ page }) => {
@@ -219,7 +228,10 @@ test("Change image in post", async ({ page }) => {
 
   await expect(page.getByText("Uppsala").filter({ visible: true }).first()).toBeVisible();
 
-  await expect(page.getByAltText("Annonsens bild").filter({ visible: true }).first()).toHaveAttribute("src", /api\/images\/.+\.(jpg|jpeg|png|gif|webp)/);
+  await expect(page.getByAltText("Annonsens bild").filter({ visible: true }).first()).toHaveAttribute(
+    "src",
+    /(?:\/api\/images\?filePath=|%2Fapi%2Fimages%3FfilePath%3D)([^&]+\.(?:jpg|jpeg|png|gif|webp))(?=&|$)/i,
+  );
 
   await page.getByText("Change image in post").first().click();
 
@@ -243,5 +255,8 @@ test("Change image in post", async ({ page }) => {
 
   await expect(page.getByText("Uppsala").filter({ visible: true }).first()).toBeVisible();
 
-  await expect(page.getByAltText("Annonsens bild").filter({ visible: true }).first()).toHaveAttribute("src", /api\/images\/.+\.(jpg|jpeg|png|gif|webp)/);
+  await expect(page.getByAltText("Annonsens bild").filter({ visible: true }).first()).toHaveAttribute(
+    "src",
+    /(?:\/api\/images\?filePath=|%2Fapi%2Fimages%3FfilePath%3D)([^&]+\.(?:jpg|jpeg|png|gif|webp))(?=&|$)/i,
+  );
 });
