@@ -5,6 +5,7 @@ import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { useState, useEffect, useCallback } from "react";
 import Image from "next/image";
+import { Button } from "@/components/ui/button";
 
 import municipalities from "@/data/municipalities.json";
 
@@ -437,10 +438,10 @@ export default function CreatePostComponent({
               onChange={imageUpload} // Handle selection change
             />
             {/* Clickable area / Drop Zone */}
-            <button
+            <Button
               type="button"
               id="image-upload-button" // Use this ID for the label's htmlFor
-              className={`mt-2 flex min-h-[8rem] w-full flex-col items-center justify-center rounded-sm border-2 border-dashed bg-primary bg-opacity-40 px-2 py-1 text-center text-sm text-gray-400 md:text-base ${
+              className={`mt-2 flex h-full min-h-[8rem] w-full flex-col items-center justify-center rounded-sm border-2 border-dashed bg-primary bg-opacity-40 px-2 py-1 text-center text-sm text-gray-400 md:text-base ${
                 imagePreview ? "border-transparent" : "border-gray-500 hover:border-gray-400" // Style change if preview exists
               }`}
               onClick={() => document.getElementById("image-input")?.click()} // Trigger hidden input
@@ -451,21 +452,24 @@ export default function CreatePostComponent({
                   <Image src={imagePreview} alt="Förhandsgranskning" className="mb-2 max-h-24 w-auto rounded object-contain" width={200} height={150} />
                   <span className="block max-w-full truncate p-1 text-xs text-gray-700 dark:text-gray-300">{imageName || "Bild"}</span>
                   {/* Add a button to remove the image */}
-                  <button
-                    type="button"
-                    onClick={(e) => {
-                      e.stopPropagation(); // Prevent triggering the file input click
-                      validateAndSetFile(null); // Use the validation function to clear
-                    }}
-                    className="mt-1 rounded bg-red-500 px-2 py-0.5 text-xs text-white hover:bg-red-600"
-                  >
-                    Ta bort bild
-                  </button>
                 </>
               ) : (
-                <span>Klicka här eller dra och släpp en bild för att ladda upp</span>
+                <span className="whitespace-normal">Klicka här eller dra och släpp en bild för att ladda upp</span>
               )}
-            </button>
+            </Button>
+            {imagePreview && (
+              <Button
+                type="button"
+                id="remove-image-button"
+                onClick={(e) => {
+                  e.stopPropagation(); // Prevent triggering the file input click
+                  validateAndSetFile(null); // Use the validation function to clear
+                }}
+                className="mt-1 rounded bg-red-500 px-2 py-0.5 text-xs text-white hover:bg-red-600"
+              >
+                Ta bort bild
+              </Button>
+            )}
             {/* Display validation errors */}
             {errors.image?.message && <FormErrorParagraph content={typeof errors.image.message === "string" ? errors.image.message : "Ogiltig fil"} />}
           </div>
