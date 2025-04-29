@@ -7,7 +7,7 @@ import path from "node:path";
 export async function GET(req: NextRequest) {
   const url = new URL(req.url);
   const filePath = url.searchParams.get("filePath");
-  
+
   if (!filePath) {
     return new NextResponse("filePath query parameter is required", { status: 400 });
   }

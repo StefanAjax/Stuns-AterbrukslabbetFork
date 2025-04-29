@@ -61,7 +61,6 @@ export default async function createPost({ data, postId }: EditPostProps) {
         };
       }
 
-
       const imagesDir = path.join(process.cwd(), "client", "images");
 
       if (!fs.existsSync(imagesDir)) {
