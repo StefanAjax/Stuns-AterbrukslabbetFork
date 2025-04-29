@@ -37,18 +37,20 @@ export default function PostCard({ postData, timezone }: PostCardProps) {
           <section className="col-span-4">
             <Image
               src={
-                postData.category === "inventarie"
-                  ? "/images/inventory.webp"
-                  : postData.category === "förbrukningsvara"
-                    ? "/images/consumables.webp"
-                    : postData.category === "instrument/maskin"
-                      ? "/images/instrument.webp"
-                      : "/images/image-missing.webp"
+                postData.imageThumbUrl
+                  ? postData.imageThumbUrl
+                  : postData.category === "inventarie"
+                    ? "/images/inventory.webp"
+                    : postData.category === "förbrukningsvara"
+                      ? "/images/consumables.webp"
+                      : postData.category === "instrument/maskin"
+                        ? "/images/instrument.webp"
+                        : "/images/image-missing.webp"
               }
               alt="Annonsens bild"
               width={400}
               height={300}
-              className="aspect-[4/3] w-full rounded-md"
+              className="aspect-[4/3] w-full rounded-md object-cover object-center"
             />
           </section>
           <section className="col-span-5 flex flex-col pl-2 md:pl-4">

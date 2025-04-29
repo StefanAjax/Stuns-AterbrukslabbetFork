@@ -83,6 +83,11 @@ export default async function createPostPage({ params }: PostIdPageProps) {
     userId,
   });
 
+  // Convert image url to File object
+  const imageUrl = postData.imageThumbUrl;
+
+  console.log(imageUrl);
+
   return (
     <div>
       <CreatePostComponent
@@ -98,6 +103,8 @@ export default async function createPostPage({ params }: PostIdPageProps) {
         date={postData.expiresAt}
         customExpirationDate={postData.hasCustomExpirationDate}
         postId={postId}
+        imageUrl={imageUrl || undefined}
+        imageNameParameter={postData.imageName || undefined}
         update={true}
       />
     </div>

@@ -4,6 +4,8 @@ import { checkRole } from "@/utils/check-role";
 import { db } from "@/lib/db";
 import DeletedPostEmail from "@/emails/deleted-post-email";
 import type { Post } from "@prisma/client";
+import fs from "node:fs";
+import path from "node:path";
 
 import archivePost from "./archive-post";
 import getNameAndEmailFromUserId from "./get-name-and-email-from-user-id";
@@ -42,6 +44,23 @@ export default async function deletePost({ postData, comment }: DeletePostProps)
   }
 
   try {
+    const post = await db.post.findUnique({
+      where: {
+        id: postData.id,
+      },
+      select: {
+        imageThumbUrl: true,
+      },
+    });
+
+    if (post && post.imageThumbUrl) {
+      const imagePath = path.join(process.cwd(), "public", post.imageThumbUrl);
+
+      if (fs.existsSync(imagePath)) {
+        fs.unlinkSync(imagePath);
+      }
+    }
+
     await db.post.delete({
       where: {
         id: postData.id,

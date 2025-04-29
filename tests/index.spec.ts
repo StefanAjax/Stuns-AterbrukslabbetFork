@@ -2,13 +2,13 @@ import { test, expect } from "@playwright/test";
 
 import { setup } from "./utils/utils";
 
-test("Title", async ({ page, browserName }) => {
+test("Title", async ({ page }) => {
   await setup(page);
 
   await expect(page.getByText("Återbrukslabbet").filter({ visible: true }).first()).toBeVisible();
 });
 
-test("No posts", async ({ page, browserName }) => {
+test("No posts", async ({ page }) => {
   await setup(page);
 
   await expect(page.getByText("Inga annonser hittades").filter({ visible: true }).first()).toBeVisible();
@@ -16,7 +16,7 @@ test("No posts", async ({ page, browserName }) => {
   await expect(page.getByText("Sök bland 0 annonser").filter({ visible: true }).first()).toBeVisible();
 });
 
-test("Categories", async ({ page, browserName }) => {
+test("Categories", async ({ page }) => {
   await setup(page);
 
   await expect(page.getByText("Alla").filter({ visible: true }).first()).toBeVisible();
