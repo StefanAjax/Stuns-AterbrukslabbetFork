@@ -157,7 +157,7 @@ test("Remove image from post", async ({ page }) => {
 
   await page.getByRole("button").filter({ hasText: "Ta bort bild" }).first().click();
 
-  await expect(page.getByText("Klicka här eller dra och släpp en bild för att ladda upp").filter({ visible: true }).first());
+  await expect(page.getByText("Klicka här eller dra och släpp en bild för att ladda upp").filter({ visible: true }).first()).toBeVisible();
 
   await page.locator("textarea#description").first().fill("The post now has no image");
 
