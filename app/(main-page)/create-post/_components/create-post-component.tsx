@@ -133,11 +133,21 @@ export default function CreatePostComponent({
   const imageFile = watch("image");
 
   useEffect(() => {
+    if (imageFile === undefined) {
+      if (imageUrl) {
+        setImagePreview(imageUrl);
+        setImageName(imageNameParameter);
+      } else {
+        setImagePreview(null);
+        setImageName(undefined);
+      }
+      return;
+    }
+
     let fileToRead: File | null = null;
 
     if (imageFile instanceof FileList && imageFile.length > 0) {
       fileToRead = imageFile[0];
-      setValue("image", fileToRead, { shouldDirty: true });
     } else if (imageFile instanceof File) {
       fileToRead = imageFile;
     }
@@ -155,12 +165,6 @@ export default function CreatePostComponent({
         toast.error("Kunde inte läsa bildfilen.");
       };
       reader.readAsDataURL(fileToRead);
-    } else if (!imageUrl) {
-      setImagePreview(null);
-      setImageName(undefined);
-    } else if (imageFile === null || imageFile === undefined) {
-      setImagePreview(imageUrl);
-      setImageName(imageNameParameter);
     }
   }, [imageFile, imageUrl, imageNameParameter, setValue]);
 
@@ -187,6 +191,8 @@ export default function CreatePostComponent({
     async (file: File | null) => {
       if (!file) {
         setValue("image", null);
+        setImagePreview(null);
+        setImageName(undefined);
         await trigger("image");
         return;
       }
@@ -207,7 +213,7 @@ export default function CreatePostComponent({
 
       setValue("image", file, { shouldValidate: true, shouldDirty: true });
     },
-    [setValue, trigger],
+    [setValue, trigger, setImagePreview, setImageName],
   );
 
   const imageUpload = useCallback(
