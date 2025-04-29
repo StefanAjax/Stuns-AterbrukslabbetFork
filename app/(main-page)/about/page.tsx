@@ -109,6 +109,7 @@ export default function AboutPage() {
           <a className="text-blue-600 hover:underline" href="https://axel.thornberg.se/">
             portfolio
           </a>
+          <p>Kommer att studera datavetenskap på Uppsala Universitet från hösten 2025.</p>
         </div>
       </div>
       <p className="mt-6">
