@@ -1,8 +1,8 @@
 "use client";
 
-import { cn } from "@/lib/utils";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
+import { Button } from "@/components/ui/button";
 import handleSearchParamsChange from "@/utils/handle-search-params-change";
 import type { PostCategory } from "@/types/globals";
 
@@ -12,40 +12,29 @@ export default function PostCategoryButtons() {
   const { replace } = useRouter();
 
   function handlePostCategoryChange(postCategory: PostCategory) {
+    const currentCategory = searchParams.get("category");
+    if (postCategory === currentCategory) {
+      postCategory = undefined;
+    }
     handleSearchParamsChange("category", postCategory, pathname, searchParams, replace);
   }
 
+  const isActive = (category: string | undefined) => {
+    const currentCategory = searchParams.get("category");
+    return category && currentCategory === category;
+  };
+
   return (
-    <div className="flex gap-x-3 rounded-md">
-      <div className="flex items-center rounded-md bg-primary bg-opacity-40 text-[9px] md:text-base">
-        <button
-          onClick={() => handlePostCategoryChange(undefined)}
-          className={cn("rounded-s-md bg-primary bg-opacity-0 px-[6px] py-1 hover:bg-opacity-100 md:px-3 md:py-[8px]", !searchParams.get("category") && "bg-opacity-100")}
-        >
-          Alla
-        </button>
-        <div className="h-5/6 w-[1px] bg-black bg-opacity-20 md:hidden"></div>
-        <button
-          onClick={() => handlePostCategoryChange("förbrukningsvara")}
-          className={cn("bg-primary bg-opacity-0 px-[6px] py-1 hover:bg-opacity-100 md:px-3 md:py-[8px]", searchParams.get("category") === "förbrukningsvara" && "bg-opacity-100")}
-        >
-          Förbrukningsvara
-        </button>
-        <div className="h-5/6 w-[1px] bg-black bg-opacity-20 md:hidden"></div>
-        <button
-          onClick={() => handlePostCategoryChange("instrument/maskin")}
-          className={cn("bg-primary bg-opacity-0 px-[6px] py-1 hover:bg-opacity-100 md:px-3 md:py-[8px]", searchParams.get("category") === "instrument/maskin" && "bg-opacity-100")}
-        >
-          Instrument/Maskin
-        </button>
-        <div className="h-5/6 w-[1px] bg-black bg-opacity-20 md:hidden"></div>
-        <button
-          onClick={() => handlePostCategoryChange("inventarie")}
-          className={cn("rounded-e-md bg-primary bg-opacity-0 px-[6px] py-1 hover:bg-opacity-100 md:px-3 md:py-[8px]", searchParams.get("category") === "inventarie" && "bg-opacity-100")}
-        >
-          Inventarie
-        </button>
-      </div>
+    <div className="flex gap-1">
+      <Button onClick={() => handlePostCategoryChange("förbrukningsvara")} variant={isActive("förbrukningsvara") ? "default" : "outline"} size="sm">
+        Förbrukningsvara
+      </Button>
+      <Button onClick={() => handlePostCategoryChange("instrument/maskin")} variant={isActive("instrument/maskin") ? "default" : "outline"} size="sm">
+        Instrument/Maskin
+      </Button>
+      <Button onClick={() => handlePostCategoryChange("inventarie")} variant={isActive("inventarie") ? "default" : "outline"} size="sm">
+        Inventarie
+      </Button>
     </div>
   );
 }

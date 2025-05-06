@@ -21,10 +21,10 @@ export default function PostSortSelect() {
 
   return (
     <Select defaultValue={currentSort} onValueChange={handleSortingChange}>
-      <SelectTrigger className="w-[180px]">
+      <SelectTrigger className="h-9 w-32 border border-input bg-background text-sm">
         <SelectValue />
       </SelectTrigger>
-      <SelectContent align="end">
+      <SelectContent align="end" className="text-xs md:text-sm">
         <SelectItem value="desc">Senast</SelectItem>
         <SelectItem value="asc">Äldst</SelectItem>
       </SelectContent>

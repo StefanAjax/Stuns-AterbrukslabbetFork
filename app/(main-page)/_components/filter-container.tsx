@@ -6,12 +6,11 @@ import PostSortSelect from "./post-sort-select";
 import PostTypeButtons from "./post-type-buttons";
 
 interface FilterContainerProps {
-  totalPostCount: number;
   postCount: number;
 }
 
-export default function FilterContainer({ totalPostCount, postCount }: FilterContainerProps) {
-  const labelText = `Sök bland ${totalPostCount} annonser`;
+export default function FilterContainer({ postCount }: FilterContainerProps) {
+  const labelText = `Sök bland ${postCount} annonser`;
 
   return (
     <div className="mt-4 flex flex-col gap-y-2 md:gap-y-3">

@@ -47,7 +47,12 @@ export default function SearchBar({ labelText, itemsFoundCount }: SearchBarProps
 
       <div className="relative">
         <Search className="absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
-        <Input id="search" className="bg-primary py-2 pl-9" placeholder="Sök..." onChange={handleSearchChange} defaultValue={searchParamValue?.toString()} autoComplete="on" />
+        <style jsx global>{`
+          ::placeholder {
+            user-select: none;
+          }
+        `}</style>
+        <Input id="search" className="py-2 pl-9" placeholder="Sök..." onChange={handleSearchChange} defaultValue={searchParamValue?.toString()} autoComplete="on" />
       </div>
     </form>
   );

@@ -1,8 +1,8 @@
 "use client";
 
-import { cn } from "@/lib/utils";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
+import { Button } from "@/components/ui/button";
 import handleSearchParamsChange from "@/utils/handle-search-params-change";
 import type { PostType } from "@/types/globals";
 
@@ -12,32 +12,26 @@ export default function PostTypeButtons() {
   const { replace } = useRouter();
 
   function handlePostTypeChange(postType: PostType) {
+    const currentType = searchParams.get("type");
+    if (postType === currentType) {
+      postType = undefined;
+    }
     handleSearchParamsChange("type", postType, pathname, searchParams, replace);
   }
 
+  const isActive = (type: string | undefined) => {
+    const currentType = searchParams.get("type");
+    return type && currentType === type;
+  };
+
   return (
-    <div className="flex rounded-md bg-primary text-xs text-neutral-900 md:text-lg">
-      <button
-        onClick={() => handlePostTypeChange(undefined)}
-        className={cn("rounded-s-md px-2 py-1 hover:bg-primary-foreground hover:text-neutral-100 md:px-4 md:py-2", !searchParams.get("type") && "bg-primary-foreground text-neutral-100")}
-      >
-        Alla
-      </button>
-      <button
-        onClick={() => handlePostTypeChange("Erbjuds")}
-        className={cn("px-2 py-1 hover:bg-primary-foreground hover:text-neutral-100 md:px-4 md:py-2", searchParams.get("type") === "Erbjuds" && "bg-primary-foreground text-neutral-100")}
-      >
+    <div className="flex gap-1">
+      <Button onClick={() => handlePostTypeChange("Erbjuds")} variant={isActive("Erbjuds") ? "default" : "outline"} size="sm">
         Erbjuds
-      </button>
-      <button
-        onClick={() => handlePostTypeChange("Efterfrågas")}
-        className={cn(
-          "rounded-e-md px-2 py-1 hover:bg-primary-foreground hover:text-neutral-100 md:px-4 md:py-2",
-          searchParams.get("type") === "Efterfrågas" && "bg-primary-foreground text-neutral-100",
-        )}
-      >
+      </Button>
+      <Button onClick={() => handlePostTypeChange("Efterfrågas")} variant={isActive("Efterfrågas") ? "default" : "outline"} size="sm">
         Efterfrågas
-      </button>
+      </Button>
     </div>
   );
 }
