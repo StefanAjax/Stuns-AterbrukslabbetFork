@@ -2,28 +2,48 @@
 
 import type { Resources } from "@prisma/client";
 import { Button } from "@/components/ui/button";
+import type { ExtendedFile } from "@/types/globals";
 
 interface ResourceCardProps {
-  resource: Resources;
+  resource: Resources | ExtendedFile;
+  index: number;
+  removeFile: (file: ExtendedFile | Resources) => void;
+  handleFileVisibilityToggle: (file: ExtendedFile | Resources) => void;
+  downloadFile?: (file: Resources) => void;
 }
 
-export default function ResourceCard({ resource }: ResourceCardProps) {
+export default function ResourceCard({ resource, index, removeFile, handleFileVisibilityToggle, downloadFile }: ResourceCardProps) {
   return (
     <>
-      {/* Card for viewing, deleting, and toggling visibility of resource (Swedish)*/}
-      <div className="flex flex-col gap-2 rounded-lg border bg-white p-4 shadow-md dark:border-gray-700 dark:bg-gray-800">
+      <div className="flex w-full flex-col gap-2 rounded-lg border bg-white p-4 shadow-md">
         <h3 className="text-lg font-semibold">{resource.name}</h3>
-        <div className="mt-2 flex items-center justify-between">
-          <a href={resource.url} target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">
-            Visa resurs
-          </a>
-          <Button variant={"destructive"} className="rounded bg-red-600 px-4 py-2 text-sm font-medium text-white hover:bg-red-700">
-            Ta bort
+        {"url" in resource && typeof resource.url === "string" && downloadFile && (
+          <Button className="w-24 rounded bg-blue-400 px-4 py-2 text-sm font-medium text-white hover:bg-blue-500" onClick={() => downloadFile(resource as Resources)}>
+            Ladda ned
           </Button>
-        </div>
+        )}
+        <Button
+          variant={"destructive"}
+          className="w-24 rounded bg-red-600 px-4 py-2 text-sm font-medium text-white hover:bg-red-700"
+          onClick={() => {
+            removeFile(resource);
+          }}
+        >
+          Ta bort
+        </Button>
         <div className="mt-2 flex items-center">
-          <input type="checkbox" id={`visibility-${resource.id}`} className="mr-2" defaultChecked={resource.visible} />
-          <label htmlFor={`visibility-${resource.id}`} className="text-sm text-gray-500">
+          <input
+            id={`visibility-${index}`}
+            type="checkbox"
+            className="mr-2"
+            defaultChecked={resource.visible}
+            onChange={() => {
+              const isChecked = !resource.visible;
+              resource.visible = isChecked;
+              handleFileVisibilityToggle(resource);
+            }}
+          />
+          <label htmlFor={`visibility-${index}`} className="text-sm text-gray-500">
             Synlig för alla
           </label>
         </div>

@@ -2,19 +2,28 @@
 
 import { useCallback, useState, useEffect } from "react";
 import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
+import uploadResources from "../utils/upload-resources";
+
+import ResourceCard from "./resource-card";
+import type { Resources } from "@prisma/client";
+import type { ExtendedFile } from "@/types/globals";
+
 export default function ResourceUploadForm() {
   const [isDraggingOver, setIsDraggingOver] = useState(false);
 
-  const [files, setFiles] = useState<File[]>([]);
+  const [files, setFiles] = useState<ExtendedFile[]>([]);
+
+  const router = useRouter();
 
   const validateFiles = useCallback(
-    async (files: FileList) => {
-      const fileArray = Array.from(files);
-      const validFiles: File[] = [];
+    async (filesInput: FileList) => {
+      const fileArray = Array.from(filesInput);
+      const newFiles: ExtendedFile[] = [];
 
       for (const file of fileArray) {
         if (file.size > 10 * 1024 * 1024) {
@@ -27,24 +36,67 @@ export default function ResourceUploadForm() {
           continue;
         }
 
-        validFiles.push(file);
+        // Check if the file already exists in the list
+
+        if (files.some((existingFile) => existingFile.name === file.name)) {
+          toast.error(`Filen ${file.name} finns redan i listan.`);
+          continue;
+        }
+
+        // Cast the File object to ExtendedFile and assign the visible property.
+        // This preserves the original File object and its properties/methods.
+        const fileAsExtended = file as ExtendedFile;
+        fileAsExtended.visible = true;
+        newFiles.push(fileAsExtended);
       }
 
-      if (validFiles.length === 1) {
+      if (newFiles.length === 1) {
         toast.success("1 fil har validerats och är redo att laddas upp.");
-      } else if (validFiles.length > 1) {
-        toast.success(`${validFiles.length} filer har validerats och är redo att laddas upp.`);
+      } else if (newFiles.length > 1) {
+        toast.success(`${newFiles.length} filer har validerats och är redo att laddas upp.`);
       } else {
         toast.error("Inga giltiga filer hittades.");
         return;
       }
 
-      // TODO: Handle the upload of valid files
-      // TODO: Ensure that the api endpoint for getting files does not give files with a visibility of false
-      setFiles(validFiles);
+      setFiles((prevFiles) => [...prevFiles, ...newFiles]);
     },
-    [setIsDraggingOver],
+    [files, setFiles],
   );
+
+  const uploadFiles = async () => {
+    const response = await uploadResources(files);
+
+    response.forEach((res) => {
+      if (res.message) {
+        toast.success(res.message);
+      } else if (res.error) {
+        toast.error(res.error);
+      } else {
+        toast.error("Ett okänt fel inträffade.");
+      }
+    });
+
+    // if (response) {
+    //   toast.success("Filerna har laddats upp.");
+    //   setFiles([]);
+    //   router.refresh();
+    // } else {
+    //   toast.error("Fel vid uppladdning av filer.");
+    // }
+
+    // if (files.length === 0) {
+    //   toast.error("Inga filer att ladda upp.");
+    //   return;
+    // }
+
+    // for (const file of files) {
+    //   formData.append("files", file);
+    // }
+
+    // TODO: Handle the upload of valid files
+    // TODO: Ensure that the api endpoint for getting files does not give files with a visibility of false
+  };
 
   const handleDragOver = useCallback((event: globalThis.DragEvent) => {
     event.preventDefault();
@@ -96,8 +148,26 @@ export default function ResourceUploadForm() {
     };
   }, [handleDragEnter, handleDragOver, handleDragLeave, handleDrop]);
 
+  const handleRemoveFile = (file: ExtendedFile | Resources) => {
+    setFiles((prevFiles) => prevFiles.filter((f) => f.name !== file.name));
+    toast.success("Filen har tagits bort från uppladdningen.");
+  };
+
+  const handleFileVisibilityToggle = (file: ExtendedFile | Resources) => {
+    setFiles((prevFiles) =>
+      prevFiles.map((f) => {
+        if (f.name === file.name) {
+          f.visible = file.visible;
+          return f;
+        }
+        return f;
+      }),
+    );
+    toast.success(`Filen ${file.name} ${file.visible ? "visas" : "döljs"}.`);
+  };
+
   return (
-    <>
+    <div className="flex w-full flex-col items-center justify-center gap-4 p-4">
       {isDraggingOver && (
         <div className="pointer-events-none fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-sm">
           <p className="text-2xl font-bold text-white">Släpp filerna här för att ladda upp</p>
@@ -108,6 +178,7 @@ export default function ResourceUploadForm() {
         id="file-upload"
         type="file"
         accept="application/pdf"
+        multiple
         onChange={(e) => {
           const files = e.target.files;
           if (files && files.length > 0) {
@@ -117,9 +188,26 @@ export default function ResourceUploadForm() {
           }
         }}
       />
-      <Button variant="outline" className="mt-4 w-full rounded-lg border-2 border-dashed" onClick={() => document.getElementById("file-upload")?.click()}>
+      <Button
+        variant="outline"
+        className="mt-2 flex h-full min-h-[8rem] w-2/3 flex-col items-center justify-center rounded-sm border-2 border-dashed bg-primary px-2 py-1 text-center text-sm md:text-base"
+        onClick={() => document.getElementById("file-upload")?.click()}
+      >
         Välj PDF-filer
       </Button>
-    </>
+      {files.length > 0 && (
+        <>
+          <div className="mt-4 flex w-2/3 flex-col gap-2">
+            <h2 className="text-2xl font-bold">Nya resurser</h2>
+            {files.map((file, index) => (
+              <ResourceCard key={index} index={index} resource={file} removeFile={handleRemoveFile} handleFileVisibilityToggle={handleFileVisibilityToggle} />
+            ))}
+          </div>
+          <Button className="mt-4 w-2/3 self-center bg-primary" onClick={uploadFiles}>
+            Ladda upp filer
+          </Button>
+        </>
+      )}
+    </div>
   );
 }

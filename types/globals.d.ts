@@ -10,3 +10,7 @@ declare global {
     };
   }
 }
+
+export type ExtendedFile = File & {
+  visible?: boolean;
+};

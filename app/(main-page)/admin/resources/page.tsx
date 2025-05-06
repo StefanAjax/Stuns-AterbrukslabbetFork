@@ -5,10 +5,8 @@ import { redirect } from "next/navigation";
 
 import { db } from "@/lib/db";
 
-import type { Resources } from "@prisma/client";
-
 import ResourceUploadForm from "./_components/resource-upload-form";
-import ResourceCard from "./_components/resource-card";
+import ResourceCardWrapper from "./_components/resource-card-wrapper";
 
 export default async function Page() {
   if (!(await checkRole("admin")) && !(await checkRole("moderator"))) {
@@ -24,11 +22,7 @@ export default async function Page() {
   return (
     <>
       <ResourceUploadForm />
-      <div className="flex flex-col gap-4">
-        {resources.map((resource: Resources) => (
-          <ResourceCard key={resource.id} resource={resource} />
-        ))}
-      </div>
+      <ResourceCardWrapper resources={resources} />
     </>
   );
 }
