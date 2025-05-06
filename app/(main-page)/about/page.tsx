@@ -57,6 +57,12 @@ export default function AboutPage() {
           portfolioUrl="https://axel.thornberg.se/"
           bio="Kommer att studera datavetenskap på Uppsala Universitet från hösten 2025."
         />
+        <DeveloperProfile
+          name ="Eskil Tornberg"
+          linkedInUrl="https://www.linkedin.com/in/eskil-tornberg-243977363/"
+          githubUrl="https://github.com/EskilNTI"
+          bio="Planerar att studera datavetenskap på Uppsala Universitet från hösten 2025."
+        />
       </div>
       <p className="mt-6">
         Om du har frågor, eller vill ge feedback på verktyget, vänligen skriv en rad till{" "}
