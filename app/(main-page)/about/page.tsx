@@ -58,7 +58,7 @@ export default function AboutPage() {
           bio="Kommer att studera datavetenskap på Uppsala Universitet från hösten 2025."
         />
         <DeveloperProfile
-          name ="Eskil Tornberg"
+          name="Eskil Tornberg"
           linkedInUrl="https://www.linkedin.com/in/eskil-tornberg-243977363/"
           githubUrl="https://github.com/EskilNTI"
           bio="Planerar att studera datavetenskap på Uppsala Universitet från hösten 2025."
