@@ -44,7 +44,7 @@ export default function Pagination({ itemCount, itemsPerPage, hashLinkId }: Pagi
   }
 
   return (
-    <ShadcnPagination className="mt-10">
+    <ShadcnPagination className="mb-10 mt-10">
       <PaginationContent>
         <PaginationItem>
           <PaginationLink onClick={() => handlePageChange(1)} className={currentPage === 1 ? "pointer-events-none opacity-50" : "cursor-pointer"}>
