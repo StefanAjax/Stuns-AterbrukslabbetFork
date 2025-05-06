@@ -105,6 +105,19 @@ const config = {
         offer: "hsl(var(--offer))",
         request: "hsl(var(--request))",
 
+        warning: {
+          DEFAULT: "hsl(var(--warning))",
+          foreground: "hsl(var(--warning-foreground))",
+        },
+        success: {
+          DEFAULT: "hsl(var(--success))",
+          foreground: "hsl(var(--success-foreground))",
+        },
+        info: {
+          DEFAULT: "hsl(var(--info, var(--azure-500)))",
+          foreground: "hsl(var(--info-foreground, var(--white)))",
+        },
+
         chart: {
           "1": "hsl(var(--chart-1))",
           "2": "hsl(var(--chart-2))",

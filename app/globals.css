@@ -91,6 +91,8 @@
     --success-foreground: var(--white);
     --warning: var(--salmon-500);
     --warning-foreground: var(--white);
+    --info: var(--azure-500);
+    --info-foreground: var(--white);
 
     /* Functional colors */
     --border: var(--neutral-200);
@@ -98,8 +100,8 @@
     --ring: var(--emerald-400);
 
     /* Feature-specific colors */
-    --offer: var(--emerald-500);
-    --request: var(--emerald-700);
+    --offer: var(--azure-400);
+    --request: var(--salmon-400);
 
     /* UI properties */
     --radius: 0.5rem;
@@ -144,6 +146,8 @@
     --success-foreground: var(--black);
     --warning: var(--salmon-500);
     --warning-foreground: var(--white);
+    --info: var(--azure-400);
+    --info-foreground: var(--black);
 
     /* Functional colors */
     --border: var(--neutral-800);
@@ -151,8 +155,8 @@
     --ring: var(--emerald-500);
 
     /* Feature-specific colors */
-    --offer: var(--emerald-400);
-    --request: var(--emerald-600);
+    --offer: var(--azure-400);
+    --request: var(--salmon-400);
 
     /* Chart colors - Using consistent emerald palette */
     --chart-1: var(--emerald-300);
