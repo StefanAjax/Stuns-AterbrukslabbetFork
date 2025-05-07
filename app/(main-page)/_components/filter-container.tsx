@@ -19,7 +19,7 @@ export default function FilterContainer({ postCount }: FilterContainerProps) {
         <PostTypeButtons />
         <CreatePostLink />
       </div>
-      <section className="flex w-full justify-between gap-x-2">
+      <section className="flex w-full flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
         <PostCategoryButtons />
         <PostSortSelect />
       </section>

@@ -31,7 +31,7 @@ export default function PostCard({ postData, timezone }: PostCardProps) {
 
   return (
     <Link href={`/post/${postData.id}`}>
-      <article className="flex w-full rounded-xl border border-border bg-card py-2 pr-2 md:py-4 md:pr-4">
+      <article className="flex w-full rounded-xl border border-border bg-card py-3 pr-4 md:py-4">
         <div className={cn("mr-2 w-1 rounded-r-md md:mr-3 md:w-2", postTypeColor)} aria-hidden="true" />
         <div className="flex w-full flex-1 gap-3">
           <figure className="w-1/3">

@@ -32,7 +32,7 @@ export default async function MainPage({ searchParams }: MainPageProps) {
   return (
     <div>
       <Intro />
-      <div className="mx-auto px-10 md:max-w-screen-md md:px-5" id="filters">
+      <div className="mx-auto px-4 md:max-w-screen-md md:px-6" id="filters">
         <FilterContainer postCount={queriedPostsCount} />
         <PostContainer posts={postsList} />
       </div>
