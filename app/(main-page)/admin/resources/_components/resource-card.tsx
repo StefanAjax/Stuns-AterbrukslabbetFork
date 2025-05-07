@@ -7,8 +7,8 @@ import type { ExtendedFile } from "@/types/globals";
 interface ResourceCardProps {
   resource: Resources | ExtendedFile;
   index: number;
-  removeFile: (file: ExtendedFile | Resources) => void;
-  handleFileVisibilityToggle: (file: ExtendedFile | Resources) => void;
+  removeFile: (file: ExtendedFile | Resources) => Promise<void>;
+  handleFileVisibilityToggle: (file: ExtendedFile | Resources) => Promise<void>;
   downloadFile?: (file: Resources) => void;
 }
 
@@ -19,11 +19,11 @@ export default function ResourceCard({ resource, index, removeFile, handleFileVi
         <h3 className="text-lg font-semibold">{resource.name}</h3>
         {"url" in resource && typeof resource.url === "string" && downloadFile && (
           <Button className="w-24 rounded bg-blue-400 px-4 py-2 text-sm font-medium text-white hover:bg-blue-500" onClick={() => downloadFile(resource as Resources)}>
-            Ladda ned
+            Ladda ner
           </Button>
         )}
         <Button
-          variant={"destructive"}
+          variant="destructive"
           className="w-24 rounded bg-red-600 px-4 py-2 text-sm font-medium text-white hover:bg-red-700"
           onClick={() => {
             removeFile(resource);
@@ -38,8 +38,7 @@ export default function ResourceCard({ resource, index, removeFile, handleFileVi
             className="mr-2"
             defaultChecked={resource.visible}
             onChange={() => {
-              const isChecked = !resource.visible;
-              resource.visible = isChecked;
+              resource.visible = document.getElementById(`visibility-${index}`)?.getAttribute("checked") === "true";
               handleFileVisibilityToggle(resource);
             }}
           />

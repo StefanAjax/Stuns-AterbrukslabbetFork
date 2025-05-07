@@ -1,8 +1,9 @@
 "use client";
 
 import type { Resources } from "@prisma/client";
-import type { ExtendedFile } from "@/types/globals";
 
+import handleFileVisibilityToggle from "../utils/handle-file-visibility-toggle";
+import removeFile from "../utils/remove-file";
 import ResourceCard from "./resource-card";
 
 interface ResourceCardWrapperProps {
@@ -10,24 +11,8 @@ interface ResourceCardWrapperProps {
 }
 
 export default function ResourceCardWrapper({ resources }: ResourceCardWrapperProps) {
-  const removeFile = async (file: Resources | ExtendedFile) => {
-    throw new Error("Not implemented");
-  };
-
-  const handleFileVisibilityToggle = async (file: Resources | ExtendedFile) => {
-    throw new Error("Not implemented");
-  };
-
   const downloadFile = async (file: Resources) => {
-    // TODO: get clerk userID and pass it to the API route
-
-    // Call the API route to download the file
-    const response = await fetch(`/api/download/${file.name}`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+    window.location.href = `/api/download/${file.name}`;
   };
 
   return (

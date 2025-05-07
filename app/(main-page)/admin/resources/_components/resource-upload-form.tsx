@@ -148,12 +148,12 @@ export default function ResourceUploadForm() {
     };
   }, [handleDragEnter, handleDragOver, handleDragLeave, handleDrop]);
 
-  const handleRemoveFile = (file: ExtendedFile | Resources) => {
+  const handleRemoveFile = async (file: ExtendedFile | Resources) => {
     setFiles((prevFiles) => prevFiles.filter((f) => f.name !== file.name));
     toast.success("Filen har tagits bort från uppladdningen.");
   };
 
-  const handleFileVisibilityToggle = (file: ExtendedFile | Resources) => {
+  const handleFileVisibilityToggle = async (file: ExtendedFile | Resources) => {
     setFiles((prevFiles) =>
       prevFiles.map((f) => {
         if (f.name === file.name) {
