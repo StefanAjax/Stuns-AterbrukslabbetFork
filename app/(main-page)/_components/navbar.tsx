@@ -5,6 +5,7 @@ import { checkRole } from "@/utils/check-role";
 import { cn } from "@/lib/utils";
 import { getUserId } from "@/utils/get-user-id";
 import Logo from "@/components/logo";
+import Logomark from "@/components/logomark";
 import { SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 import { source_sans_3 } from "@/app/fonts";
 import AdminDropdown from "@/components/admin-dropdown";
@@ -32,7 +33,15 @@ export default async function Navbar() {
   return (
     <header className="flex h-20 bg-white">
       <div className="mx-auto flex w-full max-w-[1920px] items-center justify-between px-4">
-        <Logo variant="emerald" layout="row" href="/" />
+        <div className="sm:hidden">
+          <Link href="/">
+            <Logomark variant="emerald" width={40} height={40} />
+          </Link>
+        </div>
+
+        <div className="hidden sm:block">
+          <Logo variant="emerald" layout="row" href="/" />
+        </div>
 
         <nav className="flex items-center gap-3 md:gap-4">
           <SignedOut>
