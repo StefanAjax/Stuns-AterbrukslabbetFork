@@ -9,6 +9,7 @@ import Logomark from "@/components/logomark";
 import { SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 import { source_sans_3 } from "@/app/fonts";
 import AdminDropdown from "@/components/admin-dropdown";
+import CreatePostLink from "./create-post-link";
 
 type NavItemProps = {
   href: string;
@@ -32,23 +33,20 @@ export default async function Navbar() {
   return (
     <header className="flex h-20 bg-white">
       <div className="mx-auto flex w-full max-w-[1920px] items-center justify-between px-4">
-        <div className="sm:hidden">
+        <div className="md:hidden">
           <Link href="/">
             <Logomark variant="emerald" width={40} height={40} />
           </Link>
         </div>
-
-        <div className="hidden sm:block">
+        <div className="hidden md:block">
           <Logo variant="emerald" layout="row" href="/" />
         </div>
-
         <nav className="flex items-center gap-3 md:gap-4">
           <SignedOut>
             <Link className={cn("font-semibold", source_sans_3.className)} href="/sign-in">
               Logga in
             </Link>
           </SignedOut>
-
           <SignedIn>
             {isAdminOrModerator && (
               <>
@@ -60,11 +58,13 @@ export default async function Navbar() {
                 </div>
               </>
             )}
-
             <NavItem href={`/profile/${await getUserId()}`} mobileIcon={<BookUser {...iconProps} />} desktopText="Mina annonser" className="font-medium hover:opacity-80" />
-
-            <NavItem href="/create-post" mobileIcon={<PlusSquare {...iconProps} />} desktopText="Skapa annons" className="rounded-md bg-sky-600 px-4 py-1.5 font-medium text-white hover:opacity-85" />
-
+            <div className="md:hidden">
+              <NavItem href="/create-post" mobileIcon={<PlusSquare {...iconProps} />} desktopText="" className="" />
+            </div>
+            <div className="hidden md:block">
+              <CreatePostLink />
+            </div>
             <UserButton
               appearance={{
                 elements: {

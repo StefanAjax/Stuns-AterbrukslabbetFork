@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 export default function CreatePostLink() {
   return (
     <Button asChild variant="default">
-      <Link href="/create-post" className="gap-x-1">
+      <Link href="/create-post">
         <Plus />
         Skapa annons
       </Link>
