@@ -91,7 +91,15 @@ test("Upload disabled resource", async ({ page }) => {
 
   await page.locator("input[type='file']").setInputFiles("tests/assets/README.pdf");
 
+  await page.screenshot({
+    path: `tests/logs/upload-disabled-resource-${Date.now()}.png`,
+  });
+
   await page.getByRole("checkbox").first().click();
+
+  await page.screenshot({
+    path: `tests/logs/upload-disabled-resource-${Date.now()}.png`,
+  });
 
   await page.getByRole("button").filter({ hasText: "Ladda upp filer" }).first().click();
 
