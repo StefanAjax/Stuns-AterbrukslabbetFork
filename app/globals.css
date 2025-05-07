@@ -73,7 +73,7 @@
     --popover-foreground: var(--neutral-900);
 
     /* Interactive element colors */
-    --primary: var(--emerald-600);
+    --primary: var(--emerald-500);
     --primary-foreground: var(--white);
     --secondary: var(--emerald-300);
     --secondary-foreground: var(--emerald-950);

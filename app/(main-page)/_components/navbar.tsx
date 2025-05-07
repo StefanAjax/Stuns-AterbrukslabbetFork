@@ -18,7 +18,7 @@ type NavItemProps = {
 
 const NavItem = ({ href, mobileIcon, desktopText, className }: NavItemProps) => (
   <Link href={href}>
-    <div className="md:hidden">{mobileIcon}</div>
+    <div className="text-primary md:hidden">{mobileIcon}</div>
     <span className={cn("hidden md:block", className, source_sans_3.className)}>{desktopText}</span>
   </Link>
 );
@@ -27,7 +27,7 @@ export default async function Navbar() {
   const userId = await getUserId();
   const isAdminOrModerator = (await checkRole("admin")) || (await checkRole("moderator"));
 
-  const iconProps = { strokeWidth: 1, width: 30, height: 30 };
+  const iconProps = { strokeWidth: 2, width: 25, height: 25, className: "text-primary" };
 
   return (
     <header className="flex h-20 bg-white">
