@@ -13,6 +13,8 @@ test("Upload, disable, enable and delete resource", async ({ page }) => {
 
   await page.getByText("Adminpanel").first().click();
 
+  await page.getByText("Dashboard").first().click();
+
   await page.getByText("Resurser").first().click();
 
   await page.locator("input[type='file']").setInputFiles("tests/assets/README.pdf");
@@ -23,7 +25,7 @@ test("Upload, disable, enable and delete resource", async ({ page }) => {
 
   await page.getByText("Återbrukslabbet").first().click();
 
-  await page.getByText("Resurser").first().click();
+  await page.locator("footer").getByText("Resurser").first().click();
 
   await expect(page.getByText("README.pdf").filter({ visible: true }).first()).toBeVisible();
 
@@ -31,13 +33,15 @@ test("Upload, disable, enable and delete resource", async ({ page }) => {
 
   await page.getByText("Adminpanel").first().click();
 
+  await page.getByText("Dasnboard").first().click();
+
   await page.getByText("Resurser").first().click();
 
   await page.getByRole("checkbox").first().click();
 
   await page.getByText("Återbrukslabbet").first().click();
 
-  await page.getByText("Resurser").first().click();
+  await page.locator("footer").getByText("Resurser").first().click();
 
   expect(page.getByText("Inga resurser tillgängliga").filter({ visible: true }).first()).toBeVisible();
 
@@ -45,13 +49,15 @@ test("Upload, disable, enable and delete resource", async ({ page }) => {
 
   await page.getByText("Adminpanel").first().click();
 
+  await page.getByText("Dashboard").first().click();
+
   await page.getByText("Resurser").first().click();
 
   await page.getByRole("checkbox").first().click();
 
   await page.getByText("Återbrukslabbet").first().click();
 
-  await page.getByText("Resurser").first().click();
+  await page.locator("footer").getByText("Resurser").first().click();
 
   expect(page.getByText("README.pdf").filter({ visible: true }).first()).toBeVisible();
 
@@ -59,13 +65,15 @@ test("Upload, disable, enable and delete resource", async ({ page }) => {
 
   await page.getByText("Adminpanel").first().click();
 
+  await page.getByText("Dashboard").first().click();
+
   await page.getByText("Resurser").first().click();
 
   await page.getByRole("button").filter({ hasText: "Ta bort" }).first().click();
 
   await page.getByText("Återbrukslabbet").first().click();
 
-  await page.getByText("Resurser").first().click();
+  await page.locator("footer").getByText("Resurser").first().click();
 
   expect(page.getByText("Inga resurser tillgängliga").filter({ visible: true }).first()).toBeVisible();
 });
@@ -77,6 +85,8 @@ test("Upload disabled resource", async ({ page }) => {
 
   await page.getByText("Adminpanel").first().click();
 
+  await page.getByText("Dashboard").first().click();
+
   await page.getByText("Resurser").first().click();
 
   await page.locator("input[type='file']").setInputFiles("tests/assets/README.pdf");
@@ -89,7 +99,7 @@ test("Upload disabled resource", async ({ page }) => {
 
   await page.getByText("Återbrukslabbet").first().click();
 
-  await page.getByText("Resurser").first().click();
+  await page.locator("footer").getByText("Resurser").first().click();
 
   expect(page.getByText("Inga resurser tillgängliga").filter({ visible: true }).first()).toBeVisible();
 });
@@ -101,6 +111,8 @@ test("Cancel upload", async ({ page }) => {
 
   await page.getByText("Adminpanel").first().click();
 
+  await page.getByText("Dashboard").first().click();
+
   await page.getByText("Resurser").first().click();
 
   await page.locator("input[type='file']").setInputFiles("tests/assets/README.pdf");
@@ -111,7 +123,7 @@ test("Cancel upload", async ({ page }) => {
 
   await page.getByText("Återbrukslabbet").first().click();
 
-  await page.getByText("Resurser").first().click();
+  await page.locator("footer").getByText("Resurser").first().click();
 
   expect(page.getByText("Inga resurser tillgängliga").filter({ visible: true }).first()).toBeVisible();
 });
