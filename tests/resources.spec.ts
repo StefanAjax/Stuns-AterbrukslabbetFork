@@ -33,7 +33,7 @@ test("Upload, disable, enable and delete resource", async ({ page }) => {
 
   await page.getByText("Adminpanel").first().click();
 
-  await page.getByText("Dasnboard").first().click();
+  await page.getByText("Dashboard").first().click();
 
   await page.getByText("Resurser").first().click();
 
