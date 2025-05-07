@@ -32,7 +32,7 @@ export default function Intro() {
           <p>Företag kan donera, lärare kan efterfråga. Välkommen till Återbrukslabbet!</p>
         </div>
       </div>
-      <LayeredWaves variant="emeraldLight" className="max-h-[30rem] min-h-56 w-full" />
+      <LayeredWaves variant="emeraldLight" className="-mt-[1px] max-h-[30rem] min-h-56 w-full" />
     </>
   );
 }
