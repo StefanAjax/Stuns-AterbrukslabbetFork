@@ -91,15 +91,7 @@ test("Upload disabled resource", async ({ page }) => {
 
   await page.locator("input[type='file']").setInputFiles("tests/assets/README.pdf");
 
-  await page.screenshot({
-    path: `tests/logs/upload-disabled-resource-${Date.now()}.png`,
-  });
-
   await page.getByRole("checkbox").first().click();
-
-  await page.screenshot({
-    path: `tests/logs/upload-disabled-resource-${Date.now()}.png`,
-  });
 
   await page.getByRole("button").filter({ hasText: "Ladda upp filer" }).first().click();
 
@@ -108,12 +100,6 @@ test("Upload disabled resource", async ({ page }) => {
   await page.getByText("Återbrukslabbet").first().click();
 
   await page.locator("footer").getByText("Resurser").first().click();
-
-  // Take a screenshot of the page
-
-  await page.screenshot({
-    path: `tests/logs/upload-disabled-resource-${Date.now()}.png`,
-  });
 
   expect(page.getByText("Inga resurser tillgängliga").filter({ visible: true }).first()).toBeVisible();
 });
