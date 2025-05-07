@@ -33,11 +33,7 @@ test("Upload, disable, enable and delete resource", async ({ page }) => {
 
   await page.getByText("Resurser").first().click();
 
-  const labelDisable = page.getByText("Synlig för alla").first().locator("label");
-
-  const htmlForDisable = await labelDisable.getAttribute("htmlFor");
-
-  await page.locator(`input[id="${htmlForDisable}"]`).click();
+  await page.getByRole("checkbox").first().click();
 
   await page.getByText("Återbrukslabbet").first().click();
 
@@ -51,11 +47,7 @@ test("Upload, disable, enable and delete resource", async ({ page }) => {
 
   await page.getByText("Resurser").first().click();
 
-  const labelEnable = page.getByText("Synlig för alla").first().locator("label");
-
-  const htmlForEnable = await labelEnable.getAttribute("htmlFor");
-
-  await page.locator(`input[id="${htmlForEnable}"]`).click();
+  await page.getByRole("checkbox").first().click();
 
   await page.getByText("Återbrukslabbet").first().click();
 
@@ -89,11 +81,7 @@ test("Upload disabled resource", async ({ page }) => {
 
   await page.locator("input[type='file']").setInputFiles("tests/assets/README.pdf");
 
-  const labelDisable = page.getByText("Synlig för alla").first().locator("label");
-
-  const htmlForDisable = await labelDisable.getAttribute("htmlFor");
-
-  await page.locator(`input[id="${htmlForDisable}"]`).click();
+  await page.getByRole("checkbox").first().click();
 
   await page.getByRole("button").filter({ hasText: "Ladda upp filer" }).first().click();
 
