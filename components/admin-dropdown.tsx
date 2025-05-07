@@ -1,8 +1,9 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
-import Link from "next/link";
-import { ChevronDown } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { cn } from "@/lib/utils";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { source_sans_3 } from "@/app/fonts";
 
 interface AdminDropdownProps {
   className?: string;
@@ -21,38 +22,26 @@ const adminMenuItems: AdminMenuItem[] = [
 ];
 
 export default function AdminDropdown({ className }: AdminDropdownProps) {
-  const [isOpen, setIsOpen] = useState(false);
-  const dropdownRef = useRef<HTMLDivElement>(null);
+  const router = useRouter();
 
-  useEffect(() => {
-    function handleClickOutside(event: MouseEvent) {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
-        setIsOpen(false);
-      }
-    }
-
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, []);
+  const handleValueChange = (value: string) => {
+    router.push(value);
+  };
 
   return (
-    <div className={`relative ${className}`} ref={dropdownRef}>
-      <button onClick={() => setIsOpen(!isOpen)} className="flex items-center gap-x-1 transition-colors hover:text-accent">
-        <span>Adminpanel</span>
-        <ChevronDown className={`size-4 transition-transform ${isOpen ? "rotate-180" : ""}`} />
-      </button>
-
-      {isOpen && (
-        <div className="absolute z-10 mt-2 w-full rounded-md bg-popover ring-1 ring-ring/50">
+    <div className={className}>
+      <Select onValueChange={handleValueChange}>
+        <SelectTrigger className={cn("flex items-center gap-x-1 border-none bg-transparent text-lg font-medium shadow-none transition-colors hover:text-accent focus:ring-0", source_sans_3.className)}>
+          <SelectValue placeholder="Adminpanel" />
+        </SelectTrigger>
+        <SelectContent>
           {adminMenuItems.map((item) => (
-            <Link key={item.href} href={item.href} className="block px-3 py-2 text-sm text-popover-foreground hover:text-accent" onClick={() => setIsOpen(false)}>
+            <SelectItem key={item.href} value={item.href}>
               {item.label}
-            </Link>
+            </SelectItem>
           ))}
-        </div>
-      )}
+        </SelectContent>
+      </Select>
     </div>
   );
 }

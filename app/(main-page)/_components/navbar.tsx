@@ -25,7 +25,6 @@ const NavItem = ({ href, mobileIcon, desktopText, className }: NavItemProps) => 
 );
 
 export default async function Navbar() {
-  const userId = await getUserId();
   const isAdminOrModerator = (await checkRole("admin")) || (await checkRole("moderator"));
 
   const iconProps = { strokeWidth: 2, width: 25, height: 25, className: "text-primary" };
@@ -51,13 +50,13 @@ export default async function Navbar() {
           </SignedOut>
 
           <SignedIn>
-            {((await checkRole("admin")) || (await checkRole("moderator"))) && (
+            {isAdminOrModerator && (
               <>
                 <Link href="/admin/dashboard" className="md:hidden">
                   <LockKeyhole {...iconProps} />
                 </Link>
                 <div className="hidden md:block">
-                  <AdminDropdown className={cn("font-medium", source_sans_3.className)} />
+                  <AdminDropdown />
                 </div>
               </>
             )}
