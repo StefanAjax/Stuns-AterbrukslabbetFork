@@ -119,7 +119,7 @@ test("Cancel upload", async ({ page }) => {
 
   await page.getByRole("button").filter({ hasText: "Ta bort" }).first().click();
 
-  await page.getByRole("button").filter({ hasText: "Ladda upp filer" }).first().click();
+  expect(page.getByRole("button").filter({ hasText: "Ladda upp filer" }).first()).not.toBeVisible();
 
   await page.getByText("Återbrukslabbet").first().click();
 
