@@ -29,7 +29,7 @@ test("Create post with image", async ({ page }) => {
 
   await page.getByText("Uppsala").first().click();
 
-  await page.locator("input[type='file']").setInputFiles("./tests/utils/test-image.png");
+  await page.locator("input[type='file']").setInputFiles("./tests/assets/test-image.png");
 
   await page.getByRole("button").filter({ hasText: "Skapa" }).first().click();
 
@@ -91,7 +91,7 @@ test("Add image to post", async ({ page }) => {
 
   await page.getByRole("button").filter({ hasText: "Redigera" }).first().click();
 
-  await page.locator("input[type='file']").setInputFiles("./tests/utils/test-image.png");
+  await page.locator("input[type='file']").setInputFiles("./tests/assets/test-image.png");
 
   await page.locator("textarea#description").first().fill("The post now has an image");
 
@@ -135,7 +135,7 @@ test("Remove image from post", async ({ page }) => {
 
   await page.getByText("Uppsala").first().click();
 
-  await page.locator("input[type='file']").setInputFiles("./tests/utils/test-image.png");
+  await page.locator("input[type='file']").setInputFiles("./tests/assets/test-image.png");
 
   await page.getByRole("button").filter({ hasText: "Skapa" }).first().click();
 
@@ -203,7 +203,7 @@ test("Change image in post", async ({ page }) => {
 
   await page.getByText("Uppsala").first().click();
 
-  await page.locator("input[type='file']").setInputFiles("./tests/utils/test-image.png");
+  await page.locator("input[type='file']").setInputFiles("./tests/assets/test-image.png");
 
   await page.getByRole("button").filter({ hasText: "Skapa" }).first().click();
 
@@ -225,7 +225,7 @@ test("Change image in post", async ({ page }) => {
 
   await page.getByRole("button").filter({ hasText: "Redigera" }).first().click();
 
-  await page.locator("input[type='file']").setInputFiles("./tests/utils/test-image-2.png");
+  await page.locator("input[type='file']").setInputFiles("./tests/assets/test-image-2.png");
 
   await page.locator("textarea#description").first().fill("The post now has a new image");
 
