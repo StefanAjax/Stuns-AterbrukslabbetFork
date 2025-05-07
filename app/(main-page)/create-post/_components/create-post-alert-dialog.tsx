@@ -30,6 +30,11 @@ export default function CreatePostAlertDialog({ isSubmitting, update }: CreatePo
               Vid nyttjande av begagnad utrustning är det användaren som bär ansvar för den egna säkerheten. Återbrukslabbet förmedlar endast kontakt mellan den som skänker, respektive tar emot
               utrustning och bär därför inget ansvar för utrustningens skick eller säkerhet.
             </p>
+            <hr className="w-4/5" />
+            <p>
+              Säkerställ så att eventuella bilder inte innehåller känslig information eller uppgifter som kan identifiera enskilda personer. Om så är fallet, se till att sudda ut eller ta bort dessa
+              uppgifter innan du publicerar annonsen.
+            </p>
           </div>
         </AlertDialogHeader>
         <AlertDialogFooter>

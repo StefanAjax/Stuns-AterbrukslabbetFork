@@ -51,7 +51,7 @@ export default async function Navbar() {
           </SignedOut>
 
           <SignedIn>
-            {isAdminOrModerator && (
+            {((await checkRole("admin")) || (await checkRole("moderator"))) && (
               <>
                 <Link href="/admin/dashboard" className="md:hidden">
                   <LockKeyhole {...iconProps} />
@@ -62,7 +62,7 @@ export default async function Navbar() {
               </>
             )}
 
-            <NavItem href={`/profile/${userId}`} mobileIcon={<BookUser {...iconProps} />} desktopText="Mina annonser" className="font-medium hover:opacity-80" />
+            <NavItem href={`/profile/${await getUserId()}`} mobileIcon={<BookUser {...iconProps} />} desktopText="Mina annonser" className="font-medium hover:opacity-80" />
 
             <NavItem href="/create-post" mobileIcon={<PlusSquare {...iconProps} />} desktopText="Skapa annons" className="rounded-md bg-sky-600 px-4 py-1.5 font-medium text-white hover:opacity-85" />
 

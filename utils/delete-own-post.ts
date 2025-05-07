@@ -2,6 +2,8 @@
 
 import { db } from "@/lib/db";
 import type { Post } from "@prisma/client";
+import path from "node:path";
+import fs from "node:fs";
 
 import archivePost from "./archive-post";
 
@@ -18,6 +20,23 @@ export default async function deletePost({ postData, deletionReason }: DeletePos
   }
 
   try {
+    const post = await db.post.findUnique({
+      where: {
+        id: postData.id,
+      },
+      select: {
+        imageThumbUrl: true,
+      },
+    });
+
+    if (post && post.imageThumbUrl) {
+      const imagePath = path.join(process.cwd(), "public", post.imageThumbUrl);
+
+      if (fs.existsSync(imagePath)) {
+        fs.unlinkSync(imagePath);
+      }
+    }
+
     await db.post.delete({
       where: {
         id: postData.id,

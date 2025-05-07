@@ -44,8 +44,8 @@ export default defineConfig({
       size: { width: 2560, height: 1440 },
     },
     launchOptions: {
-      /* Add a delay of .2 seconds between each action. */
-      slowMo: 200,
+      /* Add a delay of .25 seconds between each action. */
+      slowMo: 250,
     },
   },
 
@@ -55,11 +55,19 @@ export default defineConfig({
   projects: [
     {
       name: "chromium",
-      use: { ...devices["Desktop Chrome"] },
+      use: {
+        ...devices["Desktop Chrome"],
+        /* Viewport size for the browser. */
+        viewport: { width: 2560, height: 1440 },
+      },
     },
     {
       name: "firefox",
-      use: { ...devices["Desktop Firefox"] },
+      use: {
+        ...devices["Desktop Firefox"],
+        /* Viewport size for the browser. */
+        viewport: { width: 2560, height: 1440 },
+      },
     },
   ],
 

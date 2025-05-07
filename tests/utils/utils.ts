@@ -1,4 +1,4 @@
-import { test } from "@playwright/test";
+import { expect } from "@playwright/test";
 import type { Page } from "@playwright/test";
 import { db } from "@/lib/db";
 import { clerk, clerkSetup, setupClerkTestingToken } from "@clerk/testing/playwright";
@@ -32,4 +32,6 @@ export const logout = async (page: Page) => {
   await page.goto("/", { waitUntil: "domcontentloaded" });
 
   await clerk.signOut({ page });
+
+  await expect(page.getByText("Logga in").filter({ visible: true }).first()).toBeVisible();
 };
