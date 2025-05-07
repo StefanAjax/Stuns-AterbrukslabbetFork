@@ -21,7 +21,7 @@ export default function PostSortSelect() {
 
   return (
     <Select defaultValue={currentSort} onValueChange={handleSortingChange}>
-      <SelectTrigger className="h-9 w-32 border border-input bg-background text-sm shadow-none">
+      <SelectTrigger className="h-9 w-32 select-none border border-input bg-background text-sm shadow-none">
         <SelectValue />
       </SelectTrigger>
       <SelectContent align="end" className="text-xs md:text-sm">
