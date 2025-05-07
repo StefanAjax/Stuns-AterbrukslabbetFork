@@ -36,61 +36,68 @@ export default function PostComponent({ postData, email, fullName, isPreview, us
   const { postTypeColor } = getPostTypeSpecificData({
     postType: postData.postType,
   });
+
   return (
-    <article className="mx-auto max-w-[360px] rounded-2xl bg-secondary px-6 pb-4 pt-3 md:max-w-screen-md md:px-16 md:pb-6 md:pt-10">
-      <Image
-        src={
-          postData.imageThumbUrl
-            ? postData.imageThumbUrl
-            : postData.category === "inventarie"
-              ? "/images/inventory.webp"
-              : postData.category === "förbrukningsvara"
-                ? "/images/consumables.webp"
-                : postData.category === "instrument/maskin"
-                  ? "/images/instrument.webp"
-                  : "/images/image-missing.webp"
-        }
-        alt="annonsens bild"
-        width={600}
-        height={450}
-        className="aspect-[4/3] w-full rounded-md object-cover object-center"
-      />
-      <div className="flex w-full flex-col gap-y-1">
-        <div className="flex justify-between pt-2 text-xs md:text-base">
-          <section className="flex items-center gap-x-1 capitalize">
-            <MapPin className="hidden shrink-0 md:block" size={16} />
-            <MapPin className="block shrink-0 md:hidden" size={12} />
+    <article className="rounded-2xl border border-border bg-card px-4 py-3 md:max-w-screen-md md:px-8 md:py-6">
+      <figure>
+        <Image
+          src={
+            postData.imageThumbUrl
+              ? postData.imageThumbUrl
+              : postData.category === "inventarie"
+                ? "/images/inventory.webp"
+                : postData.category === "förbrukningsvara"
+                  ? "/images/consumables.webp"
+                  : postData.category === "instrument/maskin"
+                    ? "/images/instrument.webp"
+                    : "/images/image-missing.webp"
+          }
+          alt={`Bild för annonsen: ${postData.title}`}
+          width={600}
+          height={450}
+          className="aspect-[4/3] w-full rounded-xl object-cover object-center"
+        />
+      </figure>
+      <div className="flex flex-col gap-y-2">
+        <div className="flex flex-wrap justify-between gap-x-2 pt-2 text-xs md:text-sm">
+          <address className="flex items-center gap-x-1 capitalize not-italic">
+            <MapPin className="shrink-0" size={16} />
             {postData.location}
-          </section>
-          <section className="flex items-center gap-x-1 text-nowrap text-end">
-            <Clock className="hidden md:block" size={16} />
-            <Clock className="block md:hidden" size={12} />
+          </address>
+          <time dateTime={postData.createdAt.toISOString()} className="flex items-center gap-x-1 text-nowrap font-mono">
+            <Clock className="shrink-0" size={16} />
             {creationDateString}
-          </section>
+          </time>
         </div>
-        <div className="flex h-10 justify-between text-xs md:h-14 md:text-base">
-          <section className="flex h-1/2 items-center gap-x-1">
-            <div className={cn("h-3 w-3 rounded-[50%] md:h-4 md:w-4", postTypeColor)} />
+        <div className="flex flex-wrap justify-between gap-x-2 text-xs md:text-sm">
+          <section className="flex items-center gap-x-1">
+            <div className={cn("h-3 w-3 rounded-full md:h-4 md:w-4", postTypeColor)} />
             {postData.postType}
           </section>
           {postData.hasCustomExpirationDate && (
-            <section className="text-end text-warning">
-              <time dateTime={postData.expiresAt.toISOString()}>{expirationDateString}</time>
+            <section className="text-warning">
+              <time dateTime={postData.expiresAt.toISOString()} className="font-mono">
+                {expirationDateString}
+              </time>
             </section>
           )}
         </div>
-        <h1 className="w-full break-words text-2xl md:text-3xl">{postData.title}</h1>
-        <p className="w-full break-words text-xs md:pt-2 md:text-base">{postData.description}</p>
-        <Link href={`/profile/${postData.userId}`} className={cn("mt-4 flex w-fit items-center hover:opacity-70", isPreview ? "pointer-events-none" : "")} aria-disabled={isPreview}>
-          <User className="hidden shrink-0 md:block" size={18} />
-          <User className="block shrink-0 md:hidden" size={12} />
-          <p className="line-clamp-1 break-all pl-1 text-sm md:text-xl">{fullName}</p>
+        <h1 className="w-full break-words text-xl font-semibold md:text-2xl">{postData.title}</h1>
+        <p className="w-full break-words text-sm md:pt-1 md:text-base">{postData.description}</p>
+        <Link
+          href={`/profile/${postData.userId}`}
+          className={cn("mt-2 flex w-fit items-center hover:opacity-70", isPreview ? "pointer-events-none" : "")}
+          aria-disabled={isPreview}
+          tabIndex={isPreview ? -1 : undefined}
+        >
+          <User className="shrink-0" size={18} />
+          <span className="line-clamp-1 break-all pl-1 text-sm md:text-lg">{fullName}</span>
         </Link>
-        <div className="flex w-full items-center justify-between">
+        <div className="mt-auto flex w-full flex-wrap items-center justify-between gap-2 pt-2">
           <div>
             <ContactMeDialog fullName={fullName} email={email} disabled={isPreview} />
           </div>
-          {userPostActionButton && <div className="flex gap-x-2">{userPostActionButton}</div>}
+          {userPostActionButton && <div className="flex flex-wrap gap-2">{userPostActionButton}</div>}
         </div>
       </div>
     </article>
