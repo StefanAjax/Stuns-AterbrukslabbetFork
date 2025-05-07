@@ -101,6 +101,12 @@ test("Upload disabled resource", async ({ page }) => {
 
   await page.locator("footer").getByText("Resurser").first().click();
 
+  // Take a screenshot of the page
+
+  await page.screenshot({
+    path: `tests/logs/upload-disabled-resource-${Date.now()}.png`,
+  });
+
   expect(page.getByText("Inga resurser tillgängliga").filter({ visible: true }).first()).toBeVisible();
 });
 
