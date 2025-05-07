@@ -26,10 +26,10 @@ export default function PostTypeButtons() {
 
   return (
     <div className="flex gap-1">
-      <Button onClick={() => handlePostTypeChange("Erbjuds")} variant={isActive("Erbjuds") ? "default" : "outline"} size="sm">
+      <Button onClick={() => handlePostTypeChange("Erbjuds")} variant={isActive("Erbjuds") ? "secondary" : "outline"} size="sm">
         Erbjuds
       </Button>
-      <Button onClick={() => handlePostTypeChange("Efterfrågas")} variant={isActive("Efterfrågas") ? "default" : "outline"} size="sm">
+      <Button onClick={() => handlePostTypeChange("Efterfrågas")} variant={isActive("Efterfrågas") ? "secondary" : "outline"} size="sm">
         Efterfrågas
       </Button>
     </div>

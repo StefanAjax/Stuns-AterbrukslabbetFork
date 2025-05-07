@@ -26,13 +26,13 @@ export default function PostCategoryButtons() {
 
   return (
     <div className="flex gap-1">
-      <Button onClick={() => handlePostCategoryChange("förbrukningsvara")} variant={isActive("förbrukningsvara") ? "default" : "outline"} size="sm">
+      <Button onClick={() => handlePostCategoryChange("förbrukningsvara")} variant={isActive("förbrukningsvara") ? "secondary" : "outline"} size="sm">
         Förbrukningsvara
       </Button>
-      <Button onClick={() => handlePostCategoryChange("instrument/maskin")} variant={isActive("instrument/maskin") ? "default" : "outline"} size="sm">
+      <Button onClick={() => handlePostCategoryChange("instrument/maskin")} variant={isActive("instrument/maskin") ? "secondary" : "outline"} size="sm">
         Instrument/Maskin
       </Button>
-      <Button onClick={() => handlePostCategoryChange("inventarie")} variant={isActive("inventarie") ? "default" : "outline"} size="sm">
+      <Button onClick={() => handlePostCategoryChange("inventarie")} variant={isActive("inventarie") ? "secondary" : "outline"} size="sm">
         Inventarie
       </Button>
     </div>
