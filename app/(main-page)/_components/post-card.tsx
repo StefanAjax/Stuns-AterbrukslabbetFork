@@ -52,8 +52,8 @@ export default function PostCard({ postData, timezone }: PostCardProps) {
             />
           </figure>
 
-          <div className="flex flex-1 flex-col">
-            <div className="flex-1 space-y-2">
+          <div className="flex flex-1 flex-col space-y-1 md:space-y-2">
+            <div className="flex-1 space-y-1 md:space-y-2">
               <header>
                 <h3 className="line-clamp-1 font-medium md:text-2xl">{postData.title}</h3>
               </header>
@@ -69,12 +69,16 @@ export default function PostCard({ postData, timezone }: PostCardProps) {
                 <address className="line-clamp-1 text-xs capitalize not-italic md:text-sm">{postData.location}</address>
               </div>
 
-              <aside className="text-right font-mono text-xs md:text-sm">
-                <time dateTime={postData.createdAt.toISOString()}>{creationDateString}</time>
-                {postData.hasCustomExpirationDate && (
-                  <div className="text-warning">
-                    <time dateTime={postData.expiresAt.toISOString()}>{expirationDateString}</time>
-                  </div>
+              <aside className={cn("text-right font-mono text-xs md:text-sm", !postData.hasCustomExpirationDate && "self-end")}>
+                {postData.hasCustomExpirationDate ? (
+                  <>
+                    <time dateTime={postData.createdAt.toISOString()}>{creationDateString}</time>
+                    <div className="text-warning">
+                      <time dateTime={postData.expiresAt.toISOString()}>{expirationDateString}</time>
+                    </div>
+                  </>
+                ) : (
+                  <time dateTime={postData.createdAt.toISOString()}>{creationDateString}</time>
                 )}
               </aside>
             </footer>
