@@ -38,7 +38,8 @@ export default function PostComponent({ postData, email, fullName, isPreview, us
   });
 
   return (
-    <article className="rounded-2xl border border-border bg-card px-4 py-3 md:max-w-screen-md md:px-8 md:py-6">
+    <article className="rounded-2xl border border-border bg-card px-4 pb-3 md:max-w-screen-md md:px-8 md:pb-6">
+      <div className={cn("mb-3 h-2 w-full rounded-b-xl md:h-3", postTypeColor)} aria-hidden="true" />
       <figure>
         <Image
           src={
