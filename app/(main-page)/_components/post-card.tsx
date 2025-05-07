@@ -9,6 +9,7 @@ import type { Post } from "@prisma/client";
 
 import creationDateToString from "../utils/creation-date-to-string";
 import getPostTypeSpecificData from "../utils/get-post-type-specific-data";
+import { Clock, MapPin, Tag, CalendarClock } from "lucide-react";
 
 interface PostCardProps {
   postData: Post;
@@ -65,22 +66,32 @@ export default function PostCard({ postData, timezone }: PostCardProps) {
             <footer className="flex justify-between">
               <div>
                 <div className="flex items-center gap-1">
-                  <span className={cn("h-2 w-2 rounded-full md:h-3 md:w-3", postTypeColor)} aria-hidden="true" />
+                  <Tag size={12} className="md:h-3 md:w-3" />
                   <p className="text-xs md:text-sm">{postData.postType}</p>
                 </div>
-                <address className="line-clamp-1 text-xs capitalize not-italic md:text-sm">{postData.location}</address>
+                <address className="flex items-center gap-1 text-xs capitalize not-italic md:text-sm">
+                  <MapPin size={12} className="md:h-3 md:w-3" />
+                  {postData.location}
+                </address>
               </div>
 
               <aside className={cn("text-right font-mono text-xs md:text-sm", !postData.hasCustomExpirationDate && "self-end")}>
                 {postData.hasCustomExpirationDate ? (
                   <>
-                    <time dateTime={postData.createdAt.toISOString()}>{creationDateString}</time>
-                    <div className="text-warning">
+                    <div className="flex items-center justify-end gap-1">
+                      <Clock size={12} className="md:h-3 md:w-3" />
+                      <time dateTime={postData.createdAt.toISOString()}>{creationDateString}</time>
+                    </div>
+                    <div className="flex items-center justify-end gap-1 text-warning">
+                      <CalendarClock size={12} className="md:h-3 md:w-3" />
                       <time dateTime={postData.expiresAt.toISOString()}>{expirationDateString}</time>
                     </div>
                   </>
                 ) : (
-                  <time dateTime={postData.createdAt.toISOString()}>{creationDateString}</time>
+                  <div className="flex items-center justify-end gap-1">
+                    <Clock size={12} className="md:h-3 md:w-3" />
+                    <time dateTime={postData.createdAt.toISOString()}>{creationDateString}</time>
+                  </div>
                 )}
               </aside>
             </footer>

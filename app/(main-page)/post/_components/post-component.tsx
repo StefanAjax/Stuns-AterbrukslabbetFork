@@ -1,6 +1,6 @@
 "use client";
 
-import { Clock, MapPin, User } from "lucide-react";
+import { Clock, MapPin, User, Tag, CalendarClock } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { JSX, useEffect, useState } from "react";
@@ -58,7 +58,7 @@ export default function PostComponent({ postData, email, fullName, isPreview, us
           className="aspect-[4/3] w-full rounded-xl object-cover object-center"
         />
       </figure>
-      <div className="flex flex-col gap-y-2">
+      <div className="mt-3 flex w-full flex-col gap-y-2">
         <div className="flex flex-wrap justify-between gap-x-2 pt-2 text-xs md:text-sm">
           <address className="flex items-center gap-x-1 capitalize not-italic">
             <MapPin className="shrink-0" size={16} />
@@ -71,11 +71,12 @@ export default function PostComponent({ postData, email, fullName, isPreview, us
         </div>
         <div className="flex flex-wrap justify-between gap-x-2 text-xs md:text-sm">
           <section className="flex items-center gap-x-1">
-            <div className={cn("h-3 w-3 rounded-full md:h-4 md:w-4", postTypeColor)} />
+            <Tag className="shrink-0" size={16} />
             {postData.postType}
           </section>
           {postData.hasCustomExpirationDate && (
-            <section className="text-warning">
+            <section className="flex items-center gap-x-1 text-warning">
+              <CalendarClock className="shrink-0" size={16} />
               <time dateTime={postData.expiresAt.toISOString()} className="font-mono">
                 {expirationDateString}
               </time>
