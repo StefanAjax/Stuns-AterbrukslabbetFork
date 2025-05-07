@@ -38,7 +38,7 @@ export default function ResourceCard({ resource, index, removeFile, handleFileVi
             className="mr-2"
             defaultChecked={resource.visible}
             onChange={() => {
-              resource.visible = document.getElementById(`visibility-${index}`)?.getAttribute("checked") === "true";
+              resource.visible = (document.getElementById(`visibility-${index}`) as HTMLInputElement).checked;
               handleFileVisibilityToggle(resource);
             }}
           />

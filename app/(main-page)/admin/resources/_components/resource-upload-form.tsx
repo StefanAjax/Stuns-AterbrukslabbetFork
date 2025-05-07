@@ -36,15 +36,11 @@ export default function ResourceUploadForm() {
           continue;
         }
 
-        // Check if the file already exists in the list
-
         if (files.some((existingFile) => existingFile.name === file.name)) {
           toast.error(`Filen ${file.name} finns redan i listan.`);
           continue;
         }
 
-        // Cast the File object to ExtendedFile and assign the visible property.
-        // This preserves the original File object and its properties/methods.
         const fileAsExtended = file as ExtendedFile;
         fileAsExtended.visible = true;
         newFiles.push(fileAsExtended);
@@ -70,32 +66,14 @@ export default function ResourceUploadForm() {
     response.forEach((res) => {
       if (res.message) {
         toast.success(res.message);
+        setFiles([]);
+        router.push("/admin/resources");
       } else if (res.error) {
         toast.error(res.error);
       } else {
         toast.error("Ett okänt fel inträffade.");
       }
     });
-
-    // if (response) {
-    //   toast.success("Filerna har laddats upp.");
-    //   setFiles([]);
-    //   router.refresh();
-    // } else {
-    //   toast.error("Fel vid uppladdning av filer.");
-    // }
-
-    // if (files.length === 0) {
-    //   toast.error("Inga filer att ladda upp.");
-    //   return;
-    // }
-
-    // for (const file of files) {
-    //   formData.append("files", file);
-    // }
-
-    // TODO: Handle the upload of valid files
-    // TODO: Ensure that the api endpoint for getting files does not give files with a visibility of false
   };
 
   const handleDragOver = useCallback((event: globalThis.DragEvent) => {
