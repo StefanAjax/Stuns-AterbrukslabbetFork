@@ -34,7 +34,7 @@ export default function Intro() {
         </div>
       </section>
 
-      <LayeredWaves variant="emeraldLight" className="-mt-[1px] max-h-[30rem] min-h-56 w-full" />
+      <LayeredWaves variant="emeraldLight" className="-mt-[1px] max-h-96 min-h-56 w-full" />
     </>
   );
 }
