@@ -2,14 +2,13 @@
 
 import { Button } from "@/components/ui/button";
 
-import type { Resources } from "@prisma/client";
-
+import type { ExtendedFile } from "@/types/globals";
 interface UserResourceCardProps {
-  resource: Resources;
+  resource: ExtendedFile;
 }
 
 export default function UserResourceCard({ resource }: UserResourceCardProps) {
-  const downloadFile = async (file: Resources) => {
+  const downloadFile = async (file: ExtendedFile) => {
     window.location.href = `/api/download/${file.name}`;
   };
 

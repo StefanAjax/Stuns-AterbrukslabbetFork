@@ -10,7 +10,6 @@ import { Input } from "@/components/ui/input";
 import uploadResources from "../utils/upload-resources";
 
 import ResourceCard from "./resource-card";
-import type { Resources } from "@prisma/client";
 import type { ExtendedFile } from "@/types/globals";
 
 export default function ResourceUploadForm() {
@@ -41,9 +40,11 @@ export default function ResourceUploadForm() {
           continue;
         }
 
-        const fileAsExtended = file as ExtendedFile;
-        fileAsExtended.visible = true;
-        newFiles.push(fileAsExtended);
+        newFiles.push({
+          file,
+          name: file.name,
+          visible: true,
+        });
       }
 
       if (newFiles.length === 1) {
@@ -61,17 +62,17 @@ export default function ResourceUploadForm() {
   );
 
   const uploadFiles = async () => {
-    const response = await uploadResources(files);
+    console.log(files.map((file) => file.visible));
 
-    response.forEach((res) => {
-      if (res.message) {
-        toast.success(res.message);
+    const responses = await uploadResources(files);
+
+    responses.forEach((response) => {
+      if (response.error) {
+        toast.error(response.error);
+      } else if (response.message) {
+        toast.success(response.message);
         setFiles([]);
         router.push("/admin/resources");
-      } else if (res.error) {
-        toast.error(res.error);
-      } else {
-        toast.error("Ett okänt fel inträffade.");
       }
     });
   };
@@ -126,12 +127,13 @@ export default function ResourceUploadForm() {
     };
   }, [handleDragEnter, handleDragOver, handleDragLeave, handleDrop]);
 
-  const handleRemoveFile = async (file: ExtendedFile | Resources) => {
+  const handleRemoveFile = async (file: ExtendedFile) => {
     setFiles((prevFiles) => prevFiles.filter((f) => f.name !== file.name));
     toast.success("Filen har tagits bort från uppladdningen.");
   };
 
-  const handleFileVisibilityToggle = async (file: ExtendedFile | Resources) => {
+  const handleFileVisibilityToggle = async (file: ExtendedFile) => {
+    console.log(file.visible);
     setFiles((prevFiles) =>
       prevFiles.map((f) => {
         if (f.name === file.name) {
@@ -143,6 +145,10 @@ export default function ResourceUploadForm() {
     );
     toast.success(`Filen ${file.name} ${file.visible ? "visas" : "döljs"}.`);
   };
+
+  useEffect(() => {
+    console.log(files);
+  }, [files]);
 
   return (
     <div className="flex w-full flex-col items-center justify-center gap-4 p-4">

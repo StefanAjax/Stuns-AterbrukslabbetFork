@@ -6,19 +6,14 @@ import fs from "node:fs";
 import { db } from "@/lib/db";
 
 import { checkRole } from "@/utils/check-role";
-import type { Resources } from "@prisma/client";
 import type { ExtendedFile } from "@/types/globals";
 
-export default async function removeFile(file: Resources | ExtendedFile) {
+export default async function removeFile(file: ExtendedFile) {
   const isAdmin = await checkRole("admin");
   const isModerator = await checkRole("moderator");
 
   if (!isAdmin && !isModerator) {
     throw new Error("Nekad åtkomst");
-  }
-
-  if (!("id" in file) || !file.id) {
-    throw new Error("Ett fel inträffade");
   }
 
   try {
@@ -29,6 +24,9 @@ export default async function removeFile(file: Resources | ExtendedFile) {
     });
 
     const filePath = path.join(process.cwd(), "client", "documents", file.name);
+
+    console.log("File path:", filePath);
+
     if (fs.existsSync(filePath)) {
       fs.unlinkSync(filePath);
     }

@@ -1,15 +1,14 @@
 "use client";
 
-import type { Resources } from "@prisma/client";
 import { Button } from "@/components/ui/button";
 import type { ExtendedFile } from "@/types/globals";
 
 interface ResourceCardProps {
-  resource: Resources | ExtendedFile;
+  resource: ExtendedFile;
   index: number;
-  removeFile: (file: ExtendedFile | Resources) => Promise<void>;
-  handleFileVisibilityToggle: (file: ExtendedFile | Resources) => Promise<void>;
-  downloadFile?: (file: Resources) => void;
+  removeFile: (file: ExtendedFile) => Promise<void>;
+  handleFileVisibilityToggle: (file: ExtendedFile) => Promise<void>;
+  downloadFile?: (file: ExtendedFile) => void;
 }
 
 export default function ResourceCard({ resource, index, removeFile, handleFileVisibilityToggle, downloadFile }: ResourceCardProps) {
@@ -18,7 +17,7 @@ export default function ResourceCard({ resource, index, removeFile, handleFileVi
       <div className="flex w-full flex-col gap-2 rounded-lg border bg-white p-4 shadow-md">
         <h3 className="text-lg font-semibold">{resource.name}</h3>
         {"url" in resource && typeof resource.url === "string" && downloadFile && (
-          <Button className="w-24 rounded bg-blue-400 px-4 py-2 text-sm font-medium text-white hover:bg-blue-500" onClick={() => downloadFile(resource as Resources)}>
+          <Button className="w-24 rounded bg-blue-400 px-4 py-2 text-sm font-medium text-white hover:bg-blue-500" onClick={() => downloadFile(resource)}>
             Ladda ner
           </Button>
         )}
