@@ -33,7 +33,7 @@ export default function PostComponent({ postData, email, fullName, isPreview, us
     setExpirationDateString(postData.expiresAt.toLocaleDateString("sv-SE"));
   }, [postData.createdAt, postData.expiresAt, timezone]);
 
-  const { postTypeColor, expirationDateText } = getPostTypeSpecificData({
+  const { postTypeColor } = getPostTypeSpecificData({
     postType: postData.postType,
   });
   return (
@@ -72,9 +72,8 @@ export default function PostComponent({ postData, email, fullName, isPreview, us
             {postData.postType}
           </section>
           {postData.hasCustomExpirationDate && (
-            <section className="text-end text-red-500">
-              <p>{expirationDateText}</p>
-              <p>{expirationDateString}</p>
+            <section className="text-end text-warning">
+              <time dateTime={postData.expiresAt.toISOString()}>{expirationDateString}</time>
             </section>
           )}
         </div>
