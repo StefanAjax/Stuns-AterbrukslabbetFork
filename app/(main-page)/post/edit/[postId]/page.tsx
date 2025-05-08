@@ -86,8 +86,6 @@ export default async function createPostPage({ params }: PostIdPageProps) {
   // Convert image url to File object
   const imageUrl = postData.imageThumbUrl;
 
-  console.log(imageUrl);
-
   return (
     <div>
       <CreatePostComponent

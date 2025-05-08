@@ -62,8 +62,6 @@ export default function ResourceUploadForm() {
   );
 
   const uploadFiles = async () => {
-    console.log(files.map((file) => file.visible));
-
     const responses = await uploadResources(files);
 
     responses.forEach((response) => {
@@ -133,7 +131,6 @@ export default function ResourceUploadForm() {
   };
 
   const handleFileVisibilityToggle = async (file: ExtendedFile) => {
-    console.log(file.visible);
     setFiles((prevFiles) =>
       prevFiles.map((f) => {
         if (f.name === file.name) {
@@ -145,10 +142,6 @@ export default function ResourceUploadForm() {
     );
     toast.success(`Filen ${file.name} ${file.visible ? "visas" : "döljs"}.`);
   };
-
-  useEffect(() => {
-    console.log(files);
-  }, [files]);
 
   return (
     <div className="flex w-full flex-col items-center justify-center gap-4 p-4">

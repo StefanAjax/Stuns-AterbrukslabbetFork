@@ -22,7 +22,6 @@ export function ResolveReportButton({ reportId }: ResolveReportButtonProps) {
       router.refresh();
     } catch (error) {
       toast.error("Något gick fel. Försök igen senare.");
-      console.error(error);
     } finally {
       setIsLoading(false);
     }

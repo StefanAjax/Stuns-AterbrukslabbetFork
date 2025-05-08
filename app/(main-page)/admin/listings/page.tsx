@@ -13,7 +13,7 @@ export default async function AdminListingsPage() {
 
       <div className="mb-10 flex w-full flex-col items-center rounded-md bg-card p-6 text-center">
         <h2 className="mb-4 text-xl text-card-foreground">Exportera arkiverade annonser</h2>
-        <p className="mb-4 text-card-foreground/75">Ladda ner en CSV-fil med alla arkiverade annonser</p>
+        <p className="mb-4 text-card-foreground/75">Ladda ner en XLSX-fil med alla arkiverade annonser</p>
         <ExportArchivesButton />
       </div>
     </div>
