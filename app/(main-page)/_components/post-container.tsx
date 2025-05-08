@@ -11,7 +11,7 @@ interface PostContainerProps {
 export default function PostContainer({ posts }: PostContainerProps) {
   const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
   return (
-    <div className="mt-6 flex flex-col gap-y-4 md:mt-8 md:gap-y-5">
+    <div className="mb-10 mt-6 flex flex-col gap-y-4 md:mt-8 md:gap-y-5">
       {posts && posts.length > 0 ? (
         posts.map((post) => {
           return <PostCard key={post.id} postData={post} timezone={timezone} />;
