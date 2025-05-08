@@ -33,17 +33,23 @@ export default async function PostIdPage({ params }: PostIdPageProps) {
     });
     const fullName = firstName + " " + lastName;
 
+    // Variable to track if user is admin or moderator - avoid multiple role checks
+    const isAdminOrModerator = (await checkRole("admin")) || (await checkRole("moderator"));
+
     const userPostActionButton =
       userId === postData.userId ? (
+        // Case 1: User is the post owner
         <>
           <EditPostButton postData={postData} />
           <DeleteOwnPostButton postData={postData} redirectPath="/" />
         </>
-      ) : (await checkRole("admin")) || (await checkRole("moderator")) ? (
+      ) : isAdminOrModerator ? (
+        // Case 2: User is admin or moderator
         <PostModerationActions postData={postData} postUserRole={postUserRole} />
-      ) : (await checkRole("medlem")) ? (
+      ) : userId ? (
+        // Case 3: User is logged in but not owner or admin/mod
         <ReportPostButton postData={postData} />
-      ) : undefined;
+      ) : undefined; // Not logged in - no actions shown
 
     return (
       <div className="mx-auto mt-5 max-w-[360px] md:max-w-screen-md">
