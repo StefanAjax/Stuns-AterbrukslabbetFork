@@ -20,7 +20,7 @@ const footerLinks = [
 
 export default function Footer() {
   return (
-    <footer className="flex flex-col items-center gap-5 border-t px-5 py-7 sm:flex-row-reverse sm:justify-between sm:px-9">
+    <footer className="flex flex-col items-center gap-5 border-t px-5 py-7 md:flex-row-reverse md:justify-between md:px-9">
       <div className="flex flex-wrap justify-center gap-x-7 gap-y-3 text-sm font-medium">
         {footerLinks.map(({ href, label }) => (
           <FooterLink key={href} href={href}>
