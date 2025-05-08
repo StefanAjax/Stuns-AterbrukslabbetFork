@@ -1,7 +1,6 @@
 import { checkRole } from "@/utils/check-role";
 import DeleteUserButton from "@/components/delete-user-button";
 import ChangeRoleButton from "../../admin/users/_components/change-role-button";
-import type { Roles } from "@/types/globals";
 
 interface ProfilePageModerationActionsProps {
   pageUserId: string;
