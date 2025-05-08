@@ -45,7 +45,7 @@ test("Create post with image", async ({ page }) => {
 
   await expect(page.getByText("Uppsala").filter({ visible: true }).first()).toBeVisible();
 
-  await expect(page.getByAltText("Annonsens bild").filter({ visible: true }).first()).toHaveAttribute("src", /^.*api.*$/);
+  await expect(page.getByAltText("Bild för Create Post Test with image").filter({ visible: true }).first()).toHaveAttribute("src", /^.*api.*$/);
 });
 
 test("Add image to post", async ({ page }) => {
@@ -85,7 +85,7 @@ test("Add image to post", async ({ page }) => {
 
   await expect(page.getByText("Uppsala").filter({ visible: true }).first()).toBeVisible();
 
-  await expect(page.getByAltText("Annonsens bild").filter({ visible: true }).first()).not.toHaveAttribute("src", /^.*api.*$/);
+  await expect(page.getByAltText("Bild för Add image to post").filter({ visible: true }).first()).not.toHaveAttribute("src", /^.*api.*$/);
 
   await page.getByText("Add image to post").first().click();
 
@@ -109,7 +109,7 @@ test("Add image to post", async ({ page }) => {
 
   await expect(page.getByText("Uppsala").filter({ visible: true }).first()).toBeVisible();
 
-  await expect(page.getByAltText("Annonsens bild").filter({ visible: true }).first()).toHaveAttribute("src", /^.*api.*$/);
+  await expect(page.getByAltText("Bild för Add image to post").filter({ visible: true }).first()).toHaveAttribute("src", /^.*api.*$/);
 });
 
 test("Remove image from post", async ({ page }) => {
@@ -151,7 +151,7 @@ test("Remove image from post", async ({ page }) => {
 
   await expect(page.getByText("Uppsala").filter({ visible: true }).first()).toBeVisible();
 
-  await expect(page.getByAltText("Annonsens bild").filter({ visible: true }).first()).toHaveAttribute("src", /^.*api.*$/);
+  await expect(page.getByAltText("Bild för Remove image from post").filter({ visible: true }).first()).toHaveAttribute("src", /^.*api.*$/);
 
   await page.getByText("Remove image from post").first().click();
 
@@ -177,7 +177,7 @@ test("Remove image from post", async ({ page }) => {
 
   await expect(page.getByText("Uppsala").filter({ visible: true }).first()).toBeVisible();
 
-  await expect(page.getByAltText("Annonsens bild").filter({ visible: true }).first()).not.toHaveAttribute("src", /^.*api.*$/);
+  await expect(page.getByAltText("Bild för Remove image from post").filter({ visible: true }).first()).not.toHaveAttribute("src", /^.*api.*$/);
 });
 
 test("Change image in post", async ({ page }) => {
@@ -219,7 +219,7 @@ test("Change image in post", async ({ page }) => {
 
   await expect(page.getByText("Uppsala").filter({ visible: true }).first()).toBeVisible();
 
-  await expect(page.getByAltText("Annonsens bild").filter({ visible: true }).first()).toHaveAttribute("src", /^.*api.*$/);
+  await expect(page.getByAltText("Bild för Change image in post").filter({ visible: true }).first()).toHaveAttribute("src", /^.*api.*$/);
 
   await page.getByText("Change image in post").first().click();
 
@@ -243,5 +243,5 @@ test("Change image in post", async ({ page }) => {
 
   await expect(page.getByText("Uppsala").filter({ visible: true }).first()).toBeVisible();
 
-  await expect(page.getByAltText("Annonsens bild").filter({ visible: true }).first()).toHaveAttribute("src", /^.*api.*$/);
+  await expect(page.getByAltText("Bild för Change image in post").filter({ visible: true }).first()).toHaveAttribute("src", /^.*api.*$/);
 });
