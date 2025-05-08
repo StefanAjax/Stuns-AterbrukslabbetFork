@@ -25,8 +25,6 @@ export default async function removeFile(file: ExtendedFile) {
 
     const filePath = path.join(process.cwd(), "client", "documents", file.name);
 
-    console.log("File path:", filePath);
-
     if (fs.existsSync(filePath)) {
       fs.unlinkSync(filePath);
     }
