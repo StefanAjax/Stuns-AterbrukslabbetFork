@@ -10,6 +10,8 @@ import { SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 import { source_sans_3 } from "@/app/fonts";
 import AdminDropdown from "@/components/admin-dropdown";
 import CreatePostLink from "./create-post-link";
+import { checkUnviewedReports } from "../admin/_utils/check-unviewed-reports";
+import UnviewedReportsIndicator from "@/components/unviewed-reports-indicator";
 
 type NavItemProps = {
   href: string;
@@ -27,6 +29,7 @@ const NavItem = ({ href, mobileIcon, desktopText, className }: NavItemProps) => 
 
 export default async function Navbar() {
   const isAdminOrModerator = (await checkRole("admin")) || (await checkRole("moderator"));
+  const hasUnviewedReports = isAdminOrModerator ? await checkUnviewedReports() : false;
 
   const iconProps = { strokeWidth: 2, width: 25, height: 25, className: "text-primary" };
 
@@ -50,11 +53,17 @@ export default async function Navbar() {
           <SignedIn>
             {isAdminOrModerator && (
               <>
-                <Link href="/admin/dashboard" className="md:hidden">
+                <Link href="/admin/dashboard" className="relative md:hidden">
                   <LockKeyhole {...iconProps} />
+                  {hasUnviewedReports && (
+                    <span className="absolute -right-1 -top-1 flex h-2 w-2">
+                      <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-destructive opacity-75"></span>
+                      <span className="relative inline-flex h-2 w-2 rounded-full bg-destructive"></span>
+                    </span>
+                  )}
                 </Link>
                 <div className="hidden md:block">
-                  <AdminDropdown />
+                  <AdminDropdown hasUnviewedReports={hasUnviewedReports} />
                 </div>
               </>
             )}

@@ -58,6 +58,13 @@ model ReportedPosts {
   post         Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
 }
 
+// New model to track the last time reports were viewed
+model AdminReportViews {
+  id           Int      @id @default(autoincrement())
+  userId       String   @unique
+  lastViewedAt DateTime @default(now())
+}
+
 model Resources {
   id        Int      @id @default(autoincrement())
   name      String   @db.VarChar(40)
