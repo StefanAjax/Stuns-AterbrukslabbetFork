@@ -49,7 +49,13 @@ export default function AboutPage() {
       <div className="mb-8 flex flex-col gap-y-6">
         <h2 className="text-xl font-semibold">Utvecklare våren 2025:</h2>
         <DeveloperProfile name="David Cavalli-Björkman" linkedInUrl="https://www.linkedin.com/in/david-cavalli-bj%C3%B6rkman/" portfolioUrl="https://davidcavallib.github.io/" />
-        <DeveloperProfile name="Tim Kelso" linkedInUrl="https://linkedin.com/in/kelsotim/" githubUrl="https://github.com/TimKelso" portfolioUrl="https://timkelso.github.io/" />
+        <DeveloperProfile
+          name="Tim Kelso"
+          linkedInUrl="https://linkedin.com/in/kelsotim/"
+          githubUrl="https://github.com/TimKelso"
+          portfolioUrl="https://timkelso.github.io/"
+          bio="Ska öppna en mindre livsmedelsbutik sommaren 2025. I höst praktiserar jag förhoppningsvis på ett spännande företag genom Tekniksprånget."
+        />
         <DeveloperProfile
           name="Axel Thornberg"
           linkedInUrl="https://www.linkedin.com/in/axel-thornberg-618a41332/"
