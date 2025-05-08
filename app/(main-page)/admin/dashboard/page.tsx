@@ -24,6 +24,11 @@ const adminMenuItems: AdminMenuItem[] = [
     title: "Annonser",
     description: "Exportera arkiverade annonser",
   },
+  {
+    href: "/admin/resources",
+    title: "Resurser",
+    description: "Ladda upp resurser för användare",
+  },
 ];
 
 export default async function AdminDashboard() {

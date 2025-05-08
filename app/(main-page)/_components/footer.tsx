@@ -13,6 +13,9 @@ export default function Footer() {
         <Link href="/terms-of-service" className="text-neutral-600 transition-colors hover:text-emerald-600">
           Användarvillkor
         </Link>
+        <Link href="/resources" className="hover:underline">
+          Resurser
+        </Link>
       </div>
       <p className="text-center text-neutral-500">&copy; {new Date().getFullYear()} Återbrukslabbet</p>
     </footer>
