@@ -18,6 +18,7 @@ const adminMenuItems: AdminMenuItem[] = [
   { href: "/admin/users", label: "Användare" },
   { href: "/admin/reports", label: "Rapporter" },
   { href: "/admin/listings", label: "Annonser" },
+  { href: "/admin/resources", label: "Resurser" },
 ];
 
 export default function AdminDropdown({ className }: AdminDropdownProps) {

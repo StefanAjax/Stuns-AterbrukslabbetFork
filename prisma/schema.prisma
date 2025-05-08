@@ -57,3 +57,11 @@ model ReportedPosts {
   createdAt    DateTime @default(now())
   post         Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
 }
+
+model Resources {
+  id        Int      @id @default(autoincrement())
+  name      String   @db.VarChar(40)
+  url       String
+  visible   Boolean  @default(true)
+  createdAt DateTime @default(now())
+}

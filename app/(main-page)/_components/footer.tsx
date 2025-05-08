@@ -13,6 +13,9 @@ export default function Footer() {
         <Link href="/terms-of-service" className="hover:underline">
           Användarvillkor
         </Link>
+        <Link href="/resources" className="hover:underline">
+          Resurser
+        </Link>
       </div>
     </footer>
   );
