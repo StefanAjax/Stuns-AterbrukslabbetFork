@@ -83,7 +83,7 @@ export default function CreatePostComponent(props: CreatePostComponentProps) {
   return (
     <div className="relative mx-auto mt-10 flex max-w-screen-xl flex-wrap justify-center gap-x-20 gap-y-3 md:gap-y-6">
       {/* Form Area */}
-      <div className="h-fit w-[360px] rounded-2xl bg-secondary p-3 md:w-[600px] md:p-6">
+      <div className="h-fit w-[360px] rounded-2xl border border-border bg-card p-3 md:w-[600px] md:p-6">
         <FormProvider {...methods}>
           <form id="create-post-form" className="flex flex-col gap-y-5" onSubmit={methods.handleSubmit(handleFormSubmit)} noValidate>
             <h1 className="text-center text-xl md:text-3xl">{update ? "Uppdatera annons" : "Skapa ny annons"}</h1>

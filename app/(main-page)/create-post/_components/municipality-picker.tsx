@@ -23,7 +23,7 @@ export default function MunicipalityPicker({ currentMunicipality, setCurrentMuni
         <Button
           role="combobox"
           aria-expanded={open}
-          className={cn("w-[160px] justify-between bg-primary bg-opacity-40 capitalize md:w-[260px]", !currentMunicipality && "normal-case text-muted-foreground")}
+          className={cn("w-[160px] justify-between bg-white bg-opacity-40 capitalize md:w-[260px]", !currentMunicipality && "normal-case text-muted-foreground")}
         >
           {currentMunicipality ? itemsList.find((listItem) => listItem === currentMunicipality) : "Välj kommun"}
           <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />

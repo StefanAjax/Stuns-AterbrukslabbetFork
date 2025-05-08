@@ -14,7 +14,7 @@ interface PostPreviewForMobileProps {
 export default function PostPreviewForMobile({ postData, email, fullName }: PostPreviewForMobileProps) {
   return (
     <Dialog>
-      <DialogTrigger className="block whitespace-nowrap rounded-sm bg-primary px-3 text-sm md:hidden md:px-4 md:text-base">Se annons</DialogTrigger>
+      <DialogTrigger className="block whitespace-nowrap rounded-sm bg-white px-3 text-sm md:hidden md:px-4 md:text-base">Se annons</DialogTrigger>
       <DialogContent>
         <DialogHeader>
           <DialogTitle>Förhandsvisning</DialogTitle>

@@ -12,13 +12,13 @@ export default function PostTypePicker({ currentPostType, setPostType }: PostTyp
         type="button"
         value="Erbjuds"
         onClick={() => setPostType("Erbjuds")}
-        className={cn("cursor-pointer rounded-s-md bg-primary py-[3px] hover:bg-opacity-60", currentPostType === "Erbjuds" && "bg-offerColor bg-opacity-65")}
+        className={cn("cursor-pointer rounded-s-md bg-white py-[3px] hover:bg-opacity-60", currentPostType === "Erbjuds" && "bg-offerColor bg-opacity-65")}
       ></input>
       <input
         type="button"
         value="Efterfrågas"
         onClick={() => setPostType("Efterfrågas")}
-        className={cn("cursor-pointer rounded-e-md bg-primary py-[3px] hover:bg-opacity-60", currentPostType === "Efterfrågas" && "bg-requestColor bg-opacity-65")}
+        className={cn("cursor-pointer rounded-e-md bg-white py-[3px] hover:bg-opacity-60", currentPostType === "Efterfrågas" && "bg-requestColor bg-opacity-65")}
       ></input>
     </div>
   );

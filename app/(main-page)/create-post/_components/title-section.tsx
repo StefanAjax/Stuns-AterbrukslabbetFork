@@ -26,7 +26,7 @@ export default function TitleSection() {
             phoneValidation: (value) => validatePersonalInfo(value, "phone"),
           },
         })}
-        className="w-full rounded-sm bg-primary bg-opacity-40 px-2 py-1 text-sm md:text-base"
+        className="w-full rounded-sm bg-opacity-40 px-2 py-1 text-sm md:text-base"
         placeholder="Skriv titel här..."
       />
       {errors.title?.message && <FormErrorParagraph content={errors.title.message as string} />}

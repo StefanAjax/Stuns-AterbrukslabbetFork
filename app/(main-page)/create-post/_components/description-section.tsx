@@ -26,7 +26,7 @@ export default function DescriptionSection() {
             phoneValidation: (value) => validatePersonalInfo(value, "phone"),
           },
         })}
-        className="h-32 w-full resize-none rounded-sm bg-primary bg-opacity-40 px-2 py-1 text-sm md:text-base"
+        className="h-32 w-full resize-none rounded-sm bg-opacity-40 px-2 py-1 text-sm md:text-base"
         placeholder="Skriv beskrivning här..."
       ></textarea>
       {errors.description?.message && <FormErrorParagraph content={errors.description.message as string} />}

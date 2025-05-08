@@ -67,7 +67,7 @@ export default function ImageUploadSection({ imageUrl, imageNameParameter }: Ima
         <Button
           type="button"
           id="image-upload-button"
-          className={`mt-2 flex h-full min-h-[8rem] w-full flex-col items-center justify-center rounded-sm border-2 border-dashed bg-primary bg-opacity-40 px-2 py-1 text-center text-sm text-gray-400 md:text-base ${
+          className={`mt-2 flex h-full min-h-[8rem] w-full flex-col items-center justify-center rounded-sm border-2 border-dashed bg-white bg-opacity-40 px-2 py-1 text-center text-sm text-gray-400 md:text-base ${
             imagePreview ? "border-transparent" : "border-gray-500 hover:border-gray-400"
           }`}
           onClick={() => document.getElementById("image-input")?.click()}
