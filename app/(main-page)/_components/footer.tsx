@@ -13,7 +13,7 @@ export default function Footer() {
         <Link href="/terms-of-service" className="text-neutral-600 transition-colors hover:text-emerald-600">
           Användarvillkor
         </Link>
-        <Link href="/resources" className="hover:underline">
+        <Link href="/resources" className="text-neutral-600 transition-colors hover:text-emerald-600">
           Resurser
         </Link>
       </div>
