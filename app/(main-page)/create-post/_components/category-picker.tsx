@@ -20,7 +20,7 @@ export default function CategoryPicker({ currentCategory, setCurrentCategory, It
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
-        <Button role="combobox" aria-expanded={open} className={cn("w-full justify-between bg-primary bg-opacity-40 capitalize", !currentCategory && "normal-case text-muted-foreground")}>
+        <Button role="combobox" aria-expanded={open} className={cn("w-full justify-between bg-white bg-opacity-40 capitalize", !currentCategory && "normal-case text-muted-foreground")}>
           {currentCategory ? Itemslist.find((listItem) => listItem === currentCategory) : "Välj kategori"}
           <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
         </Button>

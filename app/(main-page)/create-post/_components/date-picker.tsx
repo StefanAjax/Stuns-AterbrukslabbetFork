@@ -16,7 +16,7 @@ export default function DatePicker({ date, setDate }: DatePickerProps) {
   return (
     <Popover>
       <PopoverTrigger asChild>
-        <Button className={cn("w-[160px] justify-start bg-primary bg-opacity-40 text-left font-normal md:w-[260px]", !date && "text-muted-foreground")}>
+        <Button className={cn("w-[160px] justify-start bg-white bg-opacity-40 text-left font-normal md:w-[260px]", !date && "text-muted-foreground")}>
           <CalendarIcon className="mr-2 h-4 w-4" />
           {date ? date.toLocaleDateString("sv-se") : <span>Välj datum</span>}
         </Button>
