@@ -35,7 +35,7 @@ export default function AdminDropdown({ className }: AdminDropdownProps) {
         <SelectTrigger
           className={cn("flex select-none items-center gap-x-1 border-none bg-transparent text-lg font-medium shadow-none transition-colors hover:text-accent focus:ring-0", source_sans_3.className)}
         >
-          <SelectValue placeholder="Adminpanel" />
+          <SelectValue placeholder="Adminpanel">Adminpanel</SelectValue>
         </SelectTrigger>
         <SelectContent>
           {adminMenuItems.map((item) => (
