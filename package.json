@@ -13,7 +13,6 @@
     "format:check": "prettier --check . && next lint && prisma format --check",
     "db:migrate:dev": "prisma migrate dev",
     "test": "rimraf ./tests/logs && playwright test",
-    "test:debug": "rimraf ./tests/logs && playwright test --headed",
     "postinstall": "prisma generate",
     "prepare": "husky"
   },
