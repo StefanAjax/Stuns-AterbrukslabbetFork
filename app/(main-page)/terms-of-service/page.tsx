@@ -1,6 +1,6 @@
 export default function TermsOfServicePage() {
   return (
-    <div className="mx-auto mt-12 flex w-[85ch] max-w-full flex-col bg-secondary px-6 py-8 md:mt-16 md:rounded-md">
+    <div className="mx-auto mt-12 flex w-[85ch] max-w-full flex-col bg-card px-6 py-8 md:mt-16 md:rounded-md">
       <h1 className="text-lg font-semibold md:text-2xl">Användarvillkor och integritetspolicy</h1>
       <p className="mt-1">Genom att skapa ett användarkonto på Återbrukslabbet godkänner du följande användarvillkor:</p>
       <ol className="mt-2 flex list-decimal flex-col gap-y-4 px-4 md:px-8">

@@ -1,6 +1,6 @@
 export default function AboutPage() {
   return (
-    <div className="mx-auto mt-12 flex w-[85ch] max-w-full flex-col bg-secondary px-6 py-8 md:mt-16 md:rounded-md">
+    <div className="mx-auto mt-12 flex w-[85ch] max-w-full flex-col bg-card px-6 py-8 md:mt-16 md:rounded-md">
       <h1 className="mb-4 text-lg font-semibold md:text-2xl">Om Återbrukslabbet</h1>
       <p className="mb-6">
         Återbrukslabbet ger avställd labbutrustning nytt liv i skolan. Modern utrustning ökar undervisningens relevans, avlastar skolbudgetar, sparar planetens resurser och gör lärandet roligare.
