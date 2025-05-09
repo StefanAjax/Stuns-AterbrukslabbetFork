@@ -13,7 +13,7 @@ export default function FAQPage() {
           </AccordionContent>
         </AccordionItem>
         <AccordionItem value="item-2">
-          <AccordionTrigger className="text-start">Vad innebär kategorierna:</AccordionTrigger>
+          <AccordionTrigger className="text-start">Vad innebär kategorierna?</AccordionTrigger>
           <AccordionContent className="text-base">
             För att göra det lättare att leta bland annonser är dessa indelade i tre kategorier; ”förbrukningsvara”, ”instrument/maskin”, samt ”inventarie”
             <br /> <br />
