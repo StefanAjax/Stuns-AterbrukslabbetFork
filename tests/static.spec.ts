@@ -11,7 +11,7 @@ test("FAQ", async ({ page }) => {
 
   await expect(page.getByText("Vad är Återbrukslabbet?").filter({ visible: true }).first()).toBeVisible();
 
-  await expect(page.getByText("Vad innebär kategorierna:").filter({ visible: true }).first()).toBeVisible();
+  await expect(page.getByText("Vad innebär kategorierna?").filter({ visible: true }).first()).toBeVisible();
 
   await expect(page.getByText("Får jag ta betalt för det jag erbjuder?").filter({ visible: true }).first()).toBeVisible();
 
