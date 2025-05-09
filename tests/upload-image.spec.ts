@@ -245,3 +245,67 @@ test("Change image in post", async ({ page }) => {
 
   await expect(page.getByAltText("Bild för Change image in post").filter({ visible: true }).first()).toHaveAttribute("src", /^.*api.*$/);
 });
+
+test("Create post with image, then edit the post without touching the image", async ({ page }) => {
+  await setup(page);
+
+  await login(page, process.env.TEST_ADMIN_EMAIL || "", process.env.TEST_ADMIN_PASSWORD || "");
+
+  await page.getByText("Skapa annons").first().click();
+
+  await page.getByText("Efterfrågas").first().click();
+
+  await page.locator("input#title").first().fill("Create post with image, then edit the post without touching the image");
+
+  await page.locator("textarea#description").first().fill("This is a test post with an image");
+
+  await page.locator("button").filter({ hasText: "Välj kategori" }).first().click();
+
+  await page.getByText("Inventarie").first().click();
+
+  await page.locator("button").filter({ hasText: "Välj kommun" }).first().click();
+
+  await page.keyboard.type("Uppsala");
+
+  await page.getByText("Uppsala").first().click();
+
+  await page.locator("input[type='file']").setInputFiles("./tests/assets/test-image.png");
+
+  await page.getByRole("button").filter({ hasText: "Skapa" }).first().click();
+
+  await page.getByRole("button").filter({ hasText: "Skapa annons" }).first().click();
+
+  await expect(page.getByText("Sök bland 1 annonser").filter({ visible: true }).first()).toBeVisible();
+
+  await expect(page.getByText("Create post with image, then edit the post without touching the image").filter({ visible: true }).first()).toBeVisible();
+
+  await expect(page.getByText("This is a test post with an image").filter({ visible: true }).first()).toBeVisible();
+
+  await expect(page.getByText("Efterfrågas").filter({ visible: true }).first()).toBeVisible();
+
+  await expect(page.getByText("Uppsala").filter({ visible: true }).first()).toBeVisible();
+
+  await expect(page.getByAltText("Bild för Create post with image, then edit the post without touching the image").filter({ visible: true }).first()).toHaveAttribute("src", /^.*api.*$/);
+
+  await page.getByText("Create post with image, then edit the post without touching the image").first().click();
+
+  await page.getByRole("button").filter({ hasText: "Redigera" }).first().click();
+
+  await page.locator("textarea#description").first().fill("The post now has a new description");
+
+  await page.getByRole("button").filter({ hasText: "Uppdatera" }).first().click();
+
+  await page.getByRole("button").filter({ hasText: "Uppdatera annons" }).first().click();
+
+  await expect(page.getByText("Sök bland 1 annonser").filter({ visible: true }).first()).toBeVisible();
+
+  await expect(page.getByText("Create post with image, then edit the post without touching the image").filter({ visible: true }).first()).toBeVisible();
+
+  await expect(page.getByText("The post now has a new description").filter({ visible: true }).first()).toBeVisible();
+
+  await expect(page.getByText("Efterfrågas").filter({ visible: true }).first()).toBeVisible();
+
+  await expect(page.getByText("Uppsala").filter({ visible: true }).first()).toBeVisible();
+
+  await expect(page.getByAltText("Bild för Create post with image, then edit the post without touching the image").filter({ visible: true }).first()).toHaveAttribute("src", /^.*api.*$/);
+});
