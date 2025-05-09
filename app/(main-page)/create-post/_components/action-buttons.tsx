@@ -16,15 +16,17 @@ export default function ActionButtons({ isSubmitting, update, postData, email, f
   const { getValues } = useFormContext<FormInputs>();
 
   return (
-    <div className="mt-5 flex flex-col items-center gap-y-4 md:flex-row md:justify-between">
+    <section aria-labelledby="action-buttons-section" className="mt-5 flex flex-col items-center gap-y-4 md:flex-row md:justify-between">
+      <div className="sr-only" id="action-buttons-section">
+        Formuläråtgärder
+      </div>
       <div className="md:hidden">
-        {/* Show only on mobile */}
         <PostPreviewForMobile postData={postData} email={email} fullName={fullName} />
       </div>
-      <div className="flex w-full justify-center gap-x-2 md:w-auto md:justify-end md:gap-x-5">
+      <div className="flex w-full justify-center gap-x-2 md:w-auto md:justify-end md:gap-x-5" role="group" aria-label="Formulärknappar">
         <CancelFormAlertDialog />
         <CreatePostAlertDialog isSubmitting={isSubmitting} update={update} />
       </div>
-    </div>
+    </section>
   );
 }
