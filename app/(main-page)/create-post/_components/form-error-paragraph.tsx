@@ -1,10 +1,14 @@
+import { cn } from "@/lib/utils";
+
 interface FormErrorParagraphProps {
   content: string;
+  id?: string;
+  className?: string;
 }
 
-export default function FormErrorParagraph({ content }: FormErrorParagraphProps) {
+export default function FormErrorParagraph({ content, id, className }: FormErrorParagraphProps) {
   return (
-    <span className="my-2 max-w-max rounded-full bg-warning px-2 py-1 text-sm text-warning-foreground" role="alert">
+    <span id={id} className={cn("mt-2 max-w-max rounded-md bg-destructive px-2 py-1 text-xs font-medium text-destructive-foreground", className)} role="alert" aria-live="polite">
       {content}
     </span>
   );
