@@ -33,7 +33,7 @@ export default defineConfig({
       size: { width: 2560, height: 1440 },
     },
     launchOptions: {
-      /* Add a delay of .5 seconds between each action. */
+      /* Add a delay in milliseconds between each action. */
       slowMo: 500,
     },
   },
