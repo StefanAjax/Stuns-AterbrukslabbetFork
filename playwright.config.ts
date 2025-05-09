@@ -34,7 +34,7 @@ export default defineConfig({
     },
     launchOptions: {
       /* Add a delay in milliseconds between each action. */
-      slowMo: 500,
+      slowMo: 1000,
     },
   },
 
