@@ -8,12 +8,18 @@ import { Button } from "@/components/ui/button";
 
 import getArchivedPosts from "../_utils/get-archived-posts";
 
-const onExport = async () => {
+import type { StandardResponse } from "@/types/globals";
+
+const onExport = async (): StandardResponse => {
   const archivedPosts = await getArchivedPosts();
 
   if (!archivedPosts) {
-    toast.error("Inga arkiverade annonser hittades");
-    return;
+    return {
+      error: {
+        code: 500,
+        message: "Inga arkiverade annonser hittades",
+      },
+    };
   }
 
   const workbook = new ExcelJS.Workbook();
@@ -37,8 +43,12 @@ const onExport = async () => {
       worksheet.addRow(archivedPost);
     });
   } else {
-    toast.error("Något gick fel");
-    return;
+    return {
+      error: {
+        code: 500,
+        message: "Något gick fel",
+      },
+    };
   }
   worksheet.getRow(1).eachCell((cell) => {
     cell.font = { bold: true };
@@ -48,12 +58,41 @@ const onExport = async () => {
     saveAs(new Blob([buffer]), `AterbrukslabbetArkiveradeInlagg.xlsx`);
   });
 
-  return toast.success("Arkiverade annonser exporterade");
+  return {
+    success: {
+      code: 200,
+      message: "Arkiverade annonser exporterade",
+    },
+  };
 };
 
 export default function ExportArchivesButton() {
   return (
-    <Button variant="default" onClick={onExport}>
+    <Button
+      variant="default"
+      onClick={async () => {
+        const result = onExport();
+        toast.promise(
+          result.then((res) => {
+            if (res.error) {
+              return Promise.reject(res.error);
+            }
+            if (res.success) {
+              return Promise.resolve(res.success);
+            }
+            return Promise.reject({
+              code: 500,
+              message: "Något gick fel",
+            });
+          }),
+          {
+            loading: "Exporterar arkiverade annonser...",
+            success: (res) => res.message,
+            error: (res) => `Felkod ${res.code}: ${res.message}`,
+          },
+        );
+      }}
+    >
       Exportera
     </Button>
   );
