@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { FormProvider, useForm, useWatch } from "react-hook-form";
 
 import PostComponent from "../../post/_components/post-component";

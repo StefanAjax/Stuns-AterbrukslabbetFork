@@ -1,4 +1,3 @@
-import { LockKeyhole } from "lucide-react";
 import Link from "next/link";
 
 import { checkRole } from "@/utils/check-role";
