@@ -27,11 +27,11 @@ export default function CancelFormAlertDialog() {
           <AlertDialogDescription>Om du avbryter nu kommer du att förlora alla ändringar.</AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
+          <Button variant="outline" onClick={() => setOpen(false)} disabled={isNavigating} type="button">
+            Fortsätt
+          </Button>
           <Button variant="destructive" onClick={handleCancel} disabled={isNavigating}>
             {isNavigating ? "Avbryter..." : "Avbryt"}
-          </Button>
-          <Button variant="outline" onClick={() => setOpen(false)} disabled={isNavigating} type="button">
-            Fortsätt redigera
           </Button>
         </AlertDialogFooter>
       </AlertDialogContent>
