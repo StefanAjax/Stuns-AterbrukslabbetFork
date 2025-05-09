@@ -12,6 +12,10 @@ const config = {
       },
     },
     extend: {
+      screens: {
+        "nav-break": "830px", // Point where hamburger menu appears
+        "logo-break": "550px", // Point where logo changes to logomark only
+      },
       colors: {
         black: "hsl(var(--black))",
         white: "hsl(var(--white))",
