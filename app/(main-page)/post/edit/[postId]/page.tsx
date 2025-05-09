@@ -86,7 +86,16 @@ export default async function createPostPage({ params }: PostIdPageProps) {
   // Convert image url to File object
   const imageUrl = postData.imageThumbUrl;
 
-  console.log(imageUrl);
+  const imageName = postData.imageName;
+
+  let imageFile: File | null = null;
+
+  if (imageUrl && imageName) {
+    const path = `${process.env.NEXT_PUBLIC_SITE_URL}${imageUrl}`;
+    const response = await fetch(path);
+    const blob = await response.blob();
+    imageFile = new File([blob], imageName, { type: blob.type });
+  }
 
   return (
     <div>
@@ -104,6 +113,7 @@ export default async function createPostPage({ params }: PostIdPageProps) {
         customExpirationDate={postData.hasCustomExpirationDate}
         postId={postId}
         imageUrl={imageUrl || undefined}
+        imageFile={imageFile}
         imageNameParameter={postData.imageName || undefined}
         update={true}
       />

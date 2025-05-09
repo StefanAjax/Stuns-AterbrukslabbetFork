@@ -75,8 +75,8 @@
     /* Interactive element colors */
     --primary: var(--emerald-500);
     --primary-foreground: var(--white);
-    --secondary: var(--emerald-300);
-    --secondary-foreground: var(--emerald-950);
+    --secondary: var(--azure-500);
+    --secondary-foreground: var(--white);
     --accent: var(--emerald-200);
     --accent-foreground: var(--emerald-800);
 
@@ -129,8 +129,8 @@
 
     /* Interactive element colors */
     --primary: var(--emerald-400);
-    --primary-foreground: var(--emerald-950);
-    --secondary: var(--emerald-600);
+    --primary-foreground: var(--white);
+    --secondary: var(--azure-600);
     --secondary-foreground: var(--white);
     --accent: var(--emerald-700);
     --accent-foreground: var(--emerald-100);
