@@ -100,8 +100,8 @@
     --ring: var(--emerald-400);
 
     /* Feature-specific colors */
-    --offer: var(--azure-400);
-    --request: var(--salmon-400);
+    --offer: var(--azure-500);
+    --request: var(--salmon-500);
 
     /* UI properties */
     --radius: 0.5rem;
@@ -155,8 +155,8 @@
     --ring: var(--emerald-500);
 
     /* Feature-specific colors */
-    --offer: var(--azure-400);
-    --request: var(--salmon-400);
+    --offer: var(--azure-500);
+    --request: var(--salmon-500);
 
     /* Chart colors - Using consistent emerald palette */
     --chart-1: var(--emerald-300);
