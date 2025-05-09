@@ -11,6 +11,17 @@ export type ExtendedFile = {
   id?: number;
 };
 
+export type StandardResponse = Promise<{
+  success?: {
+    code: number;
+    message: string;
+  };
+  error?: {
+    code: number;
+    message: string;
+  };
+}>;
+
 declare global {
   interface CustomJwtSessionClaims {
     metadata: {

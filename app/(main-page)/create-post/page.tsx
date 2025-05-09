@@ -14,7 +14,7 @@ export default async function createPostPage() {
     });
 
     return (
-      <div>
+      <div className="pb-10 md:pb-16">
         <CreatePostComponent firstName={firstName} lastName={lastName} email={email} userId={userId} update={false} />
       </div>
     );
