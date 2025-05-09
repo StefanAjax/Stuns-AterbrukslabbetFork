@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { FormProvider, useForm, useWatch } from "react-hook-form";
 
 import PostComponent from "../../post/_components/post-component";
@@ -59,8 +59,10 @@ export default function CreatePostComponent(props: CreatePostComponentProps) {
   // Watch form data for preview
   const formData = useWatch({ control: methods.control });
 
-  // Access image information for preview
-  const { imagePreview, imageName } = useImageUpload(imageUrl, imageNameParameter);
+  const [imagePreview, setImagePreview] = useState<string | null>(imageUrl || null);
+  const [imageName, setImageName] = useState<string | undefined>(imageNameParameter);
+
+  useImageUpload(setImagePreview, setImageName, imageUrl, imageNameParameter, imagePreview, imageName);
 
   // Create post data for preview
   const postData = {
@@ -92,7 +94,14 @@ export default function CreatePostComponent(props: CreatePostComponentProps) {
             <UserInfoSection />
             <TitleSection />
             <DescriptionSection />
-            <ImageUploadSection imageUrl={imageUrl} imageNameParameter={imageNameParameter} />
+            <ImageUploadSection
+              setImagePreview={setImagePreview}
+              setImageName={setImageName}
+              imagePreview={imagePreview}
+              imageName={imageName}
+              imageUrl={imageUrl}
+              imageNameParameter={imageNameParameter}
+            />
             <CategorySection />
             <LocationDateSection />
             <ActionButtons isSubmitting={isSubmitting} update={update} postData={postData} email={email} fullName={fullName} />
