@@ -37,7 +37,7 @@ export default function MobileMenu({ isAdmin, hasUnviewedReports, userId }: Mobi
         <Button variant="ghost" size="icon" className="relative hidden p-1.5 max-lg:block [&_svg]:!size-8 [&_svg]:!h-8 [&_svg]:!w-8">
           <Menu className="text-primary" strokeWidth={2.5} />
           {hasUnviewedReports && (
-            <span className="absolute left-1 top-2 flex h-3 w-3">
+            <span className="absolute right-0.5 top-2 flex h-3 w-3">
               <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-destructive opacity-75"></span>
               <span className="relative inline-flex h-3 w-3 rounded-full bg-destructive"></span>
             </span>

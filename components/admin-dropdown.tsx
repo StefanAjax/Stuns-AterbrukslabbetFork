@@ -47,8 +47,8 @@ export default function AdminDropdown({ className, hasUnviewedReports = false }:
           className={cn("flex select-none items-center gap-x-1 border-none bg-transparent text-lg font-medium shadow-none transition-colors hover:text-accent focus:ring-0", source_sans_3.className)}
         >
           <div className="relative flex items-center">
-            {hasUnviewedReports && <UnviewedReportsIndicator hasUnviewedReports={true} className="absolute -left-3 -top-0 h-2 w-2" />}
             <SelectValue placeholder="Adminpanel">Adminpanel</SelectValue>
+            {hasUnviewedReports && <UnviewedReportsIndicator hasUnviewedReports={true} className="absolute -right-2 -top-0 h-2 w-2" />}
           </div>
         </SelectTrigger>
         <SelectContent>

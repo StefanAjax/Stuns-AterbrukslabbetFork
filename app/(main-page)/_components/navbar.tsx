@@ -52,7 +52,7 @@ export default async function Navbar() {
           {/* Desktop navigation */}
           <div className="hidden items-center gap-6 lg:flex">
             {/* Primary navigation */}
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-3">
               <SignedIn>{isAdminOrModerator && <AdminDropdown hasUnviewedReports={hasUnviewedReports} />}</SignedIn>
 
               <NavigationDropdown />
