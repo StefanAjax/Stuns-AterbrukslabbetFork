@@ -3,7 +3,7 @@ import Link from "next/link";
 import getNameAndEmailFromUserId from "@/utils/get-name-and-email-from-user-id";
 import { getUserId } from "@/utils/get-user-id";
 
-import CreatePostComponent from "../../../create-post/_components/create-post-component";
+import CreatePostComponent from "../../../create-post/_components";
 
 import { db } from "@/lib/db";
 
@@ -86,6 +86,17 @@ export default async function createPostPage({ params }: PostIdPageProps) {
   // Convert image url to File object
   const imageUrl = postData.imageThumbUrl;
 
+  const imageName = postData.imageName;
+
+  let imageFile: File | null = null;
+
+  if (imageUrl && imageName) {
+    const path = `${process.env.NEXT_PUBLIC_SITE_URL}${imageUrl}`;
+    const response = await fetch(path);
+    const blob = await response.blob();
+    imageFile = new File([blob], imageName, { type: blob.type });
+  }
+
   return (
     <div>
       <CreatePostComponent
@@ -102,6 +113,7 @@ export default async function createPostPage({ params }: PostIdPageProps) {
         customExpirationDate={postData.hasCustomExpirationDate}
         postId={postId}
         imageUrl={imageUrl || undefined}
+        imageFile={imageFile}
         imageNameParameter={postData.imageName || undefined}
         update={true}
       />

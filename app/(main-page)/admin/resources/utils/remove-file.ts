@@ -6,14 +6,19 @@ import fs from "node:fs";
 import { db } from "@/lib/db";
 
 import { checkRole } from "@/utils/check-role";
-import type { ExtendedFile } from "@/types/globals";
+import type { ExtendedFile, StandardResponse } from "@/types/globals";
 
-export default async function removeFile(file: ExtendedFile) {
+export default async function removeFile(file: ExtendedFile): StandardResponse {
   const isAdmin = await checkRole("admin");
   const isModerator = await checkRole("moderator");
 
   if (!isAdmin && !isModerator) {
-    throw new Error("Nekad åtkomst");
+    return {
+      error: {
+        code: 403,
+        message: "Nekad åtkomst",
+      },
+    };
   }
 
   try {
@@ -28,8 +33,20 @@ export default async function removeFile(file: ExtendedFile) {
     if (fs.existsSync(filePath)) {
       fs.unlinkSync(filePath);
     }
+
+    return {
+      success: {
+        code: 200,
+        message: "Resursen har tagits bort",
+      },
+    };
   } catch (error) {
     console.error("Error deleting file:", error);
-    throw new Error("Ett fel inträffade");
+    return {
+      error: {
+        code: 500,
+        message: "Något gick fel",
+      },
+    };
   }
 }

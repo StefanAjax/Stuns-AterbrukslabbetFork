@@ -3,7 +3,7 @@ import Link from "next/link";
 import getNameAndEmailFromUserId from "@/utils/get-name-and-email-from-user-id";
 import { getUserId } from "@/utils/get-user-id";
 
-import CreatePostComponent from "./_components/create-post-component";
+import CreatePostComponent from "./_components";
 
 export default async function createPostPage() {
   const userId = await getUserId();
@@ -14,7 +14,7 @@ export default async function createPostPage() {
     });
 
     return (
-      <div>
+      <div className="pb-10 md:pb-16">
         <CreatePostComponent firstName={firstName} lastName={lastName} email={email} userId={userId} update={false} />
       </div>
     );

@@ -11,14 +11,14 @@ interface PostContainerProps {
 export default function PostContainer({ posts }: PostContainerProps) {
   const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
   return (
-    <div className="mt-4 flex flex-col gap-y-2 md:mt-6 md:gap-y-3">
+    <div className="mb-10 mt-6 flex flex-col gap-y-4 md:mt-8 md:gap-y-5">
       {posts && posts.length > 0 ? (
         posts.map((post) => {
           return <PostCard key={post.id} postData={post} timezone={timezone} />;
         })
       ) : (
-        <div className="mt-8 flex justify-center md:mt-12">
-          <p className="text-md w-3/5 rounded-lg bg-secondary py-3 text-center md:w-1/3 md:p-4 md:text-xl">Inga annonser hittades</p>
+        <div className="mt-6 flex justify-center md:mt-8">
+          <p className="rounded-lg bg-card px-6 py-4 text-center">Inga annonser hittades</p>
         </div>
       )}
     </div>

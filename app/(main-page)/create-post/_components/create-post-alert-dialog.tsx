@@ -1,6 +1,8 @@
 "use client";
 
-import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "@/components/ui/alert-dialog";
+import { useState } from "react";
+import { AlertDialog, AlertDialogContent, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "@/components/ui/alert-dialog";
+import { Button } from "@/components/ui/button";
 
 interface CreatePostAlertDialogProps {
   isSubmitting?: boolean;
@@ -8,9 +10,13 @@ interface CreatePostAlertDialogProps {
 }
 
 export default function CreatePostAlertDialog({ isSubmitting, update }: CreatePostAlertDialogProps) {
+  const [open, setOpen] = useState(false);
+
   return (
-    <AlertDialog>
-      <AlertDialogTrigger className="rounded-sm bg-primary px-3 py-1 text-sm md:px-4 md:text-base">{update ? "Uppdatera" : "Skapa"}</AlertDialogTrigger>
+    <AlertDialog open={open} onOpenChange={setOpen}>
+      <AlertDialogTrigger asChild>
+        <Button>{update ? "Uppdatera" : "Skapa"}</Button>
+      </AlertDialogTrigger>
       <AlertDialogContent className="max-w-2xl">
         <AlertDialogHeader>
           <AlertDialogTitle className="flex justify-center">{update ? "Uppdatera annons?" : "Skapa annons?"}</AlertDialogTitle>
@@ -38,10 +44,12 @@ export default function CreatePostAlertDialog({ isSubmitting, update }: CreatePo
           </div>
         </AlertDialogHeader>
         <AlertDialogFooter>
-          <AlertDialogCancel>Fortsätt redigera</AlertDialogCancel>
-          <AlertDialogAction disabled={isSubmitting} form="create-post-form" type="submit">
-            {update ? "Uppdatera annons" : "Skapa annons"}
-          </AlertDialogAction>
+          <Button variant="outline" onClick={() => setOpen(false)} disabled={isSubmitting} type="button">
+            Fortsätt redigera
+          </Button>
+          <Button variant="default" form="create-post-form" type="submit" disabled={isSubmitting}>
+            {isSubmitting ? (update ? "Uppdaterar..." : "Skapar...") : update ? "Uppdatera annons" : "Skapa annons"}
+          </Button>
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>

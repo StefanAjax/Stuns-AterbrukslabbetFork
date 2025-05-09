@@ -17,7 +17,7 @@ interface MainPageProps {
 }
 
 export default async function MainPage({ searchParams }: MainPageProps) {
-  const postsPerPage = 7;
+  const postsPerPage = 10;
 
   const { type, category, page, search, sort } = await searchParams;
 
@@ -32,8 +32,8 @@ export default async function MainPage({ searchParams }: MainPageProps) {
   return (
     <div>
       <Intro />
-      <div className="mx-auto max-w-[360px] px-2 md:max-w-screen-md md:px-5" id="filters">
-        <FilterContainer totalPostCount={totalPostCount} postCount={queriedPostsCount} />
+      <div className="mx-auto px-4 md:max-w-screen-md md:px-6" id="filters">
+        <FilterContainer postCount={queriedPostsCount} />
         <PostContainer posts={postsList} />
       </div>
       <Pagination itemCount={queriedPostsCount} itemsPerPage={postsPerPage} hashLinkId="filters" />

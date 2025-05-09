@@ -35,7 +35,7 @@ export default async function ReportsTable({ reports }: ReportsTableProps) {
 
   return (
     <table className="w-full divide-y divide-border border border-border text-left text-sm">
-      <thead className="whitespace-nowrap bg-secondary text-muted-foreground">
+      <thead className="whitespace-nowrap bg-muted text-muted-foreground">
         <tr>
           <th scope="col" className="border-r border-border px-4 py-3 font-medium">
             Datum
@@ -60,7 +60,7 @@ export default async function ReportsTable({ reports }: ReportsTableProps) {
           const formattedDate = format(report.createdAt, "d MMMM yyyy", { locale: sv });
 
           return (
-            <tr key={report.id} className="hover:bg-secondary/50">
+            <tr key={report.id} className="hover:bg-muted/50">
               <td className="border-r border-border px-4 py-3">{formattedDate}</td>
               <td className="px-4 py-3">{report.reason || <em className="text-muted-foreground">Ingen orsak angiven</em>}</td>
               <td className="px-4 py-3">

@@ -19,8 +19,6 @@ test("No posts", async ({ page }) => {
 test("Categories", async ({ page }) => {
   await setup(page);
 
-  await expect(page.getByText("Alla").filter({ visible: true }).first()).toBeVisible();
-
   await expect(page.getByText("Erbjuds").filter({ visible: true }).first()).toBeVisible();
 
   await expect(page.getByText("Efterfrågas").filter({ visible: true }).first()).toBeVisible();

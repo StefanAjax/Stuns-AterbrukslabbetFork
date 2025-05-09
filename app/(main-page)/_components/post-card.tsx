@@ -9,6 +9,7 @@ import type { Post } from "@prisma/client";
 
 import creationDateToString from "../utils/creation-date-to-string";
 import getPostTypeSpecificData from "../utils/get-post-type-specific-data";
+import { Clock, MapPin, Tag, CalendarClock } from "lucide-react";
 
 interface PostCardProps {
   postData: Post;
@@ -18,7 +19,7 @@ interface PostCardProps {
 export default function PostCard({ postData, timezone }: PostCardProps) {
   const [creationDateString, setCreationDateString] = useState("laddar...");
   const [expirationDateString, setExpirationDateString] = useState("laddar...");
-  const { postTypeColor, expirationDateText } = getPostTypeSpecificData({
+  const { postTypeColor } = getPostTypeSpecificData({
     postType: postData.postType,
   });
 
@@ -31,10 +32,13 @@ export default function PostCard({ postData, timezone }: PostCardProps) {
 
   return (
     <Link href={`/post/${postData.id}`}>
-      <div className="flex w-full rounded-xl bg-secondary py-2 pr-2 md:py-4 md:pr-4">
-        <div className={cn("mr-1 min-w-1 rounded-e-md md:mr-2 md:min-w-2", postTypeColor)} />
-        <div className="grid w-full grid-cols-12">
-          <section className="col-span-4">
+      <article className="flex w-full rounded-xl border border-border bg-card py-3 pr-4 md:py-4">
+        <div className={cn("mr-2 w-1 rounded-r-md md:mr-3 md:w-2", postTypeColor)} aria-hidden="true" />
+
+        {/* Responsive container that switches between row and column layout */}
+        <div className="flex w-full flex-1 gap-3 max-[450px]:flex-col max-[450px]:gap-2">
+          {/* Image section - full width on small screens, 1/3 width on larger screens */}
+          <figure className="w-1/3 max-[450px]:mb-2 max-[450px]:w-full">
             <Image
               src={
                 postData.imageThumbUrl
@@ -47,38 +51,58 @@ export default function PostCard({ postData, timezone }: PostCardProps) {
                         ? "/images/instrument.webp"
                         : "/images/image-missing.webp"
               }
-              alt="Annonsens bild"
+              alt={`Bild för ${postData.title}`}
               width={400}
               height={300}
-              className="aspect-[4/3] w-full rounded-md object-cover object-center"
+              className="aspect-[4/3] rounded-lg object-cover object-center"
             />
-          </section>
-          <section className="col-span-5 flex flex-col pl-2 md:pl-4">
-            <div className="grow">
-              <h3 className="line-clamp-1 break-all text-sm md:text-2xl">{postData.title}</h3>
-              <p className="mt-1 line-clamp-2 break-words text-[10px] md:line-clamp-3 md:text-base">{postData.description}</p>
+          </figure>
+
+          {/* Content section */}
+          <div className="flex flex-1 flex-col space-y-1 md:space-y-2">
+            <div className="flex-1 space-y-1 md:space-y-2">
+              <header>
+                <h3 className="line-clamp-1 text-base font-medium max-[450px]:text-lg md:text-2xl">{postData.title}</h3>
+              </header>
+              <p className="line-clamp-2 text-sm md:line-clamp-3 md:text-base">{postData.description}</p>
             </div>
-            <div className="pt-1 md:pt-0">
-              <div className="flex items-center gap-1">
-                <div className={cn("h-2 w-2 rounded-[50%] md:h-3 md:w-3", postTypeColor)}></div>
-                <p className="text-[9px] md:text-sm">{postData.postType}</p>
-              </div>
-              <p className="line-clamp-1 break-all text-[8px] capitalize md:text-sm">{postData.location}</p>
-            </div>
-          </section>
-          <section className="col-span-3 flex flex-col-reverse pl-2 md:flex-col">
-            <div className="flex flex-col-reverse md:grow md:flex-col">
-              <p className="pt-1 text-end text-[9px] md:pb-2 md:text-base">{creationDateString}</p>
-              {postData.hasCustomExpirationDate && (
-                <div className="text-end text-[9px] text-red-500 md:text-base">
-                  <p>{expirationDateText}</p>
-                  <p>{expirationDateString}</p>
+
+            {/* Post metadata footer - reorganized for better small screen layout */}
+            <footer className="flex flex-wrap justify-between gap-y-1 pt-1">
+              <div>
+                <div className="flex items-center gap-1">
+                  <Tag size={12} className="md:h-3 md:w-3" />
+                  <p className="text-xs md:text-sm">{postData.postType}</p>
                 </div>
-              )}
-            </div>
-          </section>
+                <address className="flex items-center gap-1 text-xs capitalize not-italic md:text-sm">
+                  <MapPin size={12} className="md:h-3 md:w-3" />
+                  {postData.location}
+                </address>
+              </div>
+
+              <aside className={cn("text-right font-mono text-xs md:text-sm", !postData.hasCustomExpirationDate && "self-end")}>
+                {postData.hasCustomExpirationDate ? (
+                  <>
+                    <div className="flex items-center justify-end gap-1">
+                      <Clock size={12} className="md:h-3 md:w-3" />
+                      <time dateTime={postData.createdAt.toISOString()}>{creationDateString}</time>
+                    </div>
+                    <div className="flex items-center justify-end gap-1 text-warning">
+                      <CalendarClock size={12} className="md:h-3 md:w-3" />
+                      <time dateTime={postData.expiresAt.toISOString()}>{expirationDateString}</time>
+                    </div>
+                  </>
+                ) : (
+                  <div className="flex items-center justify-end gap-1">
+                    <Clock size={12} className="md:h-3 md:w-3" />
+                    <time dateTime={postData.createdAt.toISOString()}>{creationDateString}</time>
+                  </div>
+                )}
+              </aside>
+            </footer>
+          </div>
         </div>
-      </div>
+      </article>
     </Link>
   );
 }

@@ -1,8 +1,9 @@
 "use client";
 
-import clsx from "clsx";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
+import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 import handleSearchParamsChange from "@/utils/handle-search-params-change";
 import type { PostType } from "@/types/globals";
 
@@ -12,32 +13,38 @@ export default function PostTypeButtons() {
   const { replace } = useRouter();
 
   function handlePostTypeChange(postType: PostType) {
+    const currentType = searchParams.get("type");
+    if (postType === currentType) {
+      postType = undefined;
+    }
     handleSearchParamsChange("type", postType, pathname, searchParams, replace);
   }
 
+  const isActive = (type: string | undefined) => {
+    const currentType = searchParams.get("type");
+    return type && currentType === type;
+  };
+
   return (
-    <div className="flex gap-x-3 rounded-md">
-      <div className="flex items-center rounded-md bg-primary bg-opacity-40 text-xs md:text-lg">
-        <button
-          onClick={() => handlePostTypeChange(undefined)}
-          className={clsx("rounded-s-md bg-primary bg-opacity-0 px-2 py-[6px] hover:bg-opacity-100 md:px-4 md:py-2", !searchParams.get("type") && "bg-opacity-100")}
-        >
-          Alla
-        </button>
-        <div className="h-5/6 w-[1px] bg-black bg-opacity-20 md:hidden"></div>
-        <button
+    <div className="flex flex-col gap-1">
+      <span className="text-xs font-medium text-gray-600 dark:text-gray-400">Typ:</span>
+      <div className="flex gap-1">
+        <Button
           onClick={() => handlePostTypeChange("Erbjuds")}
-          className={clsx("bg-primary bg-opacity-0 px-2 py-[6px] hover:bg-opacity-100 md:px-4 md:py-2", searchParams.get("type") === "Erbjuds" && "bg-opacity-100")}
+          variant="outline"
+          className={cn(isActive("Erbjuds") ? "border border-offer bg-offer text-white hover:border-offer/90 hover:bg-offer/90 hover:text-white" : "hover:bg-offer/40")}
+          size="sm"
         >
           Erbjuds
-        </button>
-        <div className="h-5/6 w-[1px] bg-black bg-opacity-20 md:hidden"></div>
-        <button
+        </Button>
+        <Button
           onClick={() => handlePostTypeChange("Efterfrågas")}
-          className={clsx("rounded-e-md bg-primary bg-opacity-0 px-2 py-[6px] hover:bg-opacity-100 md:px-4 md:py-2", searchParams.get("type") === "Efterfrågas" && "bg-opacity-100")}
+          variant="outline"
+          className={cn(isActive("Efterfrågas") ? "border border-request bg-request text-white hover:border-request/90 hover:bg-request/90 hover:text-white" : "hover:bg-request/40")}
+          size="sm"
         >
           Efterfrågas
-        </button>
+        </Button>
       </div>
     </div>
   );

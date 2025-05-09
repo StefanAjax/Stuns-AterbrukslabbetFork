@@ -1,11 +1,20 @@
 import Link from "next/link";
 import { Plus } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
+import { source_sans_3 } from "@/app/fonts";
 
-export default function CreatePostLink() {
+interface CreatePostLinkProps {
+  className?: string;
+}
+
+export default function CreatePostLink({ className }: CreatePostLinkProps) {
   return (
-    <Link className="flex items-center gap-x-1 rounded-md bg-sky-600 px-2 py-[6px] text-white hover:opacity-85 md:gap-x-2 md:px-4 md:py-2" href="/create-post">
-      <Plus className="h-4 w-4 md:h-6 md:w-6" />
-      <p className="text-xs md:text-lg">Skapa annons</p>
-    </Link>
+    <Button asChild variant="default" className={cn("text-lg", source_sans_3.className, className)}>
+      <Link href="/create-post">
+        <Plus className="mr-1" />
+        Skapa annons
+      </Link>
+    </Button>
   );
 }

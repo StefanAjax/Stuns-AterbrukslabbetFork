@@ -1,16 +1,21 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
-import Link from "next/link";
-import { ChevronDown } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { cn } from "@/lib/utils";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { source_sans_3 } from "@/app/fonts";
+import { useState } from "react";
+import UnviewedReportsIndicator from "./unviewed-reports-indicator";
 
 interface AdminDropdownProps {
   className?: string;
+  hasUnviewedReports?: boolean;
 }
 
 type AdminMenuItem = {
   href: string;
   label: string;
+  showNotification?: boolean;
 };
 
 const adminMenuItems: AdminMenuItem[] = [
@@ -21,39 +26,40 @@ const adminMenuItems: AdminMenuItem[] = [
   { href: "/admin/resources", label: "Resurser" },
 ];
 
-export default function AdminDropdown({ className }: AdminDropdownProps) {
-  const [isOpen, setIsOpen] = useState(false);
-  const dropdownRef = useRef<HTMLDivElement>(null);
+export default function AdminDropdown({ className, hasUnviewedReports = false }: AdminDropdownProps) {
+  const router = useRouter();
+  const [selectedValue, setSelectedValue] = useState<string | undefined>(undefined);
+  const [selectKey, setSelectKey] = useState(0);
 
-  useEffect(() => {
-    function handleClickOutside(event: MouseEvent) {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
-        setIsOpen(false);
-      }
-    }
+  const handleValueChange = (value: string) => {
+    router.push(value);
+    setSelectedValue(undefined);
+    setSelectKey((prevKey) => prevKey + 1);
+  };
 
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, []);
+  // Update menu items to show notification on Reports
+  const menuItemsWithNotification = adminMenuItems.map((item) => (item.href === "/admin/reports" ? { ...item, showNotification: hasUnviewedReports } : item));
 
   return (
-    <div className={`relative ${className}`} ref={dropdownRef}>
-      <button onClick={() => setIsOpen(!isOpen)} className="flex items-center gap-x-1 transition-colors hover:text-accent">
-        <span>Adminpanel</span>
-        <ChevronDown className={`size-4 transition-transform ${isOpen ? "rotate-180" : ""}`} />
-      </button>
-
-      {isOpen && (
-        <div className="absolute z-10 mt-2 w-full rounded-md bg-popover ring-1 ring-ring/50">
-          {adminMenuItems.map((item) => (
-            <Link key={item.href} href={item.href} className="block px-3 py-2 text-sm text-popover-foreground hover:text-accent" onClick={() => setIsOpen(false)}>
+    <div className={className}>
+      <Select key={selectKey} value={selectedValue} onValueChange={handleValueChange}>
+        <SelectTrigger
+          className={cn("flex select-none items-center gap-x-1 border-none bg-transparent text-lg font-medium shadow-none transition-colors hover:text-accent focus:ring-0", source_sans_3.className)}
+        >
+          <div className="relative flex items-center">
+            <SelectValue placeholder="Adminpanel">Adminpanel</SelectValue>
+            {hasUnviewedReports && <UnviewedReportsIndicator hasUnviewedReports={true} className="absolute -right-2 -top-0 h-2 w-2" />}
+          </div>
+        </SelectTrigger>
+        <SelectContent>
+          {menuItemsWithNotification.map((item) => (
+            <SelectItem key={item.href} value={item.href} className="relative">
               {item.label}
-            </Link>
+              {item.showNotification && <UnviewedReportsIndicator hasUnviewedReports={true} className="absolute right-2 top-1/2 h-2 w-2 -translate-y-1/2" />}
+            </SelectItem>
           ))}
-        </div>
-      )}
+        </SelectContent>
+      </Select>
     </div>
   );
 }

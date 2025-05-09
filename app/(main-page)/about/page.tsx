@@ -2,7 +2,7 @@ import DeveloperProfile from "./_components/developer-profile";
 
 export default function AboutPage() {
   return (
-    <div className="mx-auto mt-12 flex w-[85ch] max-w-full flex-col bg-secondary px-6 py-8 md:mt-16 md:rounded-md">
+    <div className="mx-auto mb-8 mt-12 flex w-[85ch] max-w-full flex-col bg-card px-6 py-8 md:mt-16 md:rounded-md">
       <h1 className="mb-4 text-lg font-semibold md:text-2xl">Om Återbrukslabbet</h1>
       <p className="mb-6">
         Återbrukslabbet ger avställd labbutrustning nytt liv i skolan. Modern utrustning ökar undervisningens relevans, avlastar skolbudgetar, sparar planetens resurser och gör lärandet roligare.
@@ -49,13 +49,25 @@ export default function AboutPage() {
       <div className="mb-8 flex flex-col gap-y-6">
         <h2 className="text-xl font-semibold">Utvecklare våren 2025:</h2>
         <DeveloperProfile name="David Cavalli-Björkman" linkedInUrl="https://www.linkedin.com/in/david-cavalli-bj%C3%B6rkman/" portfolioUrl="https://davidcavallib.github.io/" />
-        <DeveloperProfile name="Tim Kelso" linkedInUrl="https://linkedin.com/in/kelsotim/" githubUrl="https://github.com/TimKelso" portfolioUrl="https://timkelso.github.io/" />
+        <DeveloperProfile
+          name="Tim Kelso"
+          linkedInUrl="https://linkedin.com/in/kelsotim/"
+          githubUrl="https://github.com/TimKelso"
+          portfolioUrl="https://timkelso.github.io/"
+          bio="Ska öppna en mindre livsmedelsbutik sommaren 2025. I höst praktiserar jag förhoppningsvis på ett spännande företag genom Tekniksprånget."
+        />
         <DeveloperProfile
           name="Axel Thornberg"
           linkedInUrl="https://www.linkedin.com/in/axel-thornberg-618a41332/"
           githubUrl="https://github.com/axelNTI"
           portfolioUrl="https://axel.thornberg.se/"
           bio="Kommer att studera datavetenskap på Uppsala Universitet från hösten 2025."
+        />
+        <DeveloperProfile
+          name="Eskil Tornberg"
+          linkedInUrl="https://www.linkedin.com/in/eskil-tornberg-243977363/"
+          githubUrl="https://github.com/EskilNTI"
+          bio="Planerar att studera datavetenskap på Uppsala Universitet från hösten 2025."
         />
       </div>
       <p className="mt-6">

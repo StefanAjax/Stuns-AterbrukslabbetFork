@@ -5,12 +5,12 @@ import Navbar from "./_components/navbar";
 
 export default function MainPageLayout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="flex h-full flex-col justify-between">
-      <div>
-        <Navbar />
+    <div className="flex min-h-[100vh] flex-col">
+      <Navbar />
+      <main className="flex-1">
         <div>{children}</div>
         <Toaster richColors />
-      </div>
+      </main>
       <Footer />
     </div>
   );

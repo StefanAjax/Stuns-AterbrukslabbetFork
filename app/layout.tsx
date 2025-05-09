@@ -54,12 +54,37 @@ export const metadata: Metadata = {
   icons: {
     icon: [
       {
-        url: "/favicons/favicon.ico",
+        url: "/favicon-for-app/favicon.ico",
         sizes: "any",
         type: "image/x-icon",
       },
+      {
+        url: "/favicon-for-app/icon0.svg",
+        type: "image/svg+xml",
+      },
+      {
+        url: "/favicon-for-app/icon1.png",
+        type: "image/png",
+      },
+    ],
+    apple: {
+      url: "/favicon-for-app/apple-icon.png",
+      type: "image/png",
+    },
+    other: [
+      {
+        url: "/favicon-for-public/web-app-manifest-192x192.png",
+        sizes: "192x192",
+        type: "image/png",
+      },
+      {
+        url: "/favicon-for-public/web-app-manifest-512x512.png",
+        sizes: "512x512",
+        type: "image/png",
+      },
     ],
   },
+  manifest: "/manifest.json",
   keywords: ["återbrukslabbet", "aterbrukslabbet", "återbrukslabb", "aterbrukslabb"],
   openGraph: {
     type: "website",
@@ -67,7 +92,7 @@ export const metadata: Metadata = {
     url: "https://aterbrukslabbet.nu/",
     images: [
       {
-        url: "https://aterbrukslabbet.nu/favicons/favicon.ico",
+        url: "https://aterbrukslabbet.nu/favicon-for-public/web-app-manifest-512x512.png",
       },
     ],
     description: description,
@@ -76,6 +101,10 @@ export const metadata: Metadata = {
   },
   publisher: "STUNS Life science",
   title: "Återbrukslabbet",
+  appleWebApp: {
+    title: "Återbrukslabbet",
+    statusBarStyle: "default",
+  },
 };
 
 export default function RootLayout({

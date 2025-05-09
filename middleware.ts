@@ -13,7 +13,7 @@ const isPublicRoute = createRouteMatcher([
   "/sign-up",
   /^\/sitemap(-\d+)?\.xml$/,
   "/robots.txt",
-  "/favicons/favicon.ico",
+  "/favicon-for-app/favicon.ico",
   "/api/images(.*)",
 ]);
 

@@ -52,7 +52,9 @@ export default async function createPost({ data, postId }: EditPostProps) {
 
       imageName = image.name;
 
-      const fileName = makeRandomId({ length: 15 });
+      const fileExtension = imageName.split(".").pop();
+
+      const fileName = `${makeRandomId({ length: 15 })}.${fileExtension}`;
 
       // Return an error if the file name already exists
       if (fs.existsSync(path.join(process.cwd(), "client", "images", fileName))) {
