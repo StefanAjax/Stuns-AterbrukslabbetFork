@@ -3,6 +3,7 @@
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 import handleSearchParamsChange from "@/utils/handle-search-params-change";
 import type { PostType } from "@/types/globals";
 
@@ -28,10 +29,20 @@ export default function PostTypeButtons() {
     <div className="flex flex-col gap-1">
       <span className="text-xs font-medium text-gray-600 dark:text-gray-400">Typ:</span>
       <div className="flex gap-1">
-        <Button onClick={() => handlePostTypeChange("Erbjuds")} variant={isActive("Erbjuds") ? "secondary" : "outline"} size="sm">
+        <Button
+          onClick={() => handlePostTypeChange("Erbjuds")}
+          variant="outline"
+          className={cn(isActive("Erbjuds") ? "border border-offer bg-offer text-white hover:border-offer/90 hover:bg-offer/90 hover:text-white" : "hover:bg-offer/50")}
+          size="sm"
+        >
           Erbjuds
         </Button>
-        <Button onClick={() => handlePostTypeChange("Efterfrågas")} variant={isActive("Efterfrågas") ? "secondary" : "outline"} size="sm">
+        <Button
+          onClick={() => handlePostTypeChange("Efterfrågas")}
+          variant="outline"
+          className={cn(isActive("Efterfrågas") ? "border border-request bg-request text-white hover:border-request/90 hover:bg-request/90 hover:text-white" : "hover:bg-request/50")}
+          size="sm"
+        >
           Efterfrågas
         </Button>
       </div>
