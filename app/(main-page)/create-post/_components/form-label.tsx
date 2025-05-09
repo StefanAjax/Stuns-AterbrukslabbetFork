@@ -1,3 +1,5 @@
+import { Label } from "@/components/ui/label";
+
 interface FormLabelProps {
   htmlFor?: string;
   labelText: string;
@@ -5,8 +7,8 @@ interface FormLabelProps {
 
 export default function FormLabel({ htmlFor, labelText }: FormLabelProps) {
   return (
-    <label htmlFor={htmlFor} className="text-sm font-medium md:text-base">
+    <Label htmlFor={htmlFor} className="md:text-base">
       {labelText}
-    </label>
+    </Label>
   );
 }
