@@ -10,19 +10,22 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 interface DatePickerProps {
   date: Date;
   setDate: (...event: any[]) => void;
+  id?: string;
+  "aria-required"?: boolean;
+  "aria-describedby"?: string;
 }
 
-export default function DatePicker({ date, setDate }: DatePickerProps) {
+export default function DatePicker({ date, setDate, id, ...props }: DatePickerProps) {
   return (
     <Popover>
       <PopoverTrigger asChild>
-        <Button className={cn("w-[160px] justify-start bg-white bg-opacity-40 text-left font-normal md:w-[260px]", !date && "text-muted-foreground")}>
-          <CalendarIcon className="mr-2 h-4 w-4" />
+        <Button variant="outline" id={id} className="w-full justify-start bg-white bg-opacity-40 text-left font-normal" aria-haspopup="dialog" aria-label="Välj slutdatum" {...props}>
+          <CalendarIcon className="mr-2 size-4" />
           {date ? date.toLocaleDateString("sv-se") : <span>Välj datum</span>}
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-auto p-0">
-        <Calendar mode="single" selected={date} onSelect={setDate} initialFocus disabled={(date) => date < new Date()} />
+        <Calendar mode="single" selected={date} onSelect={setDate} initialFocus disabled={(date) => date < new Date()} aria-label="Välj ett datum" />
       </PopoverContent>
     </Popover>
   );
