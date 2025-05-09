@@ -4,7 +4,9 @@ All testing for this project is recommended to be done through CI environments a
 
 1. Go to your repository on [github.com](https://github.com/).
 
-1. Navigate to `Settings > Secrets and variables > Actions`.
+1. The following secrets needs to be added in two seperate locations unless otherwise stated:
+   - The first is for GitHub Actions and is located at `Settings > Secrets and variables > Actions`.
+   - The second is for Dependabot and is located at `Settings > Secrets and variables > Dependabot`.
 
 ## Testing
 
@@ -66,4 +68,9 @@ The following steps are required to configure repository secrets for testing:
 
 ## Automatic Development deployment
 
-If you want to use the workflow to automatically deploy to a development/staging server the following secrets need to be entered into the repository: - The key `DEV_SERVER_HOST` with the value of the server's IP address. - The key `DEV_SERVER_PORT` with the value of the SSH port. - The key `DEV_SERVER_USERNAME` with the value of the username you login as when connecting to the server. - The key `DEV_SERVER_PASSWORD` with the value of the corresponding password for the username previously entered.
+If you want to use the workflow to automatically deploy to a development/staging server the following secrets need to be entered into the repository. These do not have to be added to dependabot:
+
+- The key `DEV_SERVER_HOST` with the value of the server's IP address.
+- The key `DEV_SERVER_PORT` with the value of the SSH port.
+- The key `DEV_SERVER_USERNAME` with the value of the username you login as when connecting to the server.
+- The key `DEV_SERVER_PASSWORD` with the value of the corresponding password for the username previously entered.

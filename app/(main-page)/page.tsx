@@ -17,7 +17,7 @@ interface MainPageProps {
 }
 
 export default async function MainPage({ searchParams }: MainPageProps) {
-  const postsPerPage = 7;
+  const postsPerPage = 10;
 
   const { type, category, page, search, sort } = await searchParams;
 

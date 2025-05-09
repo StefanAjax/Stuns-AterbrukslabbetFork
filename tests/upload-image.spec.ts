@@ -246,7 +246,7 @@ test("Change image in post", async ({ page }) => {
   await expect(page.getByAltText("Bild för Change image in post").filter({ visible: true }).first()).toHaveAttribute("src", /^.*api.*$/);
 });
 
-test("Create post with image, then edit the post without touching the image", async ({ page }) => {
+test("Edit post with image", async ({ page }) => {
   await setup(page);
 
   await login(page, process.env.TEST_ADMIN_EMAIL || "", process.env.TEST_ADMIN_PASSWORD || "");
@@ -255,7 +255,7 @@ test("Create post with image, then edit the post without touching the image", as
 
   await page.getByText("Efterfrågas").first().click();
 
-  await page.locator("input#title").first().fill("Create post with image, then edit the post without touching the image");
+  await page.locator("input#title").first().fill("Edit post with image");
 
   await page.locator("textarea#description").first().fill("This is a test post with an image");
 
@@ -277,7 +277,7 @@ test("Create post with image, then edit the post without touching the image", as
 
   await expect(page.getByText("Sök bland 1 annonser").filter({ visible: true }).first()).toBeVisible();
 
-  await expect(page.getByText("Create post with image, then edit the post without touching the image").filter({ visible: true }).first()).toBeVisible();
+  await expect(page.getByText("Edit post with image").filter({ visible: true }).first()).toBeVisible();
 
   await expect(page.getByText("This is a test post with an image").filter({ visible: true }).first()).toBeVisible();
 
@@ -285,9 +285,9 @@ test("Create post with image, then edit the post without touching the image", as
 
   await expect(page.getByText("Uppsala").filter({ visible: true }).first()).toBeVisible();
 
-  await expect(page.getByAltText("Bild för Create post with image, then edit the post without touching the image").filter({ visible: true }).first()).toHaveAttribute("src", /^.*api.*$/);
+  await expect(page.getByAltText("Bild för Edit post with image").filter({ visible: true }).first()).toHaveAttribute("src", /^.*api.*$/);
 
-  await page.getByText("Create post with image, then edit the post without touching the image").first().click();
+  await page.getByText("Edit post with image").first().click();
 
   await page.getByRole("button").filter({ hasText: "Redigera" }).first().click();
 
@@ -299,7 +299,7 @@ test("Create post with image, then edit the post without touching the image", as
 
   await expect(page.getByText("Sök bland 1 annonser").filter({ visible: true }).first()).toBeVisible();
 
-  await expect(page.getByText("Create post with image, then edit the post without touching the image").filter({ visible: true }).first()).toBeVisible();
+  await expect(page.getByText("Edit post with image").filter({ visible: true }).first()).toBeVisible();
 
   await expect(page.getByText("The post now has a new description").filter({ visible: true }).first()).toBeVisible();
 
@@ -307,5 +307,5 @@ test("Create post with image, then edit the post without touching the image", as
 
   await expect(page.getByText("Uppsala").filter({ visible: true }).first()).toBeVisible();
 
-  await expect(page.getByAltText("Bild för Create post with image, then edit the post without touching the image").filter({ visible: true }).first()).toHaveAttribute("src", /^.*api.*$/);
+  await expect(page.getByAltText("Bild för Edit post with image").filter({ visible: true }).first()).toHaveAttribute("src", /^.*api.*$/);
 });

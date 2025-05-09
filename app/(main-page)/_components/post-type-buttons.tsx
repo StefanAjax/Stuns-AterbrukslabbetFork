@@ -32,7 +32,7 @@ export default function PostTypeButtons() {
         <Button
           onClick={() => handlePostTypeChange("Erbjuds")}
           variant="outline"
-          className={cn(isActive("Erbjuds") ? "border border-offer bg-offer text-white hover:border-offer/90 hover:bg-offer/90 hover:text-white" : "hover:bg-offer/50")}
+          className={cn(isActive("Erbjuds") ? "border border-offer bg-offer text-white hover:border-offer/90 hover:bg-offer/90 hover:text-white" : "hover:bg-offer/40")}
           size="sm"
         >
           Erbjuds
@@ -40,7 +40,7 @@ export default function PostTypeButtons() {
         <Button
           onClick={() => handlePostTypeChange("Efterfrågas")}
           variant="outline"
-          className={cn(isActive("Efterfrågas") ? "border border-request bg-request text-white hover:border-request/90 hover:bg-request/90 hover:text-white" : "hover:bg-request/50")}
+          className={cn(isActive("Efterfrågas") ? "border border-request bg-request text-white hover:border-request/90 hover:bg-request/90 hover:text-white" : "hover:bg-request/40")}
           size="sm"
         >
           Efterfrågas

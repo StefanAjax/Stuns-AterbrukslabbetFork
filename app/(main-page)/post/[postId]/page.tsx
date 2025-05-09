@@ -52,7 +52,7 @@ export default async function PostIdPage({ params }: PostIdPageProps) {
       ) : undefined; // Not logged in - no actions shown
 
     return (
-      <div className="mx-auto mt-5 max-w-[360px] md:max-w-screen-md">
+      <div className="mx-10 mt-5 flex justify-center">
         <PostComponent postData={postData} email={email} fullName={fullName} userPostActionButton={userPostActionButton} />
       </div>
     );

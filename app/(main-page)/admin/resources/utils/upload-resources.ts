@@ -12,7 +12,6 @@ interface UploadResponse {
 }
 
 export default async function uploadResources(files: ExtendedFile[]): Promise<UploadResponse[]> {
-  console.log(files.map((file) => file.visible));
   try {
     const uploadDir = path.join(process.cwd(), "client", "documents");
 
@@ -36,8 +35,6 @@ export default async function uploadResources(files: ExtendedFile[]): Promise<Up
         }
         const buffer = Buffer.from(await file.file.arrayBuffer());
         fs.writeFileSync(filePath, buffer);
-
-        console.log(file.visible);
 
         await db.resources.create({
           data: {

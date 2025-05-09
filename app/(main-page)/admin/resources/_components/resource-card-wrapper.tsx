@@ -30,22 +30,50 @@ export default function ResourceCardWrapper({ resources }: ResourceCardWrapperPr
             resource={resource}
             removeFile={async (resource) => {
               const promise = removeFile(resource);
-              toast.promise(promise, {
-                loading: "Tar bort filen...",
-                success: "Filen borttagen",
-                error: "Något gick fel",
-              });
+              toast.promise(
+                promise.then((res) => {
+                  if (res.error) {
+                    return Promise.reject(res.error);
+                  }
+                  if (res.success) {
+                    return Promise.resolve(res.success);
+                  }
+                  return Promise.reject({
+                    code: 500,
+                    message: "Något gick fel",
+                  });
+                }),
+                {
+                  loading: "Ändrar synlighet...",
+                  success: (res) => res.message,
+                  error: (res) => `Felkod ${res.code}: ${res.message}`,
+                },
+              );
               router.push("/admin/resources");
-              return await promise;
+              await promise;
             }}
             handleFileVisibilityToggle={async (file) => {
               const promise = handleFileVisibilityToggle(file);
-              toast.promise(promise, {
-                loading: "Ändrar synlighet...",
-                success: "Synlighet ändrad",
-                error: "Något gick fel",
-              });
-              return await promise;
+              toast.promise(
+                promise.then((res) => {
+                  if (res.error) {
+                    return Promise.reject(res.error);
+                  }
+                  if (res.success) {
+                    return Promise.resolve(res.success);
+                  }
+                  return Promise.reject({
+                    code: 500,
+                    message: "Något gick fel",
+                  });
+                }),
+                {
+                  loading: "Ändrar synlighet...",
+                  success: (res) => res.message,
+                  error: (res) => `Felkod ${res.code}: ${res.message}`,
+                },
+              );
+              await promise;
             }}
             downloadFile={downloadFile}
           />
