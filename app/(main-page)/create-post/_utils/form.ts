@@ -1,5 +1,5 @@
 // Form types, utilities, and hooks for the create post component
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { useFormContext } from "react-hook-form";
@@ -107,7 +107,14 @@ export function usePostFormSubmit(update: boolean, postId?: string) {
 }
 
 // Hook for image upload functionality
-export function useImageUpload(imageUrl?: string, imageNameParameter?: string) {
+export function useImageUpload(
+  setImagePreview: (preview: string | null) => void,
+  setImageName: (name: string | undefined) => void,
+  imageUrl?: string,
+  imageNameParameter?: string,
+  imagePreview?: string | null,
+  imageName?: string,
+) {
   // Use optional chaining to safely access the form context
   // This prevents errors when the hook is used outside a FormProvider
   const formContext = useFormContext?.() || null;
@@ -115,8 +122,6 @@ export function useImageUpload(imageUrl?: string, imageNameParameter?: string) {
   const trigger = formContext?.trigger;
   const watch = formContext?.watch;
 
-  const [imagePreview, setImagePreview] = useState<string | null>(imageUrl || null);
-  const [imageName, setImageName] = useState<string | undefined>(imageNameParameter);
   const [isDraggingOver, setIsDraggingOver] = useState(false);
 
   // Safely access imageFile - only call watch if it exists
@@ -251,8 +256,6 @@ export function useImageUpload(imageUrl?: string, imageNameParameter?: string) {
   }, [validateAndSetFile]);
 
   return {
-    imagePreview,
-    imageName,
     isDraggingOver,
     handleImageFileChange,
     handleDragOver,

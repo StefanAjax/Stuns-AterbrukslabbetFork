@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import { useFormContext } from "react-hook-form";
 import { Button } from "@/components/ui/button";
@@ -11,19 +11,27 @@ import FormErrorParagraph from "./form-error-paragraph";
 import { FormInputs, useImageUpload, validateImage } from "../_utils/form";
 
 interface ImageUploadSectionProps {
+  setImagePreview: (image: string | null) => void;
+  setImageName: (name: string | undefined) => void;
+  imagePreview?: string | null;
+  imageName?: string;
   imageUrl?: string;
   imageNameParameter?: string;
 }
 
-export default function ImageUploadSection({ imageUrl, imageNameParameter }: ImageUploadSectionProps) {
+export default function ImageUploadSection({ setImagePreview, setImageName, imagePreview, imageName, imageUrl, imageNameParameter }: ImageUploadSectionProps) {
   const {
     register,
     formState: { errors },
   } = useFormContext<FormInputs>();
 
-  const { imagePreview, imageName, isDraggingOver, handleImageFileChange, handleDragOver, handleDragEnter, handleDragLeave, handleDrop, handleImageUpload, handleRemoveImage } = useImageUpload(
+  const { isDraggingOver, handleImageFileChange, handleDragOver, handleDragEnter, handleDragLeave, handleDrop, handleImageUpload, handleRemoveImage } = useImageUpload(
+    setImagePreview,
+    setImageName,
     imageUrl,
     imageNameParameter,
+    imagePreview,
+    imageName,
   );
 
   // Setup event listeners for drag and drop
