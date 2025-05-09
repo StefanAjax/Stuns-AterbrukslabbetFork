@@ -28,14 +28,18 @@ export interface CreatePostComponentProps {
   customExpirationDate?: boolean;
   update: boolean;
   postId?: string;
+  imageFile?: File | null;
   imageUrl?: string;
   imageNameParameter?: string;
 }
 
 export default function CreatePostComponent(props: CreatePostComponentProps) {
-  const { firstName, lastName, email, userId, title, description, postType, category, municipality, date, customExpirationDate, update, postId, imageUrl, imageNameParameter } = props;
+  const { firstName, lastName, email, userId, title, description, postType, category, municipality, date, customExpirationDate, update, postId, imageUrl, imageFile, imageNameParameter } = props;
 
   const fullName = `${firstName} ${lastName}`;
+
+  const [imagePreview, setImagePreview] = useState<string | null>(imageUrl || null);
+  const [imageName, setImageName] = useState<string | undefined>(imageNameParameter);
 
   // Initialize form with default values
   const methods = useForm<FormInputs>({
@@ -49,7 +53,7 @@ export default function CreatePostComponent(props: CreatePostComponentProps) {
       categoryPicker: category || "",
       municipalityPicker: municipality || "",
       datePicker: date || undefined,
-      image: undefined,
+      image: imageFile || null,
     },
   });
 
@@ -58,9 +62,6 @@ export default function CreatePostComponent(props: CreatePostComponentProps) {
 
   // Watch form data for preview
   const formData = useWatch({ control: methods.control });
-
-  const [imagePreview, setImagePreview] = useState<string | null>(imageUrl || null);
-  const [imageName, setImageName] = useState<string | undefined>(imageNameParameter);
 
   useImageUpload(setImagePreview, setImageName, imageUrl, imageNameParameter, imagePreview, imageName);
 
