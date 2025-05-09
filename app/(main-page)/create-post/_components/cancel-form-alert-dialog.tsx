@@ -28,7 +28,7 @@ export default function CancelFormAlertDialog() {
         </AlertDialogHeader>
         <AlertDialogFooter>
           <Button variant="outline" onClick={() => setOpen(false)} disabled={isNavigating} type="button">
-            Fortsätt redigera
+            Fortsätt
           </Button>
           <Button variant="destructive" onClick={handleCancel} disabled={isNavigating}>
             {isNavigating ? "Avbryter..." : "Avbryt"}

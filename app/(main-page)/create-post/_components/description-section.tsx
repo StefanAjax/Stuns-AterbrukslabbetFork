@@ -1,5 +1,6 @@
 import { useFormContext } from "react-hook-form";
-import FormLabel from "./form-label";
+import { Textarea } from "@/components/ui/textarea";
+import { Label } from "@/components/ui/label";
 import FormHint from "./form-hint";
 import FormErrorParagraph from "./form-error-paragraph";
 import { FormInputs, validatePersonalInfo } from "../_utils/form";
@@ -11,25 +12,32 @@ export default function DescriptionSection() {
   } = useFormContext<FormInputs>();
 
   return (
-    <div className="flex w-full flex-col">
-      <div className="flex justify-between">
-        <FormLabel htmlFor="description" labelText="Beskrivning" />
-        <FormHint content="Max 1500 tecken. Inkludera aldrig personuppgifter av något slag." />
+    <section aria-labelledby="description-section" className="w-full">
+      <div className="sr-only" id="description-section">
+        Beskrivningssektion
       </div>
-      <textarea
-        id="description"
-        {...register("description", {
-          required: "Beskrivning saknas",
-          maxLength: { value: 1500, message: "Max 1500 tecken" },
-          validate: {
-            emailValidation: (value) => validatePersonalInfo(value, "email"),
-            phoneValidation: (value) => validatePersonalInfo(value, "phone"),
-          },
-        })}
-        className="h-32 w-full resize-none rounded-sm bg-opacity-40 px-2 py-1 text-sm md:text-base"
-        placeholder="Skriv beskrivning här..."
-      ></textarea>
-      {errors.description?.message && <FormErrorParagraph content={errors.description.message as string} />}
-    </div>
+      <div className="flex w-full flex-col space-y-2">
+        <div className="flex justify-between">
+          <Label htmlFor="description">Beskrivning</Label>
+          <FormHint content="Max 1500 tecken. Inkludera aldrig personuppgifter av något slag." />
+        </div>
+        <Textarea
+          id="description"
+          {...register("description", {
+            required: "Beskrivning saknas",
+            maxLength: { value: 1500, message: "Max 1500 tecken" },
+            validate: {
+              emailValidation: (value) => validatePersonalInfo(value, "email"),
+              phoneValidation: (value) => validatePersonalInfo(value, "phone"),
+            },
+          })}
+          placeholder="Skriv beskrivning här..."
+          className="h-32 resize-none"
+          aria-describedby="description-hint"
+          aria-required="true"
+        />
+        {errors.description?.message && <FormErrorParagraph content={errors.description.message as string} />}
+      </div>
+    </section>
   );
 }

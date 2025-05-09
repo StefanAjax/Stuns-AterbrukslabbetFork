@@ -6,6 +6,16 @@ export default function PostTypeSection() {
   const { control } = useFormContext<FormInputs>();
 
   return (
-    <Controller name="postTypePicker" control={control} rules={{ required: true }} render={({ field: { onChange, value } }) => <PostTypePicker currentPostType={value} setPostType={onChange} />} />
+    <section aria-labelledby="post-type-section" className="w-full">
+      <div className="sr-only" id="post-type-section">
+        Annonstyp
+      </div>
+      <Controller
+        name="postTypePicker"
+        control={control}
+        rules={{ required: true }}
+        render={({ field: { onChange, value } }) => <PostTypePicker currentPostType={value} setPostType={onChange} aria-required={true} id="post-type-picker" />}
+      />
+    </section>
   );
 }
