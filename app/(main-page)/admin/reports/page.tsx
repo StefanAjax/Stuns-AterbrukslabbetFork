@@ -6,7 +6,6 @@ import { checkRole } from "@/utils/check-role";
 import { db } from "@/lib/db";
 import ReportsTable from "./_components/reports-table";
 import Pagination from "@/components/pagination";
-import { markReportsViewed } from "./_actions/mark-reports-viewed";
 
 interface ReportProps {
   searchParams: Promise<{ page?: string }>;
@@ -16,9 +15,6 @@ export default async function AdminReportsPage({ searchParams }: ReportProps) {
   if (!(await checkRole("admin")) && !(await checkRole("moderator"))) {
     redirect("/");
   }
-
-  // Mark reports as viewed when the admin visits this page
-  await markReportsViewed();
 
   const { page } = await searchParams;
 
