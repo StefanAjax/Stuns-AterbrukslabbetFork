@@ -19,7 +19,7 @@ export default function DatePicker({ date, setDate, id, ...props }: DatePickerPr
   return (
     <Popover>
       <PopoverTrigger asChild>
-        <Button variant="outline" id={id} className="w-full justify-start bg-white bg-opacity-40 text-left font-normal" aria-haspopup="dialog" aria-label="Välj slutdatum" {...props}>
+        <Button variant="outline" id={id} className="w-full justify-start text-left" aria-haspopup="dialog" aria-label="Välj slutdatum" {...props}>
           <CalendarIcon className="mr-2 size-4" />
           {date ? date.toLocaleDateString("sv-se") : <span>Välj datum</span>}
         </Button>
