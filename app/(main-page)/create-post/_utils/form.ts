@@ -162,7 +162,7 @@ export function useImageUpload(
       };
       reader.readAsDataURL(fileToRead);
     }
-  }, [imageFile, imageUrl, imageNameParameter, setValue]);
+  }, [imageFile, imageUrl, imageNameParameter, setValue, setImagePreview, setImageName]);
 
   // Validate and set image file
   const validateAndSetFile = useCallback(
@@ -191,7 +191,7 @@ export function useImageUpload(
 
       setValue?.("image", file, { shouldValidate: true, shouldDirty: true });
     },
-    [setValue, trigger],
+    [setValue, trigger, setImagePreview, setImageName],
   );
 
   // Handle drag events
