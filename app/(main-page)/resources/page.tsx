@@ -17,7 +17,7 @@ export default async function Page() {
   return (
     <>
       {resources.length > 0 && (
-        <div className="flex w-full justify-center p-4">
+        <div className="mx-auto mb-8 mt-12 flex w-[85ch] max-w-full flex-col justify-center gap-6 px-6 py-8 md:mt-16">
           {resources.map((resource) => {
             return <UserResourceCard key={resource.id} resource={resource} />;
           })}
