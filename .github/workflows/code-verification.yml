@@ -1,6 +1,7 @@
-name: Code Verification on Push
+name: Code Verification
 
 on:
+  workflow_call:
   push:
     branches: "**"
 
@@ -10,20 +11,39 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4.2.2
+        uses: actions/checkout@v4
 
       - name: Setup Node.js
-        uses: actions/setup-node@v4.2.0
+        uses: actions/setup-node@v4
         with:
           node-version: "latest"
 
       - name: Install pnpm
-        uses: pnpm/action-setup@v4.1.0
+        uses: pnpm/action-setup@v4
+
+      - name: Cache pnpm store
+        uses: actions/cache@v4
         with:
-          version: "latest"
+          path: |
+            ~/.pnpm-store
+            node_modules
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
 
       - name: Install dependencies
-        run: pnpm i
+        run: pnpm i --frozen-lockfile
 
       - name: Lint code
         run: pnpm format:check
+
+  call-testing-container:
+    strategy:
+      fail-fast: false
+      matrix:
+        shard_instance: [1, 2, 3, 4]
+    uses: ./.github/workflows/testing-container.yml
+    secrets: inherit
+    with:
+      shard_instance: ${{ matrix.shard_instance }}
+      max_shards: 4

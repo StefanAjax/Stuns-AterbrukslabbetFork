@@ -12,17 +12,20 @@ interface CategoryPickerProps {
   currentCategory: string;
   setCurrentCategory: (...event: any[]) => void;
   Itemslist: string[];
+  id?: string;
+  "aria-required"?: boolean;
+  "aria-describedby"?: string;
 }
 
-export default function CategoryPicker({ currentCategory, setCurrentCategory, Itemslist }: CategoryPickerProps) {
+export default function CategoryPicker({ currentCategory, setCurrentCategory, Itemslist, id, ...props }: CategoryPickerProps) {
   const [open, setOpen] = useState(false);
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
-        <Button role="combobox" aria-expanded={open} className={cn("w-full justify-between bg-primary bg-opacity-40 capitalize", !currentCategory && "normal-case text-muted-foreground")}>
+        <Button variant={"outline"} id={id} role="combobox" aria-expanded={open} className="w-full justify-between capitalize" {...props}>
           {currentCategory ? Itemslist.find((listItem) => listItem === currentCategory) : "Välj kategori"}
-          <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+          <ChevronsUpDown className="ml-2 size-4 shrink-0 opacity-50" />
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-[336px] p-0 md:w-[552px]">
@@ -38,7 +41,7 @@ export default function CategoryPicker({ currentCategory, setCurrentCategory, It
                   setOpen(false);
                 }}
               >
-                <Check className={cn("mr-2 h-4 w-4", currentCategory === listItem ? "opacity-100" : "opacity-0")} />
+                <Check className={cn("mr-2 size-4", currentCategory === listItem ? "opacity-100" : "opacity-0")} />
                 {listItem}
               </CommandItem>
             ))}

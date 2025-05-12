@@ -2,9 +2,9 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 
 export default function FAQPage() {
   return (
-    <div className="mx-auto mt-12 flex w-[85ch] max-w-full flex-col bg-secondary px-6 py-8 md:mt-16 md:rounded-md">
+    <div className="mx-auto mb-8 mt-12 flex w-[85ch] max-w-full flex-col bg-card px-6 py-8 md:mt-16 md:rounded-md">
       <h1 className="mb-4 text-lg font-semibold md:text-2xl">Vanliga frågor och svar</h1>
-      <Accordion type="multiple">
+      <Accordion type="single">
         <AccordionItem value="item-1">
           <AccordionTrigger className="text-start">Vad är Återbrukslabbet?</AccordionTrigger>
           <AccordionContent className="text-base">
@@ -13,7 +13,7 @@ export default function FAQPage() {
           </AccordionContent>
         </AccordionItem>
         <AccordionItem value="item-2">
-          <AccordionTrigger className="text-start">Vad innebär kategorierna:</AccordionTrigger>
+          <AccordionTrigger className="text-start">Vad innebär kategorierna?</AccordionTrigger>
           <AccordionContent className="text-base">
             För att göra det lättare att leta bland annonser är dessa indelade i tre kategorier; ”förbrukningsvara”, ”instrument/maskin”, samt ”inventarie”
             <br /> <br />

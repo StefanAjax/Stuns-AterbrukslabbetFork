@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-import Logo from "@/components/logo";
+import Logo from "@/components/logomark";
 
 import Footer from "./(main-page)/_components/footer";
 import Navbar from "./(main-page)/_components/navbar";

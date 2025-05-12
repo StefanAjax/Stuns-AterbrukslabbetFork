@@ -3,7 +3,6 @@ import type { Config } from "tailwindcss";
 const config = {
   darkMode: ["class"],
   content: ["./pages/**/*.{ts,tsx}", "./components/**/*.{ts,tsx}", "./app/**/*.{ts,tsx}", "./src/**/*.{ts,tsx}"],
-  prefix: "",
   theme: {
     container: {
       center: true,
@@ -12,19 +11,80 @@ const config = {
         "2xl": "1400px",
       },
     },
-
     extend: {
+      screens: {
+        "nav-break": "830px", // Point where hamburger menu appears
+        "logo-break": "550px", // Point where logo changes to logomark only
+      },
       colors: {
+        black: "hsl(var(--black))",
+        white: "hsl(var(--white))",
+        neutral: {
+          "50": "hsl(var(--neutral-50))",
+          "100": "hsl(var(--neutral-100))",
+          "200": "hsl(var(--neutral-200))",
+          "300": "hsl(var(--neutral-300))",
+          "400": "hsl(var(--neutral-400))",
+          "500": "hsl(var(--neutral-500))",
+          "600": "hsl(var(--neutral-600))",
+          "700": "hsl(var(--neutral-700))",
+          "800": "hsl(var(--neutral-800))",
+          "900": "hsl(var(--neutral-900))",
+          "950": "hsl(var(--neutral-950))",
+        },
+        emerald: {
+          "50": "hsl(var(--emerald-50))",
+          "100": "hsl(var(--emerald-100))",
+          "200": "hsl(var(--emerald-200))",
+          "300": "hsl(var(--emerald-300))",
+          "400": "hsl(var(--emerald-400))",
+          "500": "hsl(var(--emerald-500))",
+          "600": "hsl(var(--emerald-600))",
+          "700": "hsl(var(--emerald-700))",
+          "800": "hsl(var(--emerald-800))",
+          "900": "hsl(var(--emerald-900))",
+          "950": "hsl(var(--emerald-950))",
+        },
+        azure: {
+          "50": "hsl(var(--azure-50))",
+          "100": "hsl(var(--azure-100))",
+          "200": "hsl(var(--azure-200))",
+          "300": "hsl(var(--azure-300))",
+          "400": "hsl(var(--azure-400))",
+          "500": "hsl(var(--azure-500))",
+          "600": "hsl(var(--azure-600))",
+          "700": "hsl(var(--azure-700))",
+          "800": "hsl(var(--azure-800))",
+          "900": "hsl(var(--azure-900))",
+          "950": "hsl(var(--azure-950))",
+        },
+        salmon: {
+          "50": "hsl(var(--salmon-50))",
+          "100": "hsl(var(--salmon-100))",
+          "200": "hsl(var(--salmon-200))",
+          "300": "hsl(var(--salmon-300))",
+          "400": "hsl(var(--salmon-400))",
+          "500": "hsl(var(--salmon-500))",
+          "600": "hsl(var(--salmon-600))",
+          "700": "hsl(var(--salmon-700))",
+          "800": "hsl(var(--salmon-800))",
+          "900": "hsl(var(--salmon-900))",
+          "950": "hsl(var(--salmon-950))",
+        },
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
-        background: "#f1f5f9",
+        background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
-        primary: "#d9d9d9",
-        secondary: "#ffffff",
-        navbarStart: "#ECECEC",
-        offerColor: "#10b981",
-        requestColor: "#2563eb",
+
+        primary: {
+          DEFAULT: "hsl(var(--primary))",
+          foreground: "hsl(var(--primary-foreground))",
+        },
+        secondary: {
+          DEFAULT: "hsl(var(--secondary))",
+          foreground: "hsl(var(--secondary-foreground))",
+        },
         destructive: {
           DEFAULT: "hsl(var(--destructive))",
           foreground: "hsl(var(--destructive-foreground))",
@@ -45,6 +105,23 @@ const config = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+
+        offer: "hsl(var(--offer))",
+        request: "hsl(var(--request))",
+
+        warning: {
+          DEFAULT: "hsl(var(--warning))",
+          foreground: "hsl(var(--warning-foreground))",
+        },
+        success: {
+          DEFAULT: "hsl(var(--success))",
+          foreground: "hsl(var(--success-foreground))",
+        },
+        info: {
+          DEFAULT: "hsl(var(--info, var(--azure-500)))",
+          foreground: "hsl(var(--info-foreground, var(--white)))",
+        },
+
         chart: {
           "1": "hsl(var(--chart-1))",
           "2": "hsl(var(--chart-2))",
@@ -67,11 +144,18 @@ const config = {
           from: { height: "var(--radix-accordion-content-height)" },
           to: { height: "0" },
         },
+        ping: {
+          "75%, 100%": {
+            transform: "scale(2)",
+            opacity: "0",
+          },
+        },
       },
-      animation: {
-        "accordion-down": "accordion-down 0.2s ease-out",
-        "accordion-up": "accordion-up 0.2s ease-out",
-      },
+    },
+    animation: {
+      "accordion-down": "accordion-down 0.2s ease-out",
+      "accordion-up": "accordion-up 0.2s ease-out",
+      ping: "ping 1s cubic-bezier(0, 0, 0.2, 1) infinite",
     },
   },
   plugins: [require("tailwindcss-animate")],

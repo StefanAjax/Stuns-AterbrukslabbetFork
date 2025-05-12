@@ -2,7 +2,10 @@
 
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
+import { Search } from "lucide-react";
 
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import handleSearchParamsChange from "@/utils/handle-search-params-change";
 
 interface SearchBarProps {
@@ -20,8 +23,7 @@ export default function SearchBar({ labelText, itemsFoundCount }: SearchBarProps
   function handleSearchChange(e: React.ChangeEvent<HTMLInputElement>) {
     const searchInput = e.target.value;
     let query;
-    // Clerk's "getUserList" function only accepts queries larger than two characters, hence
-    // why the query is undefined up until the input has reached a length of atleast 3 characters.
+
     if (searchInput && searchInput.length < 3) {
       query = undefined;
       setShowHint(true);
@@ -33,26 +35,25 @@ export default function SearchBar({ labelText, itemsFoundCount }: SearchBarProps
   }
 
   return (
-    <form
-      onSubmit={async (e) => {
-        e.preventDefault();
-      }}
-      className="flex w-full flex-col"
-    >
-      <div className="flex items-end justify-between px-1 pb-1">
-        <label htmlFor="search" className="text-sm font-medium md:text-lg">
+    <form onSubmit={(e) => e.preventDefault()} className="w-full space-y-1">
+      <div className="flex items-end justify-between">
+        <Label htmlFor="search" className="text-sm font-medium md:text-lg">
           {labelText}
-        </label>
-        {searchParamValue ? searchParamValue.length > 2 && <p className="text-xs md:text-base">{`${itemsFoundCount} resultat`}</p> : showHint && <p className="text-xs md:text-base">Minst 3 tecken</p>}
+        </Label>
+        {searchParamValue
+          ? searchParamValue.length > 2 && <span className="text-xs md:text-base">{`${itemsFoundCount} resultat`}</span>
+          : showHint && <span className="text-xs md:text-base">Minst 3 tecken</span>}
       </div>
-      <input
-        id="search"
-        className="h-9 rounded-md bg-primary px-2 text-sm md:h-12 md:px-3 md:text-lg"
-        placeholder="Sök..."
-        onChange={handleSearchChange}
-        defaultValue={searchParamValue?.toString()}
-        autoComplete="on"
-      />
+
+      <div className="relative">
+        <Search className="absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
+        <style jsx global>{`
+          ::placeholder {
+            user-select: none;
+          }
+        `}</style>
+        <Input id="search" className="py-2 pl-9" placeholder="Sök..." onChange={handleSearchChange} defaultValue={searchParamValue?.toString()} autoComplete="on" />
+      </div>
     </form>
   );
 }

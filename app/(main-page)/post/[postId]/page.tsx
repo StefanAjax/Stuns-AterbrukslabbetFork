@@ -9,6 +9,8 @@ import getPostData from "../../utils/get-post-data";
 import getUserRoleFromUserId from "../../utils/get-user-role-from-user-id";
 import PostComponent from "../_components/post-component";
 import PostModerationActions from "../_components/post-moderation-actions";
+import EditPostButton from "../_components/edit-post-button";
+import ReportPostButton from "../_components/report-post";
 
 interface PostIdPageProps {
   params: Promise<{
@@ -31,16 +33,27 @@ export default async function PostIdPage({ params }: PostIdPageProps) {
     });
     const fullName = firstName + " " + lastName;
 
-    const deleteButton =
+    // Variable to track if user is admin or moderator - avoid multiple role checks
+    const isAdminOrModerator = (await checkRole("admin")) || (await checkRole("moderator"));
+
+    const userPostActionButton =
       userId === postData.userId ? (
-        <DeleteOwnPostButton postData={postData} redirectPath="/" />
-      ) : (await checkRole("admin")) || (await checkRole("moderator")) ? (
+        // Case 1: User is the post owner
+        <>
+          <EditPostButton postData={postData} />
+          <DeleteOwnPostButton postData={postData} redirectPath="/" />
+        </>
+      ) : isAdminOrModerator ? (
+        // Case 2: User is admin or moderator
         <PostModerationActions postData={postData} postUserRole={postUserRole} />
-      ) : undefined;
+      ) : userId ? (
+        // Case 3: User is logged in but not owner or admin/mod
+        <ReportPostButton postData={postData} />
+      ) : undefined; // Not logged in - no actions shown
 
     return (
-      <div className="mx-auto mt-5 max-w-[360px] md:max-w-screen-md">
-        <PostComponent postData={postData} email={email} fullName={fullName} deleteButton={deleteButton} />
+      <div className="mx-10 mt-5 flex justify-center">
+        <PostComponent postData={postData} email={email} fullName={fullName} userPostActionButton={userPostActionButton} />
       </div>
     );
   } else {

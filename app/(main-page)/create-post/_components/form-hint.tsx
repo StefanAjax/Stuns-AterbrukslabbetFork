@@ -5,17 +5,18 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/comp
 
 interface FormHintProps {
   content: string;
+  id?: string;
 }
 
-export default function FormHint({ content }: FormHintProps) {
+export default function FormHint({ content, id = "form-hint" }: FormHintProps) {
   return (
     <>
       <TooltipProvider>
         <Tooltip delayDuration={100}>
-          <TooltipTrigger className="hidden xl:block" type="button">
-            <CircleHelp strokeWidth={2} width={20} height={20} />
+          <TooltipTrigger className="hidden xl:block" type="button" aria-label="Visa hjälptext">
+            <CircleHelp strokeWidth={2} width={14} height={14} />
           </TooltipTrigger>
-          <TooltipContent side="bottom" className="w-[170px] text-center text-sm">
+          <TooltipContent side="bottom" className="w-[170px] text-center text-sm" id={`${id}-tooltip`}>
             {content}
           </TooltipContent>
         </Tooltip>
@@ -23,10 +24,10 @@ export default function FormHint({ content }: FormHintProps) {
 
       {/* Mobile */}
       <Popover>
-        <PopoverTrigger className="block xl:hidden">
-          <CircleHelp strokeWidth={2} width={20} height={20} />
+        <PopoverTrigger className="block xl:hidden" aria-label="Visa hjälptext">
+          <CircleHelp strokeWidth={2} width={14} height={14} />
         </PopoverTrigger>
-        <PopoverContent align="end" className="w-[170px] p-2 text-center text-xs">
+        <PopoverContent align="end" className="w-[170px] p-2 text-center text-xs" id={`${id}-popover`} role="tooltip">
           {content}
         </PopoverContent>
       </Popover>

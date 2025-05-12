@@ -18,10 +18,12 @@ model Post {
   location                String
   imageThumbUrl           String?
   imageFullUrl            String?
+  imageName               String?
   createdAt               DateTime            @default(now())
   expiresAt               DateTime            @default(dbgenerated("(now() + '6 mons'::interval)"))
   hasCustomExpirationDate Boolean             @default(false)
   soonExpiringPosts       SoonExpiringPosts[]
+  reports                 ReportedPosts[]
 }
 
 model SoonExpiringPosts {
@@ -42,4 +44,31 @@ model ArchivedPosts {
   hasCustomExpirationDate Boolean
   archivedAt              DateTime @default(now())
   deletionReason          String
+}
+
+model ReportedPosts {
+  id           Int      @id @default(autoincrement())
+  postId       Int
+  postLink     String
+  reason       String?
+  reporterId   String
+  reporterLink String
+  resolved     Boolean  @default(false)
+  createdAt    DateTime @default(now())
+  post         Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
+}
+
+// New model to track the last time reports were viewed
+model AdminReportViews {
+  id           Int      @id @default(autoincrement())
+  userId       String   @unique
+  lastViewedAt DateTime @default(now())
+}
+
+model Resources {
+  id        Int      @id @default(autoincrement())
+  name      String   @db.VarChar(40)
+  url       String
+  visible   Boolean  @default(true)
+  createdAt DateTime @default(now())
 }

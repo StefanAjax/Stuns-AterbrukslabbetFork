@@ -1,5 +1,5 @@
-import Pagination from "@/components/pagination";
 import type { PostType, PostCategory, SortOrder } from "@/types/globals";
+import Pagination from "@/components/pagination";
 
 import FilterContainer from "./_components/filter-container";
 import getPostDataFromDb from "./utils/get-post-data-from-db";
@@ -32,8 +32,8 @@ export default async function MainPage({ searchParams }: MainPageProps) {
   return (
     <div>
       <Intro />
-      <div className="mx-auto max-w-[360px] px-2 md:max-w-screen-md md:px-5" id="filters">
-        <FilterContainer totalPostCount={totalPostCount} postCount={queriedPostsCount} />
+      <div className="mx-auto px-4 md:max-w-screen-md md:px-6" id="filters">
+        <FilterContainer postCount={queriedPostsCount} />
         <PostContainer posts={postsList} />
       </div>
       <Pagination itemCount={queriedPostsCount} itemsPerPage={postsPerPage} hashLinkId="filters" />

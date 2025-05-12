@@ -3,18 +3,15 @@ interface GetPostTypeSpecificDataProps {
 }
 
 export default function getPostTypeSpecificData({ postType }: GetPostTypeSpecificDataProps) {
-  let postTypeColor, expirationDateText;
+  let postTypeColor;
 
   if (postType === "Erbjuds") {
-    postTypeColor = "bg-offerColor";
-    expirationDateText = "Hämta senast";
+    postTypeColor = "bg-offer";
   } else if (postType === "Efterfrågas") {
-    postTypeColor = "bg-requestColor";
-    expirationDateText = "Vill ha senast";
+    postTypeColor = "bg-request";
   } else {
     postTypeColor = "bg-primary";
-    expirationDateText = "Senast";
   }
 
-  return { postTypeColor, expirationDateText };
+  return { postTypeColor };
 }

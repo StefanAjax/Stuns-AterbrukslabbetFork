@@ -20,14 +20,17 @@ export default function PostSortSelect() {
   const currentSort = searchParams.get("sort") || "desc";
 
   return (
-    <Select defaultValue={currentSort} onValueChange={handleSortingChange}>
-      <SelectTrigger className="w-[180px]">
-        <SelectValue />
-      </SelectTrigger>
-      <SelectContent align="end">
-        <SelectItem value="desc">Senast</SelectItem>
-        <SelectItem value="asc">Äldst</SelectItem>
-      </SelectContent>
-    </Select>
+    <div className="w-full sm:w-auto">
+      <span className="mb-1 block text-xs font-medium text-gray-600 dark:text-gray-400 sm:hidden">Sortering:</span>
+      <Select defaultValue={currentSort} onValueChange={handleSortingChange}>
+        <SelectTrigger className="flex h-9 w-32 select-none items-center justify-between border border-input bg-background text-sm shadow-none">
+          <SelectValue />
+        </SelectTrigger>
+        <SelectContent align="end" className="text-xs md:text-sm">
+          <SelectItem value="desc">Senast</SelectItem>
+          <SelectItem value="asc">Äldst</SelectItem>
+        </SelectContent>
+      </Select>
+    </div>
   );
 }

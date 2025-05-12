@@ -1,18 +1,25 @@
 "use client";
 
-import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "@/components/ui/alert-dialog";
+import { useState } from "react";
+import { AlertDialog, AlertDialogContent, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "@/components/ui/alert-dialog";
+import { Button } from "@/components/ui/button";
 
 interface CreatePostAlertDialogProps {
   isSubmitting?: boolean;
+  update: boolean;
 }
 
-export default function CreatePostAlertDialog({ isSubmitting }: CreatePostAlertDialogProps) {
+export default function CreatePostAlertDialog({ isSubmitting, update }: CreatePostAlertDialogProps) {
+  const [open, setOpen] = useState(false);
+
   return (
-    <AlertDialog>
-      <AlertDialogTrigger className="rounded-sm bg-primary px-3 py-1 text-sm md:px-4 md:text-base">Skapa</AlertDialogTrigger>
+    <AlertDialog open={open} onOpenChange={setOpen}>
+      <AlertDialogTrigger asChild>
+        <Button>{update ? "Uppdatera" : "Skapa"}</Button>
+      </AlertDialogTrigger>
       <AlertDialogContent className="max-w-2xl">
         <AlertDialogHeader>
-          <AlertDialogTitle className="flex justify-center">Skapa annons?</AlertDialogTitle>
+          <AlertDialogTitle className="flex justify-center">{update ? "Uppdatera annons?" : "Skapa annons?"}</AlertDialogTitle>
           <h1 className="text-pretty text-center text-sm md:text-base">När du skänker eller tar emot begagnad utrustning, tänk på följande</h1>
           <div className="flex list-disc flex-col items-center gap-y-2 text-pretty text-center text-xs md:px-5 md:text-sm">
             <hr />
@@ -29,13 +36,20 @@ export default function CreatePostAlertDialog({ isSubmitting }: CreatePostAlertD
               Vid nyttjande av begagnad utrustning är det användaren som bär ansvar för den egna säkerheten. Återbrukslabbet förmedlar endast kontakt mellan den som skänker, respektive tar emot
               utrustning och bär därför inget ansvar för utrustningens skick eller säkerhet.
             </p>
+            <hr className="w-4/5" />
+            <p>
+              Säkerställ så att eventuella bilder inte innehåller känslig information eller uppgifter som kan identifiera enskilda personer. Om så är fallet, se till att sudda ut eller ta bort dessa
+              uppgifter innan du publicerar annonsen.
+            </p>
           </div>
         </AlertDialogHeader>
         <AlertDialogFooter>
-          <AlertDialogCancel>Fortsätt redigera</AlertDialogCancel>
-          <AlertDialogAction disabled={isSubmitting} form="create-post-form" type="submit">
-            Skapa annons
-          </AlertDialogAction>
+          <Button variant="outline" onClick={() => setOpen(false)} disabled={isSubmitting} type="button">
+            Fortsätt redigera
+          </Button>
+          <Button variant="default" form="create-post-form" type="submit" disabled={isSubmitting}>
+            {isSubmitting ? (update ? "Uppdaterar..." : "Skapar...") : update ? "Uppdatera annons" : "Skapa annons"}
+          </Button>
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>
